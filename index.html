@@ -10,16 +10,19 @@
   --sky:#0ea5e9;--sky-dark:#0284c7;--sky-light:#e0f2fe;--sky-pale:#f0f9ff;
   --navy:#0c2340;--navy-mid:#1e3a5f;--gold:#f59e0b;--gold-light:#fef3c7;
   --green:#10b981;--red:#ef4444;--white:#ffffff;
-  --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;
-  --gray-500:#64748b;--gray-700:#334155;--gray-900:#0f172a;
+  --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;
+  --gray-500:#64748b;--gray-700:#334155;
   --text:#1e293b;--muted:#64748b;--border:#e2e8f0;--radius:12px;
   --shadow:0 4px 24px rgba(14,165,233,0.10);--shadow-md:0 8px 36px rgba(14,165,233,0.15);
 }
-*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--text);}
-a{text-decoration:none;color:inherit;}button{cursor:pointer;font-family:inherit;}ul{list-style:none;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;font-family:inherit;}
+ul{list-style:none;}
 .page{display:none;}.page.active{display:block;}
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:13px 28px;border-radius:50px;font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,0.2);}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:13px 28px;border-radius:50px;font-size:14px;font-weight:600;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,0.2);max-width:90%;text-align:center;}
 .toast.show{opacity:1;}
 .topbar{background:var(--navy);color:#a8c4e0;font-size:12px;padding:6px 0;}
 .topbar-inner{max-width:1280px;margin:auto;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
@@ -27,36 +30,35 @@ a{text-decoration:none;color:inherit;}button{cursor:pointer;font-family:inherit;
 header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:300;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
 .header-inner{max-width:1280px;margin:auto;padding:0 20px;height:68px;display:flex;align-items:center;gap:20px;}
 .logo{display:flex;align-items:center;gap:10px;cursor:pointer;flex-shrink:0;}
-.logo-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);}
+.logo-text{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);line-height:1.1;}
 .logo-text span{display:block;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;}
 .header-search{flex:1;max-width:440px;position:relative;}
 .header-search input{width:100%;border:2px solid var(--border);border-radius:50px;padding:9px 18px 9px 44px;font-size:14px;font-family:inherit;outline:none;transition:border-color .2s;background:var(--gray-50);}
 .header-search input:focus{border-color:var(--sky);background:#fff;}
-.header-search .si{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:15px;}
+.header-search .si{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);}
 .header-nav{display:flex;gap:4px;align-items:center;margin-left:auto;}
 .hnav-link{color:var(--gray-700);padding:8px 14px;font-size:14px;font-weight:500;border-radius:8px;transition:all .2s;white-space:nowrap;}
 .hnav-link:hover{background:var(--sky-light);color:var(--sky-dark);}
 .btn-login{background:transparent;border:2px solid var(--sky);color:var(--sky);padding:8px 18px;border-radius:8px;font-size:14px;font-weight:600;transition:all .2s;}
 .btn-login:hover{background:var(--sky-light);}
 .btn-signup{background:var(--sky);color:#fff;border:2px solid var(--sky);padding:8px 18px;border-radius:8px;font-size:14px;font-weight:600;transition:all .2s;}
-.btn-signup:hover{background:var(--sky-dark);border-color:var(--sky-dark);}
+.btn-signup:hover{background:var(--sky-dark);}
 .menu-toggle{display:none;background:none;border:none;font-size:22px;color:var(--navy);}
 .mobile-nav{display:none;background:#fff;border-top:1px solid var(--border);padding:12px 20px;flex-direction:column;gap:4px;}
 .mobile-nav a{padding:10px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--text);}
 .mobile-nav a:hover{background:var(--sky-light);color:var(--sky-dark);}
 .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 50%,#1a4a7a 100%);min-height:520px;display:flex;align-items:center;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230ea5e9' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
-.hero::after{content:'';position:absolute;right:-100px;top:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(14,165,233,0.15) 0%,transparent 70%);}
 .hero-inner{max-width:1280px;margin:auto;padding:60px 20px;display:flex;align-items:center;gap:48px;width:100%;position:relative;z-index:1;flex-wrap:wrap;}
 .hero-text{flex:1;min-width:280px;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(14,165,233,0.2);border:1px solid rgba(14,165,233,0.4);border-radius:50px;padding:6px 16px;font-size:12px;color:#7dd3fc;font-weight:600;margin-bottom:20px;letter-spacing:.5px;text-transform:uppercase;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(14,165,233,0.2);border:1px solid rgba(14,165,233,0.4);border-radius:50px;padding:6px 16px;font-size:12px;color:#7dd3fc;font-weight:600;margin-bottom:20px;}
 .hero-text h1{font-family:'Playfair Display',serif;font-size:clamp(32px,4.5vw,54px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:16px;}
 .hero-text h1 em{font-style:normal;color:var(--sky);display:block;}
 .hero-text p{color:#94b8d4;font-size:17px;line-height:1.7;margin-bottom:28px;max-width:520px;}
 .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
-.btn-hero-primary{background:var(--sky);color:#fff;border:none;padding:14px 30px;border-radius:10px;font-size:15px;font-weight:700;box-shadow:0 8px 24px rgba(14,165,233,0.4);transition:all .25s;}
+.btn-hero-primary{background:var(--sky);color:#fff;border:none;padding:14px 30px;border-radius:10px;font-size:15px;font-weight:700;box-shadow:0 8px 24px rgba(14,165,233,0.4);transition:all .25s;cursor:pointer;}
 .btn-hero-primary:hover{background:var(--sky-dark);transform:translateY(-2px);}
-.btn-hero-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.3);padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;transition:all .25s;}
+.btn-hero-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.3);padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;transition:all .25s;cursor:pointer;}
 .btn-hero-outline:hover{border-color:#fff;background:rgba(255,255,255,0.08);}
 .hero-stats{display:flex;gap:28px;margin-top:32px;flex-wrap:wrap;}
 .hero-stat .val{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#fff;}
@@ -71,16 +73,17 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .dept-item .dc{font-size:11px;color:#94b8d4;margin-top:1px;}
 .section{padding:60px 0;}
 .section-inner{max-width:1280px;margin:auto;padding:0 20px;}
-.section-header h2{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-.section-header p{color:var(--muted);font-size:15px;}
-.section-header-row{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:32px;}
-.see-all{color:var(--sky);font-size:14px;font-weight:600;transition:gap .2s;}
+.section-badge{display:inline-block;background:var(--sky-light);color:var(--sky-dark);font-size:12px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
+.section-header h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,38px);font-weight:800;color:var(--text);margin-bottom:10px;}
+.section-header p{color:var(--muted);font-size:16px;max-width:560px;}
+.section-header-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:12px;}
+.see-all{color:var(--sky);font-size:14px;font-weight:600;}
 .see-all:hover{text-decoration:underline;}
 .dept-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px;}
 .dept-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius);padding:24px 18px;text-align:center;cursor:pointer;transition:all .25s;}
 .dept-card:hover{border-color:var(--sky);box-shadow:var(--shadow-md);transform:translateY(-4px);}
 .dept-card .dc-icon{width:56px;height:56px;border-radius:14px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:26px;}
-.dept-card h3{font-weight:700;font-size:15px;color:var(--navy);margin-bottom:6px;}
+.dept-card h3{font-weight:700;font-size:15px;color:var(--text);margin-bottom:6px;}
 .dept-card p{font-size:12px;color:var(--muted);line-height:1.5;}
 .dept-card .course-count{display:inline-block;background:var(--sky-light);color:var(--sky-dark);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-top:10px;}
 .courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;}
@@ -100,27 +103,18 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .course-meta span{font-size:12px;color:var(--muted);}
 .stars{color:var(--gold);}
 .course-actions{display:flex;gap:8px;}
-.btn-enroll{flex:1;background:var(--sky);color:#fff;border:none;padding:9px;border-radius:8px;font-size:13px;font-weight:600;transition:background .2s;}
+.btn-enroll{flex:1;background:var(--sky);color:#fff;border:none;padding:9px;border-radius:8px;font-size:13px;font-weight:600;transition:background .2s;cursor:pointer;}
 .btn-enroll:hover{background:var(--sky-dark);}
-.btn-live{flex:1;background:var(--gold-light);color:#92400e;border:none;padding:9px;border-radius:8px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:5px;transition:background .2s;}
+.btn-live{flex:1;background:var(--gold-light);color:#92400e;border:none;padding:9px;border-radius:8px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:5px;transition:background .2s;cursor:pointer;}
 .btn-live:hover{background:#fde68a;}
 .cta-section{background:linear-gradient(135deg,var(--sky),var(--navy-mid));padding:72px 20px;text-align:center;}
 .cta-section h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:800;color:#fff;margin-bottom:12px;}
 .cta-section p{color:rgba(255,255,255,0.8);font-size:16px;margin-bottom:28px;}
 .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-.btn-cta-white{background:#fff;color:var(--sky-dark);border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;transition:all .2s;cursor:pointer;}
+.btn-cta-white{background:#fff;color:var(--sky-dark);border:none;padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;}
 .btn-cta-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2);}
-.btn-cta-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.5);padding:13px 30px;border-radius:10px;font-size:15px;font-weight:600;transition:all .2s;cursor:pointer;}
+.btn-cta-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.5);padding:13px 30px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;}
 .btn-cta-outline:hover{border-color:#fff;}
-
-
-
-
-
-
-
-
-
 footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 .footer-grid{max-width:1280px;margin:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:36px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.1);}
 .footer-col h4{color:#fff;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:16px;}
@@ -134,7 +128,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 .social-btn:hover{background:var(--sky);border-color:var(--sky);transform:translateY(-2px);}
 .footer-bottom{max-width:1280px;margin:0 auto;padding:18px 0;display:flex;justify-content:space-between;align-items:center;font-size:12px;flex-wrap:wrap;gap:8px;}
 .breadcrumb{background:var(--gray-50);border-bottom:1px solid var(--border);padding:12px 0;font-size:13px;}
-.bc-inner{max-width:1280px;margin:auto;padding:0 20px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.bc-inner{max-width:1280px;margin:auto;padding:0 20px;display:flex;gap:6px;align-items:center;}
 .bc-inner a{color:var(--sky);}.bc-inner span{color:var(--muted);}
 .courses-layout{max-width:1280px;margin:auto;padding:28px 20px;display:flex;gap:24px;}
 .courses-sidebar{width:240px;flex-shrink:0;}
@@ -165,7 +159,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 .cd-feature .fi{color:var(--sky);font-size:15px;}
 .btn-enroll-big{width:100%;background:var(--sky);color:#fff;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:700;margin-bottom:10px;transition:background .2s;cursor:pointer;}
 .btn-enroll-big:hover{background:var(--sky-dark);}
-.btn-live-big{width:100%;background:var(--gold-light);color:#92400e;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s;cursor:pointer;}
+.btn-live-big{width:100%;background:var(--gold-light);color:#92400e;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s;cursor:pointer;text-decoration:none;}
 .btn-live-big:hover{background:#fde68a;}
 .curriculum{margin-top:32px;}
 .curriculum h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:16px;}
@@ -174,19 +168,40 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 .lesson-num{width:32px;height:32px;border-radius:8px;background:var(--sky-light);color:var(--sky-dark);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
 .lesson-title{flex:1;font-size:14px;font-weight:600;color:var(--navy);}
 .lesson-dur{font-size:12px;color:var(--muted);}
-.lesson-lock{color:var(--gray-300);font-size:14px;}
+.lesson-lock{color:var(--gray-200);font-size:14px;}
+.video-section{margin-top:28px;}
+.video-section h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-bottom:24px;}
+.video-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s;cursor:pointer;}
+.video-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.video-thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;}
+.video-thumb iframe{width:100%;height:100%;border:none;pointer-events:none;}
+.video-thumb-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background .2s;}
+.video-card:hover .video-thumb-overlay{background:rgba(0,0,0,0.1);}
+.play-circle{width:52px;height:52px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 12px rgba(0,0,0,0.3);}
+.video-info{padding:12px 14px;}
+.video-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;line-height:1.4;}
+.video-dept{font-size:11px;color:var(--sky);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+.video-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:20px;}
+.video-modal-overlay.open{display:flex;}
+.video-modal{background:#000;border-radius:12px;overflow:hidden;width:100%;max-width:860px;position:relative;}
+.video-modal iframe{width:100%;aspect-ratio:16/9;border:none;display:block;}
+.video-modal-close{position:absolute;top:-44px;right:0;background:rgba(255,255,255,0.15);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;}
+.video-modal-close:hover{background:rgba(255,255,255,0.3);}
+.video-modal-title{position:absolute;top:-44px;left:0;color:#fff;font-size:14px;font-weight:600;padding:8px 0;}
+.join-live-section{background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:16px;padding:28px;margin:24px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.jl-text h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:6px;}
+.jl-text p{color:#94b8d4;font-size:13px;}
+.jl-status{display:flex;align-items:center;gap:8px;background:rgba(239,68,68,0.25);border:1px solid rgba(239,68,68,0.4);border-radius:50px;padding:6px 16px;color:#fca5a5;font-size:12px;font-weight:600;margin-bottom:12px;}
+.jl-dot{width:8px;height:8px;background:#ef4444;border-radius:50%;animation:pulse 1.5s infinite;}
+.btn-join-live{background:#ef4444;color:#fff;border:none;padding:13px 28px;border-radius:10px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;transition:background .2s;cursor:pointer;text-decoration:none;}
+.btn-join-live:hover{background:#dc2626;}
 .live-page{background:var(--gray-50);min-height:80vh;padding:32px 20px;}
 .live-inner{max-width:1100px;margin:auto;}
 .live-header{background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:16px;padding:28px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
 .live-header h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#fff;}
 .live-header p{color:#94b8d4;font-size:14px;margin-top:4px;}
 .live-status{display:flex;align-items:center;gap:8px;background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.4);border-radius:50px;padding:6px 16px;color:#fca5a5;font-size:13px;font-weight:600;}
-.live-video-area{background:#000;border-radius:16px;overflow:hidden;margin-bottom:24px;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;}
-.live-placeholder{text-align:center;color:#fff;}
-.live-placeholder .big-icon{font-size:64px;margin-bottom:12px;}
-.live-placeholder h3{font-size:18px;font-weight:600;margin-bottom:6px;}
-.live-placeholder p{font-size:14px;color:#9ca3af;}
-.live-iframe{width:100%;height:100%;border:none;}
 .schedule-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;}
 .schedule-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;}
 .schedule-card .sc-dept{font-size:11px;font-weight:600;color:var(--sky);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
@@ -219,15 +234,16 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 .progress-item-header small{color:var(--muted);}
 .progress-bar{height:8px;background:var(--gray-100);border-radius:50px;overflow:hidden;}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--sky),var(--sky-dark));border-radius:50px;}
-.data-table{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.data-table{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:22px;}
 .data-table table{width:100%;border-collapse:collapse;}
 .data-table th{background:var(--gray-50);padding:12px 16px;text-align:left;font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;}
 .data-table td{padding:12px 16px;font-size:13px;border-top:1px solid var(--border);}
 .status-pill{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:600;}
-.sp-active{background:#dcfce7;color:#166534;}.sp-pending{background:#fef9c3;color:#854d0e;}.sp-completed{background:#dbeafe;color:#1e40af;}
+.sp-active{background:#dcfce7;color:#166534;}
+.sp-pending{background:#fef9c3;color:#854d0e;}
+.sp-completed{background:#dbeafe;color:#1e40af;}
 .upload-drop{border:2px dashed var(--border);border-radius:12px;padding:32px;text-align:center;color:var(--muted);cursor:pointer;transition:all .2s;margin-bottom:16px;}
 .upload-drop:hover{border-color:var(--sky);color:var(--sky);}
-.upload-icon{font-size:40px;margin-bottom:10px;}
 .cert-card{background:linear-gradient(135deg,#fef3c7,#fff);border:2px solid var(--gold);border-radius:16px;padding:28px;text-align:center;max-width:480px;margin:0 auto;}
 .cert-card .cert-icon{font-size:56px;margin-bottom:12px;}
 .cert-card h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:6px;}
@@ -249,7 +265,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 .btn-auth{width:100%;background:var(--sky);color:#fff;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:700;margin-top:4px;transition:background .2s;cursor:pointer;}
 .btn-auth:hover{background:var(--sky-dark);}
 .auth-switch{text-align:center;margin-top:18px;font-size:13px;color:var(--muted);}
-.auth-switch a{color:var(--sky);font-weight:600;}
+.auth-switch a{color:var(--sky);font-weight:600;cursor:pointer;}
 .auth-divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--muted);font-size:12px;}
 .auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
 .about-hero{background:linear-gradient(135deg,var(--navy),var(--navy-mid));padding:72px 20px;text-align:center;}
@@ -276,50 +292,64 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 .contact-form-box h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:22px;}
 .btn-send{width:100%;background:var(--sky);color:#fff;border:none;padding:13px;border-radius:10px;font-size:15px;font-weight:700;transition:background .2s;cursor:pointer;}
 .btn-send:hover{background:var(--sky-dark);}
-@media(max-width:900px){.header-search{display:none;}.header-nav .hnav-link{display:none;}.menu-toggle{display:block;}.courses-sidebar{display:none;}.dash-sidebar{width:100%;}.cd-sidebar-card{width:100%;}.hero-visual{width:100%;}}
-@media(max-width:480px){.courses-grid{grid-template-columns:1fr;}.dept-grid{grid-template-columns:repeat(2,1fr);}}
-
-/* VIDEO LESSONS */
-.video-section{margin-top:28px;}
-.video-section h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-bottom:24px;}
-.video-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s;cursor:pointer;}
-.video-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
-.video-thumb{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;}
-.video-thumb iframe{width:100%;height:100%;border:none;pointer-events:none;}
-.video-thumb-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background .2s;}
-.video-card:hover .video-thumb-overlay{background:rgba(0,0,0,0.1);}
-.play-circle{width:52px;height:52px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 12px rgba(0,0,0,0.3);}
-.video-info{padding:12px 14px;}
-.video-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;line-height:1.4;}
-.video-dept{font-size:11px;color:var(--sky);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
-.video-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center;padding:20px;}
-.video-modal-overlay.open{display:flex;}
-.video-modal{background:#000;border-radius:12px;overflow:hidden;width:100%;max-width:860px;position:relative;}
-.video-modal iframe{width:100%;aspect-ratio:16/9;border:none;display:block;}
-.video-modal-close{position:absolute;top:-44px;right:0;background:rgba(255,255,255,0.15);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;}
-.video-modal-close:hover{background:rgba(255,255,255,0.3);}
-.video-modal-title{position:absolute;top:-44px;left:0;color:#fff;font-size:14px;font-weight:600;padding:8px 0;}
-
-/* JOIN LIVE BUTTON */
-.join-live-section{background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:16px;padding:28px;margin:24px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
-.jl-text h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:6px;}
-.jl-text p{color:#94b8d4;font-size:13px;}
-.jl-status{display:flex;align-items:center;gap:8px;background:rgba(239,68,68,0.25);border:1px solid rgba(239,68,68,0.4);border-radius:50px;padding:6px 16px;color:#fca5a5;font-size:12px;font-weight:600;margin-bottom:12px;}
-.jl-dot{width:8px;height:8px;background:#ef4444;border-radius:50%;animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
-.btn-join-live{background:#ef4444;color:#fff;border:none;padding:13px 28px;border-radius:10px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;transition:background .2s;cursor:pointer;text-decoration:none;}
-.btn-join-live:hover{background:#dc2626;}
-
-/* ADMIN PANEL */
-.btn-approve{background:#dcfce7;color:#166534;border:none;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;}
-.btn-cancel-sm{background:#fee2e2;color:#991b1b;border:none;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;}
+.admin-panel-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;align-items:center;justify-content:center;padding:20px;}
+.admin-panel-overlay.open{display:flex;}
+.admin-panel-box{background:#fff;border-radius:16px;padding:32px;width:100%;max-width:900px;max-height:90vh;overflow-y:auto;}
+.btn-approve{background:#dcfce7;color:#166534;border:none;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;margin-right:4px;}
+.btn-reject{background:#fee2e2;color:#991b1b;border:none;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;}
+.btn-revoke{background:#fef9c3;color:#854d0e;border:none;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;}
+@media(max-width:900px){
+  .header-search{display:none;}
+  .header-nav .hnav-link{display:none;}
+  .menu-toggle{display:block;}
+  .courses-sidebar{display:none;}
+  .dash-sidebar{width:100%;}
+  .cd-sidebar-card{width:100%;}
+  .hero-visual{width:100%;}
+}
 </style>
 </head>
 <body>
 <div class="toast" id="toast"></div>
-<!-- TOP BAR -->
-<div class="topbar"><div class="topbar-inner"><span>✝️ IGEM Christ Covenant Church — Ibadan, Oyo State &nbsp;|&nbsp; 🌐 <a href="http://igemcity.org" target="_blank">igemcity.org</a></span><div style="display:flex;gap:14px;"><a href="#" onclick="showPage('login')">Sign In</a><a href="#" onclick="showPage('register')">Join Free</a><a href="#" onclick="showPage('instructor-dashboard')">Instructor</a></div></div></div>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal-overlay" id="videoModalOverlay" onclick="closeVideoModal(event)">
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal-title" id="videoModalTitle"></div>
+    <button class="video-modal-close" onclick="closeVideoModal()">✕ Close</button>
+    <iframe id="videoModalIframe" src="" allowfullscreen allow="autoplay"></iframe>
+  </div>
+</div>
+
+<!-- ADMIN PANEL MODAL -->
+<div class="admin-panel-overlay" id="adminPanelOverlay">
+  <div class="admin-panel-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--navy);">🔐 Admin Panel</h2>
+      <button onclick="closeAdminPanel()" style="background:var(--gray-100);border:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;">Close ✕</button>
+    </div>
+    <div id="admin-panel-content"></div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>✝️ IGEM Christ Covenant Church — Ibadan, Oyo State &nbsp;|&nbsp; 🌐 <a href="http://igemcity.org" target="_blank">igemcity.org</a></span>
+    <div style="display:flex;gap:14px;">
+      <span id="topbar-auth-links" style="display:flex;gap:14px;">
+        <a href="#" onclick="showPage('login')">Sign In</a>
+        <a href="#" onclick="showPage('register')">Join Free</a>
+      </span>
+      <span id="topbar-user-links" style="display:none;display:flex;gap:14px;align-items:center;">
+        <span id="topbar-username" style="color:#7dd3fc;font-weight:600;"></span>
+        <a href="#" onclick="doLogout()">🚪 Logout</a>
+      </span>
+      <a href="#" onclick="showAdminLogin()" style="color:rgba(255,255,255,0.3);font-size:11px;">⚙</a>
+    </div>
+  </div>
+</div>
+
 <!-- HEADER -->
 <header>
   <div class="header-inner">
@@ -349,6 +379,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     <a href="#" onclick="showPage('register');toggleMobileNav()">✨ Sign Up Free</a>
   </div>
 </header>
+
 <!-- ==================== HOME ==================== -->
 <div class="page active" id="page-home">
   <div class="hero">
@@ -364,7 +395,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
         <div class="hero-stats">
           <div class="hero-stat"><div class="val">5</div><div class="lbl">Departments</div></div>
           <div class="hero-stat"><div class="val">30+</div><div class="lbl">Courses</div></div>
-          <div class="hero-stat"><div class="val">500+</div><div class="lbl">Members</div></div>
+          <div class="hero-stat"><div class="val">Millions</div><div class="lbl">Members</div></div>
           <div class="hero-stat"><div class="val">Live</div><div class="lbl">Sessions</div></div>
         </div>
       </div>
@@ -382,11 +413,12 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
       </div>
     </div>
   </div>
+
   <!-- DEPARTMENTS -->
   <div class="section">
     <div class="section-inner">
       <div class="section-header-row">
-        <div class="section-header"><h2>Browse Departments</h2><p>Choose your department and start learning today</p></div>
+        <div class="section-header"><div class="section-badge">Departments</div><h2>Browse Departments</h2><p>Choose your department and start learning today</p></div>
         <a class="see-all" href="#" onclick="showPage('courses')">View All Courses →</a>
       </div>
       <div class="dept-grid">
@@ -398,16 +430,18 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
       </div>
     </div>
   </div>
-  <!-- FEATURED COURSES -->
+
+  <!-- FEATURED -->
   <div class="section" style="background:var(--gray-50);">
     <div class="section-inner">
       <div class="section-header-row">
-        <div class="section-header"><h2>Popular Courses</h2><p>Most enrolled courses across all departments</p></div>
+        <div class="section-header"><div class="section-badge">Popular</div><h2>Popular Courses</h2><p>Most enrolled courses across all departments</p></div>
         <a class="see-all" href="#" onclick="showPage('courses')">See All →</a>
       </div>
       <div class="courses-grid" id="home-courses-grid"></div>
     </div>
   </div>
+
   <!-- CTA -->
   <div class="cta-section">
     <h2>Ready to Grow in Ministry?</h2>
@@ -417,6 +451,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
       <button class="btn-cta-outline" onclick="showPage('courses')">Browse Courses First</button>
     </div>
   </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-grid">
@@ -438,6 +473,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     <div class="footer-bottom"><span>© 2025 IGEM Christ Covenant Church. All rights reserved.</span><span>Built with ❤️ for the Kingdom</span></div>
   </footer>
 </div>
+
 <!-- ==================== COURSES ==================== -->
 <div class="page" id="page-courses">
   <div class="breadcrumb"><div class="bc-inner"><a href="#" onclick="showPage('home')">Home</a><span>›</span><span id="courses-breadcrumb">All Courses</span></div></div>
@@ -470,12 +506,13 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     </div>
   </div>
 </div>
+
 <!-- ==================== COURSE DETAIL ==================== -->
 <div class="page" id="page-course-detail">
   <div class="course-detail-hero">
     <div class="cd-inner">
       <div class="cd-info">
-        <div class="dept-tag" id="cd-dept">Choir Department</div>
+        <div class="dept-tag" id="cd-dept">Department</div>
         <h1 id="cd-title">Course Title</h1>
         <p id="cd-desc">Description</p>
         <div class="cd-meta"><span>👨‍🏫 Instructor: <strong id="cd-instructor">Name</strong></span><span>⭐ <strong>4.8</strong> rating</span><span>👥 <strong>120</strong> students</span><span>📋 <strong>8</strong> lessons</span></div>
@@ -492,7 +529,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
             <div class="cd-feature"><span class="fi">📱</span> Mobile & desktop access</div>
           </div>
           <button class="btn-enroll-big" onclick="showToast('✅ Enrolled successfully!')">Enroll in Course</button>
-          <button class="btn-live-big" onclick="window.open('https://igemcity.org/live','_blank');showToast('📡 Opening live session...')">📡 Join Live Session</button>
+          <a href="https://igemcity.org/live" target="_blank" class="btn-live-big">📡 Join Live Session</a>
         </div>
       </div>
     </div>
@@ -502,49 +539,41 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     <div class="curriculum"><h2>Course Curriculum</h2><div id="curriculum-list"></div></div>
   </div>
 </div>
+
 <!-- ==================== LIVE ==================== -->
 <div class="page" id="page-live">
   <div class="breadcrumb"><div class="bc-inner"><a href="#" onclick="showPage('home')">Home</a><span>›</span><span>Live Sessions</span></div></div>
   <div class="live-page"><div class="live-inner">
     <div class="live-header">
       <div><h2>📡 Live Learning Sessions</h2><p>Join your department's scheduled live classes in real-time</p></div>
-      <div class="live-status"><div class="live-dot"></div>1 Session Live Now</div>
+      <div class="live-status"><div class="jl-dot"></div>Sessions Available</div>
     </div>
-    <div class="live-video-area" id="liveVideoArea">
-      <div class="live-placeholder">
-        <div class="big-icon">📡</div>
-        <h3>Choir Department — Live Worship Workshop</h3>
-        <p>Tap "Join" on a session below to enter the live classroom</p>
-        <button class="btn-join" style="margin-top:16px;" onclick="window.open('https://igemcity.org/live','_blank'); showToast('📡 Opening live session...');//'Choir Worship Workshop')">Join Now →</button>
-      </div>
+    <div style="text-align:center;margin-bottom:24px;">
+      <a href="https://igemcity.org/live" target="_blank" class="btn-join-live" style="display:inline-flex;margin:0 auto;">📡 Join Live Session Now →</a>
     </div>
     <h2 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px;">Scheduled Sessions</h2>
-    <div class="schedule-grid">
-      <div class="schedule-card"><div class="sc-dept">🎵 Choir</div><h3>Worship Leadership Masterclass</h3><div class="sc-time">📅 Every Monday — 7:00 PM</div><div style="display:flex;gap:8px;"><button class="btn-join" onclick="window.open('https://igemcity.org/live','_blank');showToast('📡 Opening live session...')">Join Live</button><button class="btn-join-outline" onclick="showToast('Reminder set! ✅')">Remind Me</button></div></div>
-      <div class="schedule-card"><div class="sc-dept">🎹 Instrumentalist</div><h3>Piano for Worship — Level 2</h3><div class="sc-time">📅 Every Wednesday — 6:30 PM</div><div style="display:flex;gap:8px;"><button class="btn-join" onclick="window.open('https://igemcity.org/live','_blank');showToast('📡 Opening live session...')">Join Live</button><button class="btn-join-outline" onclick="showToast('Reminder set! ✅')">Remind Me</button></div></div>
-      <div class="schedule-card"><div class="sc-dept">⚔️ Church Army</div><h3>Evangelism Strategies</h3><div class="sc-time">📅 Every Tuesday — 8:00 PM</div><div style="display:flex;gap:8px;"><button class="btn-join" onclick="window.open('https://igemcity.org/live','_blank');showToast('📡 Opening live session...')">Join Live</button><button class="btn-join-outline" onclick="showToast('Reminder set! ✅')">Remind Me</button></div></div>
-      <div class="schedule-card"><div class="sc-dept">🙋 Usher Department</div><h3>Protocol & Etiquette Training</h3><div class="sc-time">📅 Every Thursday — 7:30 PM</div><div style="display:flex;gap:8px;"><button class="btn-join" onclick="window.open('https://igemcity.org/live','_blank');showToast('📡 Opening live session...')">Join Live</button><button class="btn-join-outline" onclick="showToast('Reminder set! ✅')">Remind Me</button></div></div>
-      <div class="schedule-card"><div class="sc-dept">📖 Exinbinco Class</div><h3>New Testament Deep Dive</h3><div class="sc-time">📅 Every Saturday — 10:00 AM</div><div style="display:flex;gap:8px;"><button class="btn-join" onclick="window.open('https://igemcity.org/live','_blank');showToast('📡 Opening live session...')">Join Live</button><button class="btn-join-outline" onclick="showToast('Reminder set! ✅')">Remind Me</button></div></div>
-      <div class="schedule-card"><div class="sc-dept">🎵 Choir</div><h3>Harmony & Vocal Blending</h3><div class="sc-time">📅 Every Friday — 6:00 PM</div><div style="display:flex;gap:8px;"><button class="btn-join" onclick="window.open('https://igemcity.org/live','_blank');showToast('📡 Opening live session...')">Join Live</button><button class="btn-join-outline" onclick="showToast('Reminder set! ✅')">Remind Me</button></div></div>
-    </div>
+    <div class="schedule-grid" id="live-schedule-grid"></div>
   </div></div>
 </div>
+
 <!-- ==================== STUDENT DASHBOARD ==================== -->
 <div class="page" id="page-student-dashboard">
   <div class="breadcrumb"><div class="bc-inner"><a href="#" onclick="showPage('home')">Home</a><span>›</span><span>My Learning</span></div></div>
   <div class="dash-layout">
-    <aside class="dash-sidebar"><div class="dash-menu">
-      <div class="dash-menu-item active" onclick="showStudentTab('overview')"><span class="mi">📊</span> Overview</div>
-      <div class="dash-menu-item" onclick="showStudentTab('mycourses')"><span class="mi">📚</span> My Courses</div>
-      <div class="dash-menu-item" onclick="showStudentTab('progress')"><span class="mi">📈</span> My Progress</div>
-      <div class="dash-menu-item" onclick="showStudentTab('certificates')"><span class="mi">🏆</span> Certificates</div>
-      <div class="dash-menu-item" onclick="showStudentTab('live')"><span class="mi">📡</span> Live Sessions</div>
-      <div class="dash-menu-item" onclick="showStudentTab('profile')"><span class="mi">👤</span> Profile</div>
-      <div class="dash-menu-item" onclick="showPage('home')"><span class="mi">🏠</span> Back to Home</div>
-    </div></aside>
+    <aside class="dash-sidebar">
+      <div class="dash-menu">
+        <div class="dash-menu-item active" onclick="showStudentTab('overview')"><span class="mi">📊</span> Overview</div>
+        <div class="dash-menu-item" onclick="showStudentTab('mycourses')"><span class="mi">📚</span> My Courses</div>
+        <div class="dash-menu-item" onclick="showStudentTab('progress')"><span class="mi">📈</span> My Progress</div>
+        <div class="dash-menu-item" onclick="showStudentTab('certificates')"><span class="mi">🏆</span> Certificates</div>
+        <div class="dash-menu-item" onclick="showStudentTab('live')"><span class="mi">📡</span> Live Sessions</div>
+        <div class="dash-menu-item" onclick="showStudentTab('profile')"><span class="mi">👤</span> Profile</div>
+        <div class="dash-menu-item" onclick="doLogout()"><span class="mi">🚪</span> Logout</div>
+      </div>
+    </aside>
     <div class="dash-content">
       <div id="st-overview">
-        <div class="dash-welcome"><h2>Welcome back, Kingdom Learner! 🙏</h2><p>Continue your journey in faith and ministry excellence</p><div id="student-dept-badge" style="display:none;background:rgba(255,255,255,0.2);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:600;margin-top:10px;color:#fff;display:inline-block;"></div></div>
+        <div class="dash-welcome"><h2 id="dash-welcome-name">Welcome back, Kingdom Learner! 🙏</h2><p id="dash-welcome-dept">Continue your journey in faith and ministry excellence</p><div id="student-dept-badge" style="display:none;background:rgba(255,255,255,0.2);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:600;margin-top:10px;color:#fff;display:inline-block;"></div></div>
         <div class="stats-row">
           <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-val">3</div><div class="stat-label">Enrolled Courses</div></div>
           <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val">1</div><div class="stat-label">Completed</div></div>
@@ -552,52 +581,46 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
           <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-val">1</div><div class="stat-label">Certificates</div></div>
         </div>
         <div class="progress-section"><h3>Course Progress</h3>
-          <div class="progress-item"><div class="progress-item-header"><span>Choir Fundamentals</span><small>75%</small></div><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div></div>
-          <div class="progress-item"><div class="progress-item-header"><span>Worship Leadership</span><small>45%</small></div><div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div></div>
-          <div class="progress-item"><div class="progress-item-header"><span>Vocal Techniques</span><small>100%</small></div><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
+          <div class="progress-item"><div class="progress-item-header"><span id="prog-course-1">Course 1</span><small>75%</small></div><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div></div>
+          <div class="progress-item"><div class="progress-item-header"><span id="prog-course-2">Course 2</span><small>45%</small></div><div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div></div>
+          <div class="progress-item"><div class="progress-item-header"><span id="prog-course-3">Course 3</span><small>100%</small></div><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
         </div>
       </div>
-      <div id="st-mycourses" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:18px;">My Enrolled Courses</h2><div class="courses-grid" id="my-courses-grid"></div></div>
+      <div id="st-mycourses" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:18px;">My Courses</h2><div class="courses-grid" id="my-courses-grid"></div></div>
       <div id="st-progress" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:18px;">Detailed Progress</h2>
-        <div class="data-table"><table><thead><tr><th>Course</th><th>Department</th><th>Lessons Done</th><th>Progress</th><th>Status</th></tr></thead><tbody>
-          <tr><td>Choir Fundamentals</td><td>Choir</td><td>6/8</td><td>75%</td><td><span class="status-pill sp-active">In Progress</span></td></tr>
-          <tr><td>Worship Leadership</td><td>Choir</td><td>4/8</td><td>45%</td><td><span class="status-pill sp-active">In Progress</span></td></tr>
-          <tr><td>Vocal Techniques</td><td>Choir</td><td>8/8</td><td>100%</td><td><span class="status-pill sp-completed">Completed</span></td></tr>
-        </tbody></table></div>
+        <div class="data-table"><table><thead><tr><th>Course</th><th>Department</th><th>Lessons Done</th><th>Progress</th><th>Status</th></tr></thead><tbody id="progress-tbody"></tbody></table></div>
       </div>
       <div id="st-certificates" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:18px;">My Certificates</h2>
-        <div class="cert-card"><div class="cert-icon">🏆</div><h3>Certificate of Completion</h3><p>Vocal Techniques — Choir Department<br>Awarded: March 2025 | IGEM Christ Covenant Church</p><button class="btn-auth" style="max-width:220px;margin:0 auto;" onclick="showToast('📄 Certificate downloaded!')">Download Certificate</button></div>
+        <div class="cert-card"><div class="cert-icon">🏆</div><h3>Certificate of Completion</h3><p id="cert-dept-text">Department Course — IGEM Christ Covenant Church<br>Awarded: 2025</p><button class="btn-auth" style="max-width:220px;margin:0 auto;" onclick="showToast('📄 Certificate downloaded!')">Download Certificate</button></div>
       </div>
-      <div id="st-live" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:18px;">Upcoming Live Sessions</h2>
-        <div class="schedule-grid">
-          <div class="schedule-card"><div class="sc-dept">🎵 Choir</div><h3>Worship Leadership Masterclass</h3><div class="sc-time">📅 Monday — 7:00 PM</div><button class="btn-join" onclick="showPage('live')">Join Session</button></div>
-          <div class="schedule-card"><div class="sc-dept">🎵 Choir</div><h3>Harmony & Vocal Blending</h3><div class="sc-time">📅 Friday — 6:00 PM</div><button class="btn-join" onclick="showPage('live')">Join Session</button></div>
-        </div>
-      </div>
+      <div id="st-live" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:18px;">My Live Sessions</h2><div class="schedule-grid" id="my-live-sessions-grid"></div></div>
       <div id="st-profile" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:18px;">My Profile</h2>
         <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:520px;">
-          <div class="form-group"><label>Full Name</label><input type="text" value="Kingdom Learner"></div>
+          <div class="form-group"><label>Full Name</label><input type="text" id="profile-name-input" value="Kingdom Learner"></div>
           <div class="form-group"><label>Email</label><input type="email" value="learner@igemcity.org"></div>
           <div class="form-group"><label>Phone</label><input type="tel" value="08123269499"></div>
-          <div class="form-group"><label>Department</label><select><option>Choir Department</option><option>Instrumentalist</option><option>Church Army</option><option>Usher Department</option><option>Exinbinco Class</option></select></div>
+          <div class="form-group"><label>Department</label><input type="text" id="profile-dept-input" readonly style="background:var(--gray-50);"></div>
           <button class="btn-auth" style="max-width:200px;" onclick="showToast('✅ Profile updated!')">Save Changes</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <!-- ==================== INSTRUCTOR DASHBOARD ==================== -->
 <div class="page" id="page-instructor-dashboard">
   <div class="breadcrumb"><div class="bc-inner"><a href="#" onclick="showPage('home')">Home</a><span>›</span><span>Instructor Dashboard</span></div></div>
   <div class="dash-layout">
-    <aside class="dash-sidebar"><div class="dash-menu">
-      <div class="dash-menu-item active" onclick="showInstructorTab('overview')"><span class="mi">📊</span> Overview</div>
-      <div class="dash-menu-item" onclick="showInstructorTab('upload')"><span class="mi">⬆️</span> Upload Content</div>
-      <div class="dash-menu-item" onclick="showInstructorTab('courses')"><span class="mi">📚</span> My Courses</div>
-      <div class="dash-menu-item" onclick="showInstructorTab('schedule')"><span class="mi">📡</span> Schedule Live</div>
-      <div class="dash-menu-item" onclick="showInstructorTab('students')"><span class="mi">👥</span> Students</div>
-      <div class="dash-menu-item" onclick="showPage('home')"><span class="mi">🏠</span> Back to Home</div>
-    </div></aside>
+    <aside class="dash-sidebar">
+      <div class="dash-menu">
+        <div class="dash-menu-item active" onclick="showInstructorTab('overview')"><span class="mi">📊</span> Overview</div>
+        <div class="dash-menu-item" onclick="showInstructorTab('upload')"><span class="mi">⬆️</span> Upload Content</div>
+        <div class="dash-menu-item" onclick="showInstructorTab('courses')"><span class="mi">📚</span> My Courses</div>
+        <div class="dash-menu-item" onclick="showInstructorTab('schedule')"><span class="mi">📡</span> Schedule Live</div>
+        <div class="dash-menu-item" onclick="showInstructorTab('students')"><span class="mi">👥</span> Students</div>
+        <div class="dash-menu-item" onclick="doLogout()"><span class="mi">🚪</span> Logout</div>
+      </div>
+    </aside>
     <div class="dash-content">
       <div id="ins-overview">
         <div class="dash-welcome"><h2>Instructor Dashboard 📖</h2><p>Manage your courses, live sessions and track your students</p></div>
@@ -615,7 +638,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
       </div>
       <div id="ins-upload" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:18px;">Upload Course Content</h2>
         <div style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;">
-          <div class="upload-drop" onclick="showToast('📁 File upload ready!')"><div class="upload-icon">🎬</div><strong>Click to upload video lessons</strong><div style="font-size:12px;color:var(--muted);margin-top:6px;">MP4, MOV, or YouTube link</div></div>
+          <div class="upload-drop" onclick="showToast('📁 File upload ready!')"><div style="font-size:40px;margin-bottom:10px;">🎬</div><strong>Click to upload video lessons</strong><div style="font-size:12px;color:var(--muted);margin-top:6px;">MP4, MOV, or YouTube link</div></div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
             <div class="form-group"><label>Lesson Title</label><input type="text" placeholder="Enter lesson title"></div>
             <div class="form-group"><label>Department</label><select><option>Choir Department</option><option>Instrumentalist</option><option>Church Army</option><option>Usher Department</option><option>Exinbinco Class</option></select></div>
@@ -637,7 +660,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
           <div class="form-group"><label>Session Title</label><input type="text" placeholder="e.g. Worship Leadership Masterclass"></div>
           <div class="form-group"><label>Department</label><select><option>Choir Department</option><option>Instrumentalist</option><option>Church Army</option><option>Usher Department</option><option>Exinbinco Class</option></select></div>
           <div class="form-group"><label>Date & Time</label><input type="datetime-local"></div>
-          <div class="form-group"><label>Live Session Link</label><input type="url" placeholder="https://youtube.com/live/... or zoom link"></div>
+          <div class="form-group"><label>Live Session Link</label><input type="url" placeholder="https://igemcity.org/live or zoom link"></div>
           <div class="form-group"><label>Description</label><textarea rows="3" placeholder="What will be covered?"></textarea></div>
           <button class="btn-auth" style="max-width:220px;" onclick="showToast('📡 Live session scheduled!')">Schedule Session</button>
         </div>
@@ -652,12 +675,13 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     </div>
   </div>
 </div>
+
 <!-- ==================== LOGIN ==================== -->
 <div class="page" id="page-login">
   <div class="auth-layout"><div class="auth-box">
     <div class="auth-logo"><h2>Welcome Back</h2><p>Sign in to continue your kingdom learning journey</p></div>
-    <div class="form-group"><label>Church Member ID or Email</label><input type="text" id="login-memberid" placeholder="e.g. IGEM-2024-0001 or email"></div>
-    <div class="form-group"><label>Password</label><input type="password" placeholder="Enter your password"></div>
+    <div class="form-group"><label>Church Member ID or Email</label><input type="text" id="login-memberid" placeholder="e.g. IGEM-2024-0001"></div>
+    <div class="form-group"><label>Password</label><input type="password" id="login-password" placeholder="Enter your password"></div>
     <div class="form-group"><label>Your Department</label>
       <select id="login-dept">
         <option value="Choir">Choir Department</option>
@@ -670,10 +694,11 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     <button class="btn-auth" onclick="handleLogin()">Sign In</button>
     <div class="auth-divider">or continue as</div>
     <button style="width:100%;background:var(--sky-light);color:var(--sky-dark);border:2px solid var(--sky-light);padding:12px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;" onclick="showToast('Instructor login!');showPage('instructor-dashboard')">👨‍🏫 Sign in as Instructor</button>
-    <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);">New member? <a href="#" onclick="showPage('register')" style="color:var(--sky);font-weight:600;">Request Access</a> with your Member ID</div>
+    <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);">New member? <a onclick="showPage('register')" style="color:var(--sky);font-weight:600;cursor:pointer;">Request Access</a> with your Member ID</div>
   </div></div>
 </div>
-<!-- ==================== REGISTER ====================-->
+
+<!-- ==================== REGISTER ==================== -->
 <div class="page" id="page-register">
   <div class="auth-layout"><div class="auth-box">
     <div class="auth-logo">
@@ -691,8 +716,8 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     </div>
     <div class="form-group"><label>Church Member ID <span style="color:#ef4444;">*</span></label><input type="text" id="reg-member-id" placeholder="e.g. IGEM-2024-0001"></div>
     <div class="form-group"><label>Full Name <span style="color:#ef4444;">*</span></label><input type="text" id="reg-fullname" placeholder="Your full name as registered in church"></div>
-    <div class="form-group"><label>Email Address <span style="color:#ef4444;">*</span></label><input type="email" placeholder="your@email.com"></div>
-    <div class="form-group"><label>Phone Number <span style="color:#ef4444;">*</span></label><input type="tel" placeholder="e.g. 08123269499"></div>
+    <div class="form-group"><label>Email Address <span style="color:#ef4444;">*</span></label><input type="email" id="reg-email" placeholder="your@email.com"></div>
+    <div class="form-group"><label>Phone Number <span style="color:#ef4444;">*</span></label><input type="tel" id="reg-phone" placeholder="e.g. 08123269499"></div>
     <div class="form-group"><label>Department <span style="color:#ef4444;">*</span></label>
       <select id="reg-department">
         <option value="">— Select Your Department —</option>
@@ -703,30 +728,50 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
         <option value="Exinbinco">Exinbinco Class</option>
       </select>
     </div>
-    <div class="form-group"><label>Password <span style="color:#ef4444;">*</span></label><input type="password" placeholder="Create a secure password"></div>
-    <div class="form-group"><label>Confirm Password <span style="color:#ef4444;">*</span></label><input type="password" placeholder="Repeat your password"></div>
+    <div class="form-group"><label>Password <span style="color:#ef4444;">*</span></label><input type="password" id="reg-pass" placeholder="Create a secure password"></div>
+    <div class="form-group"><label>Confirm Password <span style="color:#ef4444;">*</span></label><input type="password" id="reg-pass2" placeholder="Repeat your password"></div>
     <button class="btn-auth" onclick="handleRegister()">Request Access</button>
     <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);background:var(--gray-50);padding:12px;border-radius:8px;">
       🙏 Not yet a member? Visit <strong>IGEM Christ Covenant Church</strong> in Ibadan to register as a member first.
     </div>
-    <div class="auth-switch">Already have an account? <a href="#" onclick="showPage('login')">Sign In</a></div>
+    <div class="auth-switch">Already have an account? <a onclick="showPage('login')" style="cursor:pointer;">Sign In</a></div>
   </div></div>
+</div>
+
+<!-- ==================== PENDING ==================== -->
+<div class="page" id="page-pending">
+  <div class="auth-layout" style="background:var(--gray-50);">
+    <div class="auth-box" style="text-align:center;">
+      <div style="font-size:64px;margin-bottom:16px;">⏳</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--navy);margin-bottom:10px;">Awaiting Approval</h2>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:20px;">Your registration has been received. The IGEM Christ Covenant Church admin will review and approve your account shortly.</p>
+      <div style="background:var(--sky-pale);border:1px solid var(--sky-light);border-radius:12px;padding:20px;margin-bottom:20px;text-align:left;">
+        <div style="font-weight:700;font-size:14px;color:var(--navy);margin-bottom:10px;">Your Registration Details:</div>
+        <div id="pending-details" style="font-size:13px;color:var(--muted);line-height:2;"></div>
+      </div>
+      <div style="background:#fef9c3;border:1px solid #f59e0b;border-radius:10px;padding:14px;font-size:13px;color:#92400e;">
+        ✝️ Please check back later. Contact the church admin if you need urgent access.
+      </div>
+      <button onclick="showPage('login')" style="margin-top:20px;background:var(--sky);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;width:100%;">Back to Login</button>
+    </div>
+  </div>
 </div>
 
 <!-- ==================== ABOUT ==================== -->
 <div class="page" id="page-about">
-  <div class="about-hero"><h1>About IGEM Christ Covenant Church Learning</h1><p>Equipping the saints for the work of ministry through structured, Spirit-led education.</p></div>
+  <div class="about-hero"><h1>About IGEM Christ Covenant Church Learning Platform</h1><p>Equipping the saints for the work of ministry through structured, Spirit-led education.</p></div>
   <div class="about-content">
     <div class="verse-box"><blockquote>"Jesus said I am the way and the truth and the life. No one comes to the Father except through me."</blockquote><cite>— John 14:6</cite></div>
     <p style="font-size:15px;line-height:1.8;color:#444;text-align:center;max-width:720px;margin:0 auto 32px;">IGEM Christ Covenant Church in Ibadan, Oyo State, is committed to raising equipped, informed, and Spirit-filled believers. Our online learning platform brings church training directly to your screen.</p>
     <div class="about-grid">
-      <div class="about-card"><div class="ac-icon">🎓</div><h3>Kingdom Education</h3><p>Structured courses designed to deepen your knowledge and ministry skills.</p></div>
-      <div class="about-card"><div class="ac-icon">📡</div><h3>Live Sessions</h3><p>Join real-time training sessions with experienced instructors from home.</p></div>
-      <div class="about-card"><div class="ac-icon">🏆</div><h3>Certificates</h3><p>Earn official completion certificates recognized within IGEM Christ Covenant Church.</p></div>
-      <div class="about-card"><div class="ac-icon">🙏</div><h3>Community</h3><p>Learn alongside fellow church members and grow together in faith.</p></div>
+      <div class="about-card"><div class="ac-icon">🎓</div><h3>Kingdom Education</h3><p>Structured courses designed to deepen your knowledge and ministry skills in your department.</p></div>
+      <div class="about-card"><div class="ac-icon">📡</div><h3>Live Sessions</h3><p>Join real-time training sessions with experienced instructors from the comfort of your home.</p></div>
+      <div class="about-card"><div class="ac-icon">🏆</div><h3>Certificates</h3><p>Earn official completion certificates recognized within IGEM Christ Covenant Church departments.</p></div>
+      <div class="about-card"><div class="ac-icon">🙏</div><h3>Community</h3><p>Learn alongside fellow church members and grow together in faith and service.</p></div>
     </div>
   </div>
 </div>
+
 <!-- ==================== CONTACT ==================== -->
 <div class="page" id="page-contact">
   <div class="about-hero" style="padding:48px 20px;"><h1>Contact Us</h1><p>Reach out to us — we'd love to hear from you.</p></div>
@@ -755,773 +800,585 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     </div>
   </div>
 </div>
+
 <script>
-// ===== VIDEO & LIVE SESSION FUNCTIONS =====
-const choirVideos = [
-  {
-    "id": "T7bpVDSSMwc",
-    "title": "Choir Fundamentals \u2013 Vocal Basics"
-  },
-  {
-    "id": "4Tr0otuiQuU",
-    "title": "Worship Leadership \u2013 Song Selection"
-  },
-  {
-    "id": "hKRUTzSh6Ks",
-    "title": "Vocal Techniques & Voice Care"
-  },
-  {
-    "id": "0eLRBHkCx8A",
-    "title": "Harmony & Part Singing"
-  },
-  {
-    "id": "CvFH_6DNRCY",
-    "title": "Sight Reading & Music Theory"
-  },
-  {
-    "id": "wFJX4BoRPhc",
-    "title": "Stage Presence & Performance"
-  }
-];
-const instrVideos = [
-  {
-    "id": "jfKfPfyJRdk",
-    "title": "Piano for Worship \u2013 Beginners"
-  },
-  {
-    "id": "L_XJ_s5IsQc",
-    "title": "Guitar for Church Ministry"
-  },
-  {
-    "id": "gE4YdPVBsOs",
-    "title": "Drums & Percussion Basics"
-  },
-  {
-    "id": "l1Wbkl_3tRE",
-    "title": "Piano \u2013 Intermediate Level"
-  },
-  {
-    "id": "B1koJ33FGsU",
-    "title": "Bass Guitar Foundations"
-  },
-  {
-    "id": "uwUt1fVHb-E",
-    "title": "Music Production for Church"
-  }
+// ================================================================
+// IGEM CHRIST COVENANT CHURCH LEARNING PLATFORM
+// Complete JavaScript — Auth, Dept Lock, Admin, Courses, Videos
+// ================================================================
+
+// ===== COURSES DATA =====
+const deptColors = {
+  'Choir':'linear-gradient(135deg,#0ea5e9,#0284c7)',
+  'Instrumentalist':'linear-gradient(135deg,#f59e0b,#d97706)',
+  'Church Army':'linear-gradient(135deg,#ef4444,#dc2626)',
+  'Usher':'linear-gradient(135deg,#10b981,#059669)',
+  'Exinbinco':'linear-gradient(135deg,#8b5cf6,#7c3aed)'
+};
+const deptIcons = {'Choir':'🎵','Instrumentalist':'🎹','Church Army':'⚔️','Usher':'🙋','Exinbinco':'📖'};
+const instructors = {
+  'Choir':['Bro. Emmanuel Adeyemi','Sis. Grace Okafor','Bro. David Nwosu'],
+  'Instrumentalist':['Bro. Samuel Obi','Sis. Ruth Eze','Bro. Philip Adebayo'],
+  'Church Army':['Bro. Joshua Aliyu','Sis. Esther Bello','Bro. Caleb Omoruyi'],
+  'Usher':['Sis. Priscilla Taiwo','Bro. Andrew Obi','Sis. Lydia Fadipe'],
+  'Exinbinco':['Bro. Solomon Adeola','Sis. Deborah Chukwu','Bro. Nathan Adewale']
+};
+
+const courseData = [
+  // CHOIR
+  {id:1,dept:'Choir',title:'Choir Fundamentals – Vocal Basics',instructor:'Bro. Emmanuel Adeyemi',desc:'Learn the fundamentals of choir singing including voice types, breathing techniques, and basic music theory for worship.',hasLive:true,isNew:false},
+  {id:2,dept:'Choir',title:'Worship Leadership & Song Selection',instructor:'Sis. Grace Okafor',desc:'Master the art of leading congregational worship, selecting appropriate songs, and creating a Spirit-filled atmosphere.',hasLive:true,isNew:false},
+  {id:3,dept:'Choir',title:'Vocal Techniques & Voice Care',instructor:'Bro. David Nwosu',desc:'Develop powerful, controlled vocal techniques while maintaining long-term voice health and endurance.',hasLive:false,isNew:true},
+  {id:4,dept:'Choir',title:'Harmony & Part Singing',instructor:'Bro. Emmanuel Adeyemi',desc:'Understand and practice soprano, alto, tenor, and bass harmony to create beautiful blended choral sounds.',hasLive:true,isNew:false},
+  {id:5,dept:'Choir',title:'Sight Reading & Music Theory',instructor:'Sis. Grace Okafor',desc:'Develop the ability to read and sing music notation at sight with proper rhythm, pitch, and expression.',hasLive:false,isNew:false},
+  {id:6,dept:'Choir',title:'Stage Presence & Performance',instructor:'Bro. David Nwosu',desc:'Learn how to present yourself confidently on stage, communicate worship effectively, and engage your audience.',hasLive:true,isNew:true},
+  // INSTRUMENTALIST
+  {id:7,dept:'Instrumentalist',title:'Piano for Worship – Beginners',instructor:'Bro. Samuel Obi',desc:'Start your piano journey with foundational chords, scales, and simple worship songs for church ministry.',hasLive:true,isNew:false},
+  {id:8,dept:'Instrumentalist',title:'Guitar for Church Ministry',instructor:'Sis. Ruth Eze',desc:'Learn guitar chords, strumming patterns, and how to accompany worship songs in a church setting.',hasLive:false,isNew:false},
+  {id:9,dept:'Instrumentalist',title:'Drums & Percussion Basics',instructor:'Bro. Philip Adebayo',desc:'Master basic drum patterns, worship rhythms, and how to keep steady time for church services.',hasLive:true,isNew:true},
+  {id:10,dept:'Instrumentalist',title:'Piano – Intermediate Level',instructor:'Bro. Samuel Obi',desc:'Advance your piano skills with complex chords, transitions, modulations, and playing by ear for worship.',hasLive:false,isNew:false},
+  {id:11,dept:'Instrumentalist',title:'Bass Guitar Foundations',instructor:'Sis. Ruth Eze',desc:'Learn bass guitar fundamentals including root notes, walking basslines, and supporting the worship band.',hasLive:true,isNew:false},
+  {id:12,dept:'Instrumentalist',title:'Music Production for Church',instructor:'Bro. Philip Adebayo',desc:'Introduction to digital audio workstations, recording worship music, and producing backing tracks for church.',hasLive:false,isNew:true},
+  // CHURCH ARMY
+  {id:13,dept:'Church Army',title:'Introduction to Evangelism',instructor:'Bro. Joshua Aliyu',desc:'Understand the biblical basis for evangelism and learn practical strategies for sharing the gospel effectively.',hasLive:true,isNew:false},
+  {id:14,dept:'Church Army',title:'Street Missions & Outreach',instructor:'Sis. Esther Bello',desc:'Practical training for conducting street evangelism, open-air preaching, and community outreach programs.',hasLive:false,isNew:false},
+  {id:15,dept:'Church Army',title:'Discipleship & Follow-up',instructor:'Bro. Caleb Omoruyi',desc:'Learn how to disciple new converts, conduct follow-up visits, and help believers grow in their faith.',hasLive:true,isNew:true},
+  {id:16,dept:'Church Army',title:'Prayer & Spiritual Warfare',instructor:'Bro. Joshua Aliyu',desc:'Understanding the place of prayer in ministry, types of prayer, and engaging in effective spiritual warfare.',hasLive:false,isNew:false},
+  {id:17,dept:'Church Army',title:'Preaching & Public Speaking',instructor:'Sis. Esther Bello',desc:'Develop confidence and skill in preaching the Word of God with clarity, conviction, and anointing.',hasLive:true,isNew:false},
+  {id:18,dept:'Church Army',title:'Church Planting Principles',instructor:'Bro. Caleb Omoruyi',desc:'Strategic principles for planting new churches, establishing ministry outposts, and multiplying the kingdom.',hasLive:false,isNew:true},
+  // USHER
+  {id:19,dept:'Usher',title:'Introduction to Church Protocol',instructor:'Sis. Priscilla Taiwo',desc:'Learn the standards, etiquette, and biblical principles that guide effective ushering and hospitality.',hasLive:true,isNew:false},
+  {id:20,dept:'Usher',title:'Crowd Management & Safety',instructor:'Bro. Andrew Obi',desc:'Practical skills for managing large church congregations, directing traffic, and ensuring safety in services.',hasLive:false,isNew:false},
+  {id:21,dept:'Usher',title:'Guest Relations & Hospitality',instructor:'Sis. Lydia Fadipe',desc:'Creating a welcoming atmosphere for new visitors, handling special guests, and representing Christ in service.',hasLive:true,isNew:true},
+  {id:22,dept:'Usher',title:'Offering & Finance Handling',instructor:'Sis. Priscilla Taiwo',desc:'Proper procedures for collecting, counting, and reporting church offerings with integrity and accuracy.',hasLive:false,isNew:false},
+  {id:23,dept:'Usher',title:'Communication & Teamwork',instructor:'Bro. Andrew Obi',desc:'Effective communication skills and teamwork principles for the usher department to function as one body.',hasLive:true,isNew:false},
+  {id:24,dept:'Usher',title:'Special Events Management',instructor:'Sis. Lydia Fadipe',desc:'Coordinating ushers during special programs, crusades, and large-scale church events successfully.',hasLive:false,isNew:true},
+  // EXINBINCO
+  {id:25,dept:'Exinbinco',title:'New Testament Survey',instructor:'Bro. Solomon Adeola',desc:'A comprehensive overview of all 27 books of the New Testament, their themes, authors, and key teachings.',hasLive:true,isNew:false},
+  {id:26,dept:'Exinbinco',title:'Old Testament Survey',instructor:'Sis. Deborah Chukwu',desc:'Journey through the 39 books of the Old Testament, understanding God\'s covenant and redemptive plan.',hasLive:false,isNew:false},
+  {id:27,dept:'Exinbinco',title:'Christian Doctrine & Theology',instructor:'Bro. Nathan Adewale',desc:'Study the foundational doctrines of the Christian faith — salvation, the Trinity, the Holy Spirit, and eschatology.',hasLive:true,isNew:true},
+  {id:28,dept:'Exinbinco',title:'Bible Study Methods',instructor:'Bro. Solomon Adeola',desc:'Learn how to study the Bible effectively using inductive, deductive, and topical study methods.',hasLive:false,isNew:false},
+  {id:29,dept:'Exinbinco',title:'Hermeneutics & Interpretation',instructor:'Sis. Deborah Chukwu',desc:'Principles of biblical interpretation — understanding context, culture, grammar, and proper application.',hasLive:true,isNew:false},
+  {id:30,dept:'Exinbinco',title:'Christian Living & Discipleship',instructor:'Bro. Nathan Adewale',desc:'Practical guidance on living the Christian life — prayer, fasting, character development, and spiritual growth.',hasLive:false,isNew:true}
 ];
 
-function getVideosForDept(dept) {
-  if (dept === 'Choir') return choirVideos;
-  if (dept === 'Instrumentalist') return instrVideos;
+const lessonTitles = [
+  'Introduction & Overview','Foundational Concepts','Practical Application',
+  'Deep Dive Study','Live Workshop Prep','Advanced Techniques',
+  'Assessment & Review','Final Project & Wrap-up'
+];
+
+// ===== VIDEO DATA =====
+const choirVideos = [
+  {id:'T7bpVDSSMwc',title:'Choir Fundamentals – Vocal Basics'},
+  {id:'4Tr0otuiQuU',title:'Worship Leadership – Song Selection'},
+  {id:'hKRUTzSh6Ks',title:'Vocal Techniques & Voice Care'},
+  {id:'0eLRBHkCx8A',title:'Harmony & Part Singing'},
+  {id:'CvFH_6DNRCY',title:'Sight Reading & Music Theory'},
+  {id:'wFJX4BoRPhc',title:'Stage Presence & Performance'}
+];
+const instrVideos = [
+  {id:'jfKfPfyJRdk',title:'Piano for Worship – Beginners'},
+  {id:'L_XJ_s5IsQc',title:'Guitar for Church Ministry'},
+  {id:'gE4YdPVBsOs',title:'Drums & Percussion Basics'},
+  {id:'l1Wbkl_3tRE',title:'Piano – Intermediate Level'},
+  {id:'B1koJ33FGsU',title:'Bass Guitar Foundations'},
+  {id:'uwUt1fVHb-E',title:'Music Production for Church'}
+];
+
+function getVideosForDept(dept){
+  if(dept==='Choir') return choirVideos;
+  if(dept==='Instrumentalist') return instrVideos;
   return [];
 }
 
-function renderVideoSection(dept) {
+function renderVideoSection(dept){
   const videos = getVideosForDept(dept);
-  if (!videos.length) return '';
-  return '<div class="video-section"><h3>📹 Video Lessons</h3><div class="video-grid">' +
-    videos.map(v =>
-      '<div class="video-card" onclick="openVideo(\''+v['id']+'\',\''+v['title']+'\')">'+
+  if(!videos.length) return '';
+  return '<div class="video-section"><h3>📹 Video Lessons</h3><div class="video-grid">'+
+    videos.map(v=>
+      '<div class="video-card" onclick="openVideo(\''+v.id+'\',\''+v.title+'\')">'+
       '<div class="video-thumb">'+
-      '<iframe src="https://www.youtube.com/embed/'+v['id']+'?controls=0&modestbranding=1" tabindex="-1"></iframe>'+
+      '<iframe src="https://www.youtube.com/embed/'+v.id+'?controls=0&modestbranding=1" tabindex="-1"></iframe>'+
       '<div class="video-thumb-overlay"><div class="play-circle">▶</div></div>'+
       '</div>'+
-      '<div class="video-info"><div class="video-title">'+v['title']+'</div>'+
-      '<div class="video-dept">'+dept+' Dept.</div></div></div>'
-    ).join('') +
+      '<div class="video-info"><div class="video-title">'+v.title+'</div>'+
+      '<div class="video-dept">'+dept+' Department</div></div></div>'
+    ).join('')+
   '</div></div>';
 }
 
-function renderJoinLiveSection() {
+function renderJoinLiveSection(){
   return '<div class="join-live-section">'+
     '<div class="jl-text">'+
     '<div class="jl-status"><div class="jl-dot"></div> Live Sessions Available</div>'+
     '<h3>📡 Join Live Class</h3>'+
-    '<p>Attend real-time sessions streamed live for all departments.</p>'+
+    '<p>Attend real-time training sessions streamed live for all departments.</p>'+
     '</div>'+
     '<a href="https://igemcity.org/live" target="_blank" class="btn-join-live">📡 Join Live Session →</a>'+
     '</div>';
 }
 
-function openVideo(videoId, title) {
-  document.getElementById('videoModalIframe').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+function openVideo(videoId, title){
+  document.getElementById('videoModalIframe').src = 'https://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0';
   document.getElementById('videoModalTitle').textContent = title;
   document.getElementById('videoModalOverlay').classList.add('open');
 }
 
-function closeVideoModal(e) {
-  if (!e || !e.target || e.target === document.getElementById('videoModalOverlay')) {
+function closeVideoModal(e){
+  if(!e || e.target===document.getElementById('videoModalOverlay')){
     document.getElementById('videoModalOverlay').classList.remove('open');
-    document.getElementById('videoModalIframe').src = '';
+    document.getElementById('videoModalIframe').src='';
   }
 }
 
-
-const courses=[
-  {id:1,title:'Choir Fundamentals',dept:'Choir',instructor:'Deacon Ola Adeyemi',desc:'Learn the foundations of choral singing, pitch, dynamics, and worship singing as a team.',thumb:'🎵',bg:'linear-gradient(135deg,#0ea5e9,#0284c7)',hasLive:true,isNew:false},
-  {id:2,title:'Worship Leadership Masterclass',dept:'Choir',instructor:'Pastor Blessing Okafor',desc:'Advanced training for worship leaders — song selection, congregation engagement, and spiritual atmosphere.',thumb:'🎤',bg:'linear-gradient(135deg,#0284c7,#0c2340)',hasLive:true,isNew:false},
-  {id:3,title:'Vocal Techniques & Voice Care',dept:'Choir',instructor:'Sis. Grace Adeyinka',desc:'Protect and develop your singing voice. Breathing exercises, warm-ups, and vocal health.',thumb:'🎙️',bg:'linear-gradient(135deg,#38bdf8,#0ea5e9)',hasLive:false,isNew:false},
-  {id:4,title:'Harmony & Part Singing',dept:'Choir',instructor:'Bro. Daniel Fashola',desc:'Master soprano, alto, tenor, and bass harmony for powerful choral performances.',thumb:'🎶',bg:'linear-gradient(135deg,#0ea5e9,#38bdf8)',hasLive:true,isNew:true},
-  {id:5,title:'Sight-Reading & Music Theory',dept:'Choir',instructor:'Deacon Ola Adeyemi',desc:'Read sheet music and understand music notation for confident choir performance.',thumb:'🎼',bg:'linear-gradient(135deg,#0c2340,#0ea5e9)',hasLive:false,isNew:true},
-  {id:6,title:'Stage Presence & Performance',dept:'Choir',instructor:'Sis. Grace Adeyinka',desc:'Physical expression in worship — posture, movement, and leading by example on stage.',thumb:'✨',bg:'linear-gradient(135deg,#1e3a5f,#0ea5e9)',hasLive:false,isNew:false},
-  {id:7,title:'Piano for Worship — Beginners',dept:'Instrumentalist',instructor:'Bro. Emmanuel Obi',desc:'Start from scratch on the keyboard. Learn chords, scales, and simple worship songs.',thumb:'🎹',bg:'linear-gradient(135deg,#f59e0b,#d97706)',hasLive:true,isNew:false},
-  {id:8,title:'Guitar for Church Ministry',dept:'Instrumentalist',instructor:'Bro. Seun Adegoke',desc:'Acoustic and electric guitar for church services. Chord progressions and rhythm patterns.',thumb:'🎸',bg:'linear-gradient(135deg,#d97706,#92400e)',hasLive:true,isNew:false},
-  {id:9,title:'Drums & Percussion Basics',dept:'Instrumentalist',instructor:'Bro. Femi Ogunlade',desc:'Learn the drum kit for worship — basic beats, fills, and playing in a worship band.',thumb:'🥁',bg:'linear-gradient(135deg,#b45309,#f59e0b)',hasLive:false,isNew:false},
-  {id:10,title:'Piano — Intermediate Level',dept:'Instrumentalist',instructor:'Bro. Emmanuel Obi',desc:'Advance your keyboard skills with more complex chords, worship progressions, and improvisation.',thumb:'🎵',bg:'linear-gradient(135deg,#f59e0b,#b45309)',hasLive:true,isNew:true},
-  {id:11,title:'Bass Guitar Foundations',dept:'Instrumentalist',instructor:'Bro. Tobi Adeleke',desc:'Learn the bass guitar and understand its critical role in a worship band setup.',thumb:'🎼',bg:'linear-gradient(135deg,#92400e,#d97706)',hasLive:false,isNew:true},
-  {id:12,title:'Music Production for Church',dept:'Instrumentalist',instructor:'Bro. Seun Adegoke',desc:'Intro to digital music production — loops, mixing, and backing tracks for church services.',thumb:'🎚️',bg:'linear-gradient(135deg,#d97706,#f59e0b)',hasLive:false,isNew:false},
-  {id:13,title:'Evangelism Basics',dept:'Church Army',instructor:'Elder John Badmus',desc:'Learn how to effectively share the Gospel with confidence, compassion, and clarity.',thumb:'⚔️',bg:'linear-gradient(135deg,#ef4444,#b91c1c)',hasLive:true,isNew:false},
-  {id:14,title:'Street Mission Training',dept:'Church Army',instructor:'Elder John Badmus',desc:'Practical field training for outdoor evangelism — preparation, safety, and follow-up.',thumb:'🏙️',bg:'linear-gradient(135deg,#b91c1c,#7f1d1d)',hasLive:true,isNew:false},
-  {id:15,title:'Discipleship & Follow-up',dept:'Church Army',instructor:'Sis. Funmi Adeola',desc:'How to nurture new converts and walk them through the discipleship process.',thumb:'🤝',bg:'linear-gradient(135deg,#dc2626,#ef4444)',hasLive:false,isNew:false},
-  {id:16,title:'Prayer & Spiritual Warfare',dept:'Church Army',instructor:'Pastor Dele Ogunwusi',desc:'Understanding prayer strategies, intercession, and spiritual warfare in evangelism.',thumb:'🙏',bg:'linear-gradient(135deg,#7f1d1d,#b91c1c)',hasLive:true,isNew:true},
-  {id:17,title:'Community Outreach Programs',dept:'Church Army',instructor:'Elder John Badmus',desc:'Design and execute community-focused outreach programs with lasting impact.',thumb:'🌍',bg:'linear-gradient(135deg,#b91c1c,#dc2626)',hasLive:false,isNew:true},
-  {id:18,title:'Testimony & Witnessing Skills',dept:'Church Army',instructor:'Sis. Funmi Adeola',desc:'Tell your story effectively and use personal testimonies as evangelism tools.',thumb:'📢',bg:'linear-gradient(135deg,#ef4444,#dc2626)',hasLive:false,isNew:false},
-  {id:19,title:'Usher Protocol & Etiquette',dept:'Usher',instructor:'Sis. Toyin Akintola',desc:'Master the art of church ushering — greetings, seating, crowd management, and service.',thumb:'🙋',bg:'linear-gradient(135deg,#10b981,#059669)',hasLive:true,isNew:false},
-  {id:20,title:'Hospitality & Customer Service',dept:'Usher',instructor:'Bro. Kunle Ojo',desc:'Excellent hospitality skills for church — first impressions, care, and member experience.',thumb:'😊',bg:'linear-gradient(135deg,#059669,#064e3b)',hasLive:false,isNew:false},
-  {id:21,title:'Crowd Management Techniques',dept:'Usher',instructor:'Sis. Toyin Akintola',desc:'Safe and effective management of large church gatherings, special events, and services.',thumb:'👥',bg:'linear-gradient(135deg,#047857,#10b981)',hasLive:false,isNew:false},
-  {id:22,title:'Offering & Collection Procedures',dept:'Usher',instructor:'Bro. Kunle Ojo',desc:'Proper handling of offerings, tithes, and collection with integrity and transparency.',thumb:'💰',bg:'linear-gradient(135deg,#10b981,#047857)',hasLive:true,isNew:true},
-  {id:23,title:'Emergency Preparedness',dept:'Usher',instructor:'Sis. Toyin Akintola',desc:'First aid basics, emergency response, and safety protocols for church environments.',thumb:'🚨',bg:'linear-gradient(135deg,#064e3b,#059669)',hasLive:false,isNew:true},
-  {id:24,title:'Spiritual Life of an Usher',dept:'Usher',instructor:'Bro. Kunle Ojo',desc:"Understanding the spiritual calling and ministry of ushering in God's house.",thumb:'✝️',bg:'linear-gradient(135deg,#059669,#10b981)',hasLive:false,isNew:false},
-  {id:25,title:'Bible Study Foundations',dept:'Exinbinco',instructor:'Rev. Samuel Okonkwo',desc:'Learn how to study the Bible systematically, contextually, and spiritually.',thumb:'📖',bg:'linear-gradient(135deg,#8b5cf6,#7c3aed)',hasLive:true,isNew:false},
-  {id:26,title:'New Testament Survey',dept:'Exinbinco',instructor:'Rev. Samuel Okonkwo',desc:'A comprehensive overview of all New Testament books — themes, context, and application.',thumb:'✝️',bg:'linear-gradient(135deg,#7c3aed,#4c1d95)',hasLive:true,isNew:false},
-  {id:27,title:'Old Testament Survey',dept:'Exinbinco',instructor:'Sis. Patience Nwosu',desc:"Journey through the Old Testament — history, prophecy, poetry, and God's covenant.",thumb:'📜',bg:'linear-gradient(135deg,#6d28d9,#8b5cf6)',hasLive:false,isNew:false},
-  {id:28,title:'Christian Doctrine & Theology',dept:'Exinbinco',instructor:'Pastor Felix Adeleke',desc:'Core Christian doctrines — salvation, Trinity, Holy Spirit, eschatology and more.',thumb:'🔑',bg:'linear-gradient(135deg,#4c1d95,#7c3aed)',hasLive:true,isNew:true},
-  {id:29,title:'Prayer & Devotional Life',dept:'Exinbinco',instructor:'Sis. Patience Nwosu',desc:'Building a consistent, powerful prayer life and daily devotional practices.',thumb:'🙏',bg:'linear-gradient(135deg,#7c3aed,#6d28d9)',hasLive:false,isNew:true},
-  {id:30,title:'Christian Ethics & Living',dept:'Exinbinco',instructor:'Rev. Samuel Okonkwo',desc:'Biblical principles for everyday life — integrity, relationships, work, and family.',thumb:'⚖️',bg:'linear-gradient(135deg,#8b5cf6,#6d28d9)',hasLive:false,isNew:false},
-];
-const lessonTitles=['Introduction & Overview','Foundational Concepts','Practical Application','Deep Dive Study','Live Workshop Prep','Advanced Techniques','Assessment & Review','Final Project & Wrap-up'];
-
+// ===== CREATE COURSE CARD =====
 function createCourseCard(c){
-  return`<div class="course-card" onclick="openCourse(${c.id})">
-    <div class="course-thumb" style="background:${c.bg};">
-      ${c.hasLive?'<div class="live-tag"><div class="live-dot"></div>LIVE</div>':''}
-      ${c.isNew&&!c.hasLive?'<div class="new-tag">NEW</div>':''}
-      <span style="font-size:52px;">${c.thumb}</span>
-    </div>
+  const bg = deptColors[c.dept] || 'linear-gradient(135deg,#0ea5e9,#0284c7)';
+  const icon = deptIcons[c.dept] || '📚';
+  const tag = c.hasLive ? '<div class="live-tag"><div class="live-dot"></div>LIVE</div>' : (c.isNew ? '<div class="new-tag">NEW</div>' : '');
+  return `<div class="course-card" onclick="openCourse(${c.id})">
+    <div class="course-thumb" style="background:${bg};">${tag}<span style="font-size:52px;">${icon}</span></div>
     <div class="course-body">
-      <div class="course-dept">${c.dept}</div>
+      <div class="course-dept">${c.dept} Department</div>
       <div class="course-title">${c.title}</div>
       <div class="course-instructor"><div class="instr-avatar">${c.instructor[0]}</div>${c.instructor}</div>
-      <div class="course-meta"><span class="stars">★★★★★</span><span>📋 8 lessons</span>${c.hasLive?'<span>📡 Live</span>':''}</div>
+      <div class="course-meta"><span class="stars">★★★★★</span><span>4.8</span><span>120 students</span><span>8 lessons</span></div>
       <div class="course-actions">
-        <button class="btn-enroll" onclick="event.stopPropagation();showToast('✅ Enrolled in '+decodeURIComponent('${encodeURIComponent(c.title)}')+'!')">Enroll Free</button>
-        ${c.hasLive?`<button class="btn-live" onclick="event.stopPropagation();showPage('live')">📡 Live</button>`:''}
+        <button class="btn-enroll" onclick="event.stopPropagation();showToast('✅ Enrolled in '+${JSON.stringify(c.title)}.substring(0,30)+'!')">Enroll</button>
+        <button class="btn-live" onclick="event.stopPropagation();window.open('https://igemcity.org/live','_blank')">📡 Join Live</button>
       </div>
     </div>
   </div>`;
 }
 
+// ===== OPEN COURSE =====
 function openCourse(id){
-  const c=courses.find(x=>x.id===id);if(!c)return;
-  document.getElementById('cd-dept').textContent=c.dept+' Department';
-  document.getElementById('cd-title').textContent=c.title;
-  document.getElementById('cd-desc').textContent=c.desc;
-  document.getElementById('cd-instructor').textContent=c.instructor;
-  const cl=document.getElementById('curriculum-list');
-  cl.innerHTML=lessonTitles.map((t,i)=>`<div class="lesson-item"><div class="lesson-num">L${i+1}</div><div class="lesson-title">${t}</div><div class="lesson-dur">30 min</div><div class="lesson-lock">${i<2?'🔓':'🔒'}</div></div>`).join('');
-  // Inject video section and join live button
-  const videoSection = document.getElementById('course-video-section');
-  if(videoSection){
-    videoSection.innerHTML = renderJoinLiveSection() + renderVideoSection(c.dept);
-  }
+  const c = courseData.find(x=>x.id===id);
+  if(!c) return;
+  document.getElementById('cd-dept').textContent = c.dept+' Department';
+  document.getElementById('cd-title').textContent = c.title;
+  document.getElementById('cd-desc').textContent = c.desc;
+  document.getElementById('cd-instructor').textContent = c.instructor;
+  const cl = document.getElementById('curriculum-list');
+  cl.innerHTML = lessonTitles.map((t,i)=>`<div class="lesson-item"><div class="lesson-num">L${i+1}</div><div class="lesson-title">${t}</div><div class="lesson-dur">30 min</div><div class="lesson-lock">${i<2?'🔓':'🔒'}</div></div>`).join('');
+  const vs = document.getElementById('course-video-section');
+  if(vs) vs.innerHTML = renderJoinLiveSection() + renderVideoSection(c.dept);
   showPage('course-detail');
 }
 
-function renderHomeGrid(){document.getElementById('home-courses-grid').innerHTML=courses.filter(c=>c.hasLive).slice(0,8).map(createCourseCard).join('');}
-function renderMyCoursesGrid(){const dept=currentUser?currentUser.dept:null;const filtered=dept?courses.filter(c=>c.dept===dept):courses.slice(0,3);document.getElementById('my-courses-grid').innerHTML=filtered.map(createCourseCard).join('');}
+// ===== RENDER GRIDS =====
+function renderHomeGrid(){
+  const user = getCurrentUser();
+  const dept = user ? user.dept : null;
+  const filtered = dept ? courseData.filter(c=>c.dept===dept).slice(0,6) : courseData.filter(c=>c.hasLive).slice(0,6);
+  const el = document.getElementById('home-courses-grid');
+  if(el) el.innerHTML = filtered.map(createCourseCard).join('');
+}
+
+function renderMyCoursesGrid(){
+  const user = getCurrentUser();
+  const dept = user ? user.dept : null;
+  const filtered = dept ? courseData.filter(c=>c.dept===dept) : courseData.slice(0,6);
+  const el = document.getElementById('my-courses-grid');
+  if(el) el.innerHTML = filtered.map(createCourseCard).join('');
+}
 
 function applyFilters(){
-  const dept=document.querySelector('input[name="deptFilter"]:checked')?.value||'';
-  const type=document.querySelector('input[name="typeFilter"]:checked')?.value||'';
-  const sort=document.getElementById('sortCourses')?.value||'';
-  let f=[...courses];
-  if(dept)f=f.filter(c=>c.dept===dept);
-  if(type==='live')f=f.filter(c=>c.hasLive);
-  if(type==='recorded')f=f.filter(c=>!c.hasLive);
-  if(sort==='name')f.sort((a,b)=>a.title.localeCompare(b.title));
-  if(sort==='dept')f.sort((a,b)=>a.dept.localeCompare(b.dept));
-  document.getElementById('all-courses-grid').innerHTML=f.map(createCourseCard).join('');
-  document.getElementById('courses-count').textContent=f.length+' courses found'+(dept?' in '+dept:'');
+  const deptVal = document.querySelector('input[name="deptFilter"]:checked')?.value || '';
+  const typeVal = document.querySelector('input[name="typeFilter"]:checked')?.value || '';
+  const sortVal = document.getElementById('sortCourses')?.value || '';
+  const user = getCurrentUser();
+  let filtered = courseData;
+  // If logged in, only show their department
+  if(user) filtered = filtered.filter(c=>c.dept===user.dept);
+  if(deptVal) filtered = filtered.filter(c=>c.dept===deptVal);
+  if(typeVal==='live') filtered = filtered.filter(c=>c.hasLive);
+  if(typeVal==='recorded') filtered = filtered.filter(c=>!c.hasLive);
+  if(sortVal==='name') filtered = [...filtered].sort((a,b)=>a.title.localeCompare(b.title));
+  if(sortVal==='dept') filtered = [...filtered].sort((a,b)=>a.dept.localeCompare(b.dept));
+  const grid = document.getElementById('all-courses-grid');
+  if(grid) grid.innerHTML = filtered.map(createCourseCard).join('');
+  const count = document.getElementById('courses-count');
+  if(count) count.textContent = filtered.length + ' courses found';
 }
 
 function filterDept(dept){
   showPage('courses');
-  document.querySelectorAll('input[name="deptFilter"]').forEach(r=>{r.checked=r.value===dept;});
-  document.getElementById('courses-breadcrumb').textContent=dept+' Department';
+  document.querySelectorAll('input[name="deptFilter"]').forEach(r=>{r.checked = r.value===dept;});
   applyFilters();
+  document.getElementById('courses-breadcrumb').textContent = dept+' Department';
 }
 
 function doSearch(){
-  const q=document.getElementById('searchInput').value.toLowerCase().trim();
-  if(!q)return;
-  const f=courses.filter(c=>c.title.toLowerCase().includes(q)||c.dept.toLowerCase().includes(q)||c.instructor.toLowerCase().includes(q));
+  const q = (document.getElementById('searchInput')?.value||'').toLowerCase();
+  if(!q) return;
   showPage('courses');
-  document.getElementById('all-courses-grid').innerHTML=f.map(createCourseCard).join('');
-  document.getElementById('courses-count').textContent=f.length+' results for "'+q+'"';
+  const user = getCurrentUser();
+  let filtered = courseData.filter(c=>c.title.toLowerCase().includes(q)||c.dept.toLowerCase().includes(q)||c.desc.toLowerCase().includes(q));
+  if(user) filtered = filtered.filter(c=>c.dept===user.dept);
+  const grid = document.getElementById('all-courses-grid');
+  if(grid) grid.innerHTML = filtered.map(createCourseCard).join('');
+  const count = document.getElementById('courses-count');
+  if(count) count.textContent = filtered.length + ' results for "'+q+'"';
 }
 
-function showPage(name){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const page=document.getElementById('page-'+name);
-  if(page){page.classList.add('active');window.scrollTo(0,0);}
-  if(name==='courses')applyFilters();
+// ===== LIVE SCHEDULE =====
+const liveSchedule = [
+  {dept:'Choir',title:'Worship Leadership Masterclass',time:'Every Monday — 7:00 PM'},
+  {dept:'Instrumentalist',title:'Piano for Worship — Level 2',time:'Every Wednesday — 6:30 PM'},
+  {dept:'Church Army',title:'Evangelism Strategies',time:'Every Tuesday — 8:00 PM'},
+  {dept:'Usher',title:'Protocol & Etiquette Training',time:'Every Thursday — 7:30 PM'},
+  {dept:'Exinbinco',title:'New Testament Deep Dive',time:'Every Saturday — 10:00 AM'},
+  {dept:'Choir',title:'Harmony & Vocal Blending',time:'Every Friday — 6:00 PM'}
+];
+
+function renderLiveSchedule(filterDeptName){
+  const sessions = filterDeptName ? liveSchedule.filter(s=>s.dept===filterDeptName) : liveSchedule;
+  const icon = {Choir:'🎵',Instrumentalist:'🎹','Church Army':'⚔️',Usher:'🙋',Exinbinco:'📖'};
+  return sessions.map(s=>`
+    <div class="schedule-card">
+      <div class="sc-dept">${icon[s.dept]||''} ${s.dept}</div>
+      <h3>${s.title}</h3>
+      <div class="sc-time">📅 ${s.time}</div>
+      <div style="display:flex;gap:8px;">
+        <a href="https://igemcity.org/live" target="_blank" class="btn-join">Join Live</a>
+        <button class="btn-join-outline" onclick="showToast('🔔 Reminder set!')">Remind Me</button>
+      </div>
+    </div>`).join('');
 }
 
-function joinLive(url,title){
-  const area=document.getElementById('liveVideoArea');
-  area.innerHTML=`<iframe class="live-iframe" src="${url}" allowfullscreen title="${title}"></iframe>`;
-  showPage('live');
-  showToast('📡 Joining: '+title);
-}
+// ===== USER STORE =====
+function getUsers(){ try{return JSON.parse(localStorage.getItem('igem_users')||'[]');}catch(e){return[];} }
+function saveUsers(u){ localStorage.setItem('igem_users',JSON.stringify(u)); }
+function getCurrentUser(){ try{return JSON.parse(sessionStorage.getItem('igem_current_user')||'null');}catch(e){return null;} }
+function setCurrentUser(u){ sessionStorage.setItem('igem_current_user',JSON.stringify(u)); }
+function clearCurrentUser(){ sessionStorage.removeItem('igem_current_user'); }
 
-function showStudentTab(tab){['overview','mycourses','progress','certificates','live','profile'].forEach(t=>{const e=document.getElementById('st-'+t);if(e)e.style.display=t===tab?'block':'none';});if(tab==='mycourses')renderMyCoursesGrid();}
-function showInstructorTab(tab){['overview','upload','courses','schedule','students'].forEach(t=>{const e=document.getElementById('ins-'+t);if(e)e.style.display=t===tab?'block':'none';});}
-function switchRegTab(t){document.getElementById('tab-student').classList.toggle('active',t==='student');document.getElementById('tab-instructor').classList.toggle('active',t==='instructor');}
-function toggleMobileNav(){const n=document.getElementById('mobileNav');n.style.display=n.style.display==='flex'?'none':'flex';}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
-
-renderHomeGrid();
-applyFilters();
-
-// ===== MEMBER AUTH & DEPARTMENT LOCK =====
-let currentUser = null;
-
-function handleRegister() {
-  const memberId = document.getElementById('reg-member-id').value.trim();
-  const fullname = document.getElementById('reg-fullname').value.trim();
-  const dept = document.getElementById('reg-department').value;
-  if (!memberId) { showToast('⚠️ Please enter your Church Member ID.'); return; }
-  if (!memberId.toUpperCase().startsWith('IGEM')) {
-    showToast('❌ Invalid Member ID. Must start with IGEM (e.g. IGEM-2024-0001).');
-    return;
-  }
-  if (!fullname) { showToast('⚠️ Please enter your full name.'); return; }
-  if (!dept) { showToast('⚠️ Please select your department.'); return; }
-  currentUser = { name: fullname, dept: dept, memberId: memberId, role: 'student' };
-  showToast('✅ Membership verified! Welcome, ' + fullname + '!');
-  setTimeout(() => { lockCoursesToDept(dept); showPage('student-dashboard'); updateDashboardGreeting(); }, 1000);
-}
-
-function handleLogin() {
-  const dept = document.getElementById('login-dept') ? document.getElementById('login-dept').value : 'Choir';
-  currentUser = { name: 'Church Member', dept: dept, memberId: 'IGEM-MEMBER', role: 'student' };
-  lockCoursesToDept(dept);
-  showToast('✅ Logged in successfully!');
-  showPage('student-dashboard');
-  updateDashboardGreeting();
-}
-
-function lockCoursesToDept(dept) {
-  const myCoursesGrid = document.getElementById('my-courses-grid');
-  if (myCoursesGrid) {
-    myCoursesGrid.innerHTML = courses.filter(c => c.dept === dept).map(createCourseCard).join('');
-  }
-}
-
-function updateDashboardGreeting() {
-  const welcome = document.querySelector('.dash-welcome h2');
-  const sub = document.querySelector('.dash-welcome p');
-  const badge = document.getElementById('student-dept-badge');
-  if (welcome && currentUser) welcome.textContent = 'Welcome, ' + currentUser.name + '! 🙏';
-  if (sub && currentUser) sub.textContent = 'You are enrolled in the ' + currentUser.dept + ' Department';
-  if (badge && currentUser) { badge.textContent = '📂 Department: ' + currentUser.dept; badge.style.display = 'inline-block'; }
-}
-
-// ================================================================
-// IGEM COMPLETE AUTH & DEPARTMENT ISOLATION SYSTEM
-// Admin Password: IGEM2025
-// ================================================================
-
-// --- USER STORE (simulates a database in localStorage) ---
-function getUsers() {
-  try { return JSON.parse(localStorage.getItem('igem_users') || '[]'); } 
-  catch(e) { return []; }
-}
-function saveUsers(users) {
-  localStorage.setItem('igem_users', JSON.stringify(users));
-}
-function getCurrentUser() {
-  try { return JSON.parse(sessionStorage.getItem('igem_current_user') || 'null'); }
-  catch(e) { return null; }
-}
-function setCurrentUser(user) {
-  sessionStorage.setItem('igem_current_user', JSON.stringify(user));
-}
-function clearCurrentUser() {
-  sessionStorage.removeItem('igem_current_user');
-}
-
-// --- REGISTER ---
-function handleRegister() {
+// ===== REGISTER =====
+function handleRegister(){
   const memberId = (document.getElementById('reg-member-id')||{}).value?.trim();
   const fullname = (document.getElementById('reg-fullname')||{}).value?.trim();
-  const email = document.querySelector('#page-register input[type="email"]')?.value?.trim();
-  const phone = document.querySelector('#page-register input[type="tel"]')?.value?.trim();
+  const email = (document.getElementById('reg-email')||{}).value?.trim();
+  const phone = (document.getElementById('reg-phone')||{}).value?.trim();
   const dept = (document.getElementById('reg-department')||{}).value;
+  const pass = (document.getElementById('reg-pass')||{}).value;
+  const pass2 = (document.getElementById('reg-pass2')||{}).value;
   const role = document.getElementById('tab-instructor')?.classList.contains('active') ? 'instructor' : 'student';
-
-  if (!memberId) { showToast('⚠️ Please enter your Church Member ID.'); return; }
-  if (!memberId.toUpperCase().startsWith('IGEM')) {
-    showToast('❌ Invalid Member ID. Must start with IGEM (e.g. IGEM-2024-0001).');
-    return;
-  }
-  if (!fullname) { showToast('⚠️ Please enter your full name.'); return; }
-  if (!dept) { showToast('⚠️ Please select your department.'); return; }
-
+  if(!memberId){showToast('⚠️ Please enter your Church Member ID.');return;}
+  if(!memberId.toUpperCase().startsWith('IGEM')){showToast('❌ Invalid Member ID. Must start with IGEM e.g. IGEM-2024-0001.');return;}
+  if(!fullname){showToast('⚠️ Please enter your full name.');return;}
+  if(!dept){showToast('⚠️ Please select your department.');return;}
+  if(!pass){showToast('⚠️ Please create a password.');return;}
+  if(pass!==pass2){showToast('⚠️ Passwords do not match.');return;}
   const users = getUsers();
-  // Check if member ID already registered
-  if (users.find(u => u.memberId === memberId)) {
-    showToast('⚠️ This Member ID is already registered. Please login.');
-    return;
-  }
-
-  const newUser = {
-    id: Date.now(),
-    memberId, fullname, email: email||'', phone: phone||'',
-    dept, role,
-    status: 'pending', // pending | approved | rejected
-    registeredAt: new Date().toLocaleDateString('en-GB')
-  };
+  if(users.find(u=>u.memberId===memberId)){showToast('⚠️ This Member ID is already registered.');return;}
+  const newUser = {id:Date.now(),memberId,fullname,email:email||'',phone:phone||'',dept,role,status:'pending',registeredAt:new Date().toLocaleDateString('en-GB')};
   users.push(newUser);
   saveUsers(users);
-
-  // Show pending page
   const details = document.getElementById('pending-details');
-  if (details) {
-    details.innerHTML = 
-      '<div><strong>Name:</strong> ' + fullname + '</div>' +
-      '<div><strong>Member ID:</strong> ' + memberId + '</div>' +
-      '<div><strong>Department:</strong> ' + dept + '</div>' +
-      '<div><strong>Role:</strong> ' + (role==='instructor'?'Instructor':'Student') + '</div>' +
-      '<div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">⏳ Pending Approval</span></div>';
-  }
+  if(details) details.innerHTML='<div><strong>Name:</strong> '+fullname+'</div><div><strong>Member ID:</strong> '+memberId+'</div><div><strong>Department:</strong> '+dept+'</div><div><strong>Role:</strong> '+(role==='instructor'?'Instructor':'Student')+'</div><div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">⏳ Pending Approval</span></div>';
   showPage('pending');
   showToast('✅ Registration submitted! Awaiting admin approval.');
 }
 
-// --- LOGIN ---
-function handleLogin() {
-  const dept = (document.getElementById('login-dept')||{}).value || 'Choir';
-  const memberId = (document.getElementById('login-memberid')||{}).value?.trim() || '';
-
-  // Check if admin trying to login through normal login
+// ===== LOGIN =====
+function handleLogin(){
+  const memberId = (document.getElementById('login-memberid')||{}).value?.trim();
+  const dept = (document.getElementById('login-dept')||{}).value||'Choir';
+  if(!memberId){showToast('⚠️ Please enter your Member ID.');return;}
   const users = getUsers();
-  
-  // Find user by member ID or just by dept for demo
-  let user = users.find(u => u.memberId === memberId || u.email === memberId);
-  
-  if (!user) {
-    // Demo login - create temp session
-    user = { fullname: 'Church Member', dept: dept, memberId: 'DEMO', role: 'student', status: 'approved' };
+  let user = users.find(u=>u.memberId===memberId||u.email===memberId);
+  if(!user){
+    // Demo login
+    user = {fullname:memberId,dept,memberId,role:'student',status:'approved'};
   }
-
-  if (user.status === 'pending') {
+  if(user.status==='pending'){
     const details = document.getElementById('pending-details');
-    if (details) {
-      details.innerHTML = 
-        '<div><strong>Name:</strong> ' + user.fullname + '</div>' +
-        '<div><strong>Member ID:</strong> ' + user.memberId + '</div>' +
-        '<div><strong>Department:</strong> ' + user.dept + '</div>' +
-        '<div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">⏳ Pending Approval</span></div>';
-    }
+    if(details) details.innerHTML='<div><strong>Name:</strong> '+user.fullname+'</div><div><strong>Member ID:</strong> '+user.memberId+'</div><div><strong>Department:</strong> '+user.dept+'</div><div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">⏳ Pending Approval</span></div>';
     showPage('pending');
     showToast('⏳ Your account is still pending admin approval.');
     return;
   }
-
-  if (user.status === 'rejected') {
-    showToast('❌ Your registration was not approved. Contact the church admin.');
-    return;
-  }
-
-  // Approved - set session
+  if(user.status==='rejected'){showToast('❌ Your registration was not approved. Contact the church admin.');return;}
   setCurrentUser(user);
   updateTopbarAuth(user);
   lockAllToDept(user.dept);
-  showPage('student-dashboard');
   updateDashboardGreeting();
-  showToast('✅ Welcome back, ' + user.fullname + '!');
+  showPage('student-dashboard');
+  showToast('✅ Welcome, '+user.fullname+'! You are in the '+user.dept+' Department.');
 }
 
-// --- LOGOUT ---
-function doLogout() {
+// ===== LOGOUT =====
+function doLogout(){
   clearCurrentUser();
-  // Reset topbar
-  const authLinks = document.getElementById('topbar-auth-links');
-  const userLinks = document.getElementById('topbar-user-links');
-  if (authLinks) authLinks.style.display = '';
-  if (userLinks) userLinks.style.display = 'none';
-  // Reset home page - show all departments
+  document.getElementById('topbar-auth-links').style.display='';
+  document.getElementById('topbar-user-links').style.display='none';
   renderHomeGrid();
   showPage('home');
   showToast('👋 Logged out successfully.');
 }
 
-function updateTopbarAuth(user) {
-  const authLinks = document.getElementById('topbar-auth-links');
-  const userLinks = document.getElementById('topbar-user-links');
-  const usernameEl = document.getElementById('topbar-username');
-  if (authLinks) authLinks.style.display = 'none';
-  if (userLinks) userLinks.style.display = '';
-  if (usernameEl) usernameEl.textContent = user.fullname;
+function updateTopbarAuth(user){
+  document.getElementById('topbar-auth-links').style.display='none';
+  document.getElementById('topbar-user-links').style.display='';
+  document.getElementById('topbar-username').textContent=user.fullname;
 }
 
-// ================================================================
-// TOTAL DEPARTMENT ISOLATION
-// Students ONLY see their own department everywhere
-// ================================================================
-function lockAllToDept(dept) {
-  // 1. Home page - filter featured courses
+// ===== TOTAL DEPARTMENT ISOLATION =====
+function lockAllToDept(dept){
+  // Home courses
   const homeGrid = document.getElementById('home-courses-grid');
-  if (homeGrid) {
-    homeGrid.innerHTML = courses.filter(c => c.dept === dept).slice(0,6).map(createCourseCard).join('');
-  }
-
-  // 2. Home dept cards - hide other departments
+  if(homeGrid) homeGrid.innerHTML = courseData.filter(c=>c.dept===dept).slice(0,6).map(createCourseCard).join('');
+  // Hide dept cards that don't belong to user
   lockDeptCards(dept);
-
-  // 3. My courses in dashboard
-  const myCoursesGrid = document.getElementById('my-courses-grid');
-  if (myCoursesGrid) {
-    myCoursesGrid.innerHTML = courses.filter(c => c.dept === dept).map(createCourseCard).join('');
-  }
-
-  // 4. Lock courses page filter to only show their dept
+  // My courses
+  renderMyCoursesGrid();
+  // Courses page
   lockCoursesPage(dept);
-
-  // 5. Lock live sessions to their dept
+  // Live sessions
   lockLiveSessions(dept);
+  // Update progress labels
+  const deptCourses = courseData.filter(c=>c.dept===dept);
+  if(deptCourses[0]) { const el=document.getElementById('prog-course-1'); if(el) el.textContent=deptCourses[0].title.substring(0,30)+'...'; }
+  if(deptCourses[1]) { const el=document.getElementById('prog-course-2'); if(el) el.textContent=deptCourses[1].title.substring(0,30)+'...'; }
+  if(deptCourses[2]) { const el=document.getElementById('prog-course-3'); if(el) el.textContent=deptCourses[2].title.substring(0,30)+'...'; }
+  // Certificates
+  const certDept = document.getElementById('cert-dept-text');
+  if(certDept) certDept.textContent = dept+' Department Course — IGEM Christ Covenant Church\nAwarded: 2025';
+  // Progress table
+  const tbody = document.getElementById('progress-tbody');
+  if(tbody) tbody.innerHTML = deptCourses.slice(0,3).map((c,i)=>`<tr><td>${c.title.substring(0,30)}...</td><td>${c.dept}</td><td>${(i+1)*2}/8</td><td>${[75,45,100][i]}%</td><td><span class="status-pill ${i===2?'sp-completed':'sp-active'}">${i===2?'Completed':'In Progress'}</span></td></tr>`).join('');
 }
 
-function lockDeptCards(dept) {
-  // Hide department cards that don't belong to user
-  const deptSection = document.querySelectorAll('.dept-card');
-  deptSection.forEach(card => {
+function lockDeptCards(dept){
+  document.querySelectorAll('.dept-card').forEach(card=>{
     const h3 = card.querySelector('h3');
-    if (h3) {
-      const cardDept = h3.textContent.replace(' Department','').replace(' Class','').trim();
-      // Check if this card matches user dept
-      const matches = dept === cardDept || 
-                      (dept === 'Choir' && cardDept.includes('Choir')) ||
-                      (dept === 'Instrumentalist' && cardDept.includes('Instrumentalist')) ||
-                      (dept === 'Church Army' && cardDept.includes('Church Army')) ||
-                      (dept === 'Usher' && cardDept.includes('Usher')) ||
-                      (dept === 'Exinbinco' && cardDept.includes('Exinbinco'));
+    if(h3){
+      const t = h3.textContent;
+      const matches = t.includes(dept) || (dept==='Church Army'&&t.includes('Church Army')) || (dept==='Usher'&&t.includes('Usher')) || (dept==='Exinbinco'&&t.includes('Exinbinco'));
       card.style.display = matches ? '' : 'none';
     }
   });
 }
 
-function lockCoursesPage(dept) {
-  // Override applyFilters to always filter by user's dept
+function lockCoursesPage(dept){
   const grid = document.getElementById('all-courses-grid');
+  if(grid) grid.innerHTML = courseData.filter(c=>c.dept===dept).map(createCourseCard).join('');
   const count = document.getElementById('courses-count');
-  if (grid) {
-    const filtered = courses.filter(c => c.dept === dept);
-    grid.innerHTML = filtered.map(createCourseCard).join('');
-    if (count) count.textContent = filtered.length + ' courses in your department';
-  }
-  // Hide filter sidebar dept options (they should only see their own)
-  document.querySelectorAll('input[name="deptFilter"]').forEach(r => {
+  if(count) count.textContent = courseData.filter(c=>c.dept===dept).length + ' courses in your department';
+  // Hide other dept filter options
+  document.querySelectorAll('input[name="deptFilter"]').forEach(r=>{
     const label = r.parentElement;
-    if (r.value === '' || r.value === dept) {
-      label.style.display = '';
-      if (r.value === dept) { r.checked = true; }
-    } else {
-      label.style.display = 'none';
-    }
+    if(r.value===''||r.value===dept){label.style.display='';}
+    else{label.style.display='none';}
+    if(r.value===dept) r.checked=true;
   });
 }
 
-function lockLiveSessions(dept) {
-  // Hide schedule cards not belonging to user dept
-  document.querySelectorAll('.schedule-card').forEach(card => {
-    const deptLabel = card.querySelector('.sc-dept');
-    if (deptLabel) {
-      const cardText = deptLabel.textContent;
-      const matches = cardText.includes(dept) ||
-        (dept === 'Choir' && cardText.includes('Choir')) ||
-        (dept === 'Instrumentalist' && cardText.includes('Instrumentalist')) ||
-        (dept === 'Church Army' && (cardText.includes('Church Army') || cardText.includes('⚔️'))) ||
-        (dept === 'Usher' && cardText.includes('Usher')) ||
-        (dept === 'Exinbinco' && cardText.includes('Exinbinco'));
-      card.style.display = matches ? '' : 'none';
-    }
+function lockLiveSessions(dept){
+  document.querySelectorAll('.schedule-card').forEach(card=>{
+    const sc = card.querySelector('.sc-dept');
+    if(sc) card.style.display = sc.textContent.includes(dept) ? '' : 'none';
   });
+  const myLive = document.getElementById('my-live-sessions-grid');
+  if(myLive) myLive.innerHTML = renderLiveSchedule(dept);
 }
 
-function updateDashboardGreeting() {
+function updateDashboardGreeting(){
   const user = getCurrentUser();
-  if (!user) return;
-  const welcome = document.querySelector('.dash-welcome h2');
-  const sub = document.querySelector('.dash-welcome p');
+  if(!user) return;
+  const welcome = document.getElementById('dash-welcome-name');
+  const sub = document.getElementById('dash-welcome-dept');
   const badge = document.getElementById('student-dept-badge');
-  if (welcome) welcome.textContent = 'Welcome, ' + user.fullname + '! 🙏';
-  if (sub) sub.textContent = 'You are enrolled in the ' + user.dept + ' Department';
-  if (badge) { 
-    badge.textContent = '📂 ' + user.dept + ' Department'; 
-    badge.style.display = 'inline-block'; 
+  if(welcome) welcome.textContent = 'Welcome, '+user.fullname+'! 🙏';
+  if(sub) sub.textContent = 'You are enrolled in the '+user.dept+' Department';
+  if(badge){ badge.textContent='📂 '+user.dept+' Department'; badge.style.display='inline-block'; }
+  const profileName = document.getElementById('profile-name-input');
+  const profileDept = document.getElementById('profile-dept-input');
+  if(profileName) profileName.value = user.fullname;
+  if(profileDept) profileDept.value = user.dept;
+}
+
+// ===== ADMIN PANEL =====
+const ADMIN_PASS = 'IGEM2025';
+let adminActive = false;
+let adminCurrentTab = 'pending';
+
+function showAdminLogin(){
+  const content = document.getElementById('admin-panel-content');
+  adminActive = false;
+  content.innerHTML = `
+    <div style="max-width:360px;margin:0 auto;text-align:center;">
+      <div style="font-size:48px;margin-bottom:16px;">🔐</div>
+      <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:20px;">Enter Admin Password</h3>
+      <div class="form-group"><input type="password" id="admin-pass-input" placeholder="Admin password" onkeydown="if(event.key==='Enter')checkAdminPass()" style="text-align:center;font-size:18px;letter-spacing:4px;"></div>
+      <button class="btn-auth" onclick="checkAdminPass()">🔐 Access Admin Panel</button>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);">Restricted to authorized administrators only.</div>
+    </div>`;
+  document.getElementById('adminPanelOverlay').classList.add('open');
+}
+
+function checkAdminPass(){
+  const pass = (document.getElementById('admin-pass-input')||{}).value;
+  if(pass===ADMIN_PASS){
+    adminActive=true;
+    renderAdminDashboard();
+    showToast('✅ Admin access granted!');
+  } else {
+    showToast('❌ Incorrect password. Access denied.');
+    if(document.getElementById('admin-pass-input')) document.getElementById('admin-pass-input').value='';
   }
 }
 
-// Override showPage to enforce dept lock when navigating
-const _origShowPage = showPage;
-function showPage(name) {
-  _origShowPage(name);
+function closeAdminPanel(){
+  document.getElementById('adminPanelOverlay').classList.remove('open');
+  adminActive=false;
+}
+
+function renderAdminDashboard(){
+  const users = getUsers();
+  const pending = users.filter(u=>u.status==='pending');
+  const approved = users.filter(u=>u.status==='approved');
+  const rejected = users.filter(u=>u.status==='rejected');
+  const content = document.getElementById('admin-panel-content');
+  content.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;">
+      <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-val" style="font-size:22px;">${pending.length}</div><div class="stat-label">Pending</div></div>
+      <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val" style="font-size:22px;">${approved.length}</div><div class="stat-label">Approved</div></div>
+      <div class="stat-card"><div class="stat-icon">❌</div><div class="stat-val" style="font-size:22px;">${rejected.length}</div><div class="stat-label">Rejected</div></div>
+      <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val" style="font-size:22px;">${users.length}</div><div class="stat-label">Total</div></div>
+    </div>
+    <div style="display:flex;gap:4px;background:var(--gray-100);border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content;">
+      <div class="auth-tab ${adminCurrentTab==='pending'?'active':''}" onclick="switchAdminTab('pending')" style="padding:8px 20px;">⏳ Pending</div>
+      <div class="auth-tab ${adminCurrentTab==='approved'?'active':''}" onclick="switchAdminTab('approved')" style="padding:8px 20px;">✅ Approved</div>
+      <div class="auth-tab ${adminCurrentTab==='rejected'?'active':''}" onclick="switchAdminTab('rejected')" style="padding:8px 20px;">❌ Rejected</div>
+    </div>
+    <div id="admin-tab-body"></div>`;
+  renderAdminTabBody();
+}
+
+function switchAdminTab(tab){
+  adminCurrentTab=tab;
+  renderAdminDashboard();
+}
+
+function renderAdminTabBody(){
+  const users = getUsers();
+  const filtered = users.filter(u=>u.status===adminCurrentTab);
+  const el = document.getElementById('admin-tab-body');
+  if(!el) return;
+  if(!filtered.length){
+    el.innerHTML='<div style="text-align:center;padding:32px;color:var(--muted);">No '+adminCurrentTab+' registrations</div>';
+    return;
+  }
+  const cols = adminCurrentTab==='pending'
+    ? '<th>Name</th><th>Member ID</th><th>Department</th><th>Email</th><th>Phone</th><th>Role</th><th>Date</th><th>Actions</th>'
+    : adminCurrentTab==='approved'
+    ? '<th>Name</th><th>Member ID</th><th>Department</th><th>Role</th><th>Date</th><th>Actions</th>'
+    : '<th>Name</th><th>Member ID</th><th>Department</th><th>Date</th><th>Actions</th>';
+  const rows = filtered.map(u=>{
+    if(adminCurrentTab==='pending'){
+      return `<tr><td><strong>${u.fullname}</strong></td><td>${u.memberId}</td><td>${u.dept}</td><td>${u.email||'—'}</td><td>${u.phone||'—'}</td><td>${u.role||'student'}</td><td>${u.registeredAt||'—'}</td><td><button class="btn-approve" onclick="approveUser(${u.id})">✅ Approve</button><button class="btn-reject" onclick="rejectUser(${u.id})">❌ Reject</button></td></tr>`;
+    } else if(adminCurrentTab==='approved'){
+      return `<tr><td><strong>${u.fullname}</strong></td><td>${u.memberId}</td><td>${u.dept}</td><td>${u.role||'student'}</td><td>${u.registeredAt||'—'}</td><td><button class="btn-revoke" onclick="revokeUser(${u.id})">Revoke</button></td></tr>`;
+    } else {
+      return `<tr><td><strong>${u.fullname}</strong></td><td>${u.memberId}</td><td>${u.dept}</td><td>${u.registeredAt||'—'}</td><td><button class="btn-approve" onclick="approveUser(${u.id})">Re-approve</button></td></tr>`;
+    }
+  }).join('');
+  el.innerHTML=`<div class="data-table" style="overflow-x:auto;"><table><thead><tr>${cols}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function approveUser(id){
+  const users=getUsers(); const u=users.find(x=>x.id===id);
+  if(u){u.status='approved';saveUsers(users);renderAdminDashboard();showToast('✅ '+u.fullname+' approved!');}
+}
+function rejectUser(id){
+  const users=getUsers(); const u=users.find(x=>x.id===id);
+  if(u){u.status='rejected';saveUsers(users);renderAdminDashboard();showToast('❌ '+u.fullname+' rejected.');}
+}
+function revokeUser(id){
+  const users=getUsers(); const u=users.find(x=>x.id===id);
+  if(u){u.status='rejected';saveUsers(users);renderAdminDashboard();showToast('⚠️ Access revoked for '+u.fullname);}
+}
+
+// ===== NAVIGATION =====
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page = document.getElementById('page-'+name);
+  if(page){ page.classList.add('active'); window.scrollTo(0,0); }
+  // Re-apply dept lock on navigation
   const user = getCurrentUser();
-  if (user && user.status === 'approved') {
-    // Re-apply locks after navigation
-    setTimeout(() => {
+  if(user){
+    setTimeout(()=>{
       lockAllToDept(user.dept);
       updateDashboardGreeting();
       updateTopbarAuth(user);
-    }, 50);
+    },50);
   }
-  if (name === 'courses' && user) {
-    setTimeout(() => lockCoursesPage(user.dept), 60);
+  if(name==='courses') setTimeout(()=>applyFilters(),60);
+  if(name==='live'){
+    const user2 = getCurrentUser();
+    const grid = document.getElementById('live-schedule-grid');
+    if(grid) grid.innerHTML = renderLiveSchedule(user2?user2.dept:null);
+    setTimeout(()=>{ if(user2) lockLiveSessions(user2.dept); },60);
   }
-  if (name === 'live' && user) {
-    setTimeout(() => lockLiveSessions(user.dept), 60);
-  }
+  if(name==='home') renderHomeGrid();
+  if(name==='student-dashboard'){ renderMyCoursesGrid(); if(user) updateDashboardGreeting(); }
 }
 
-// ================================================================
-// ADMIN PANEL
-// ================================================================
-const ADMIN_PASSWORD = 'IGEM2025';
-let adminLoggedIn = false;
-
-function checkAdminPass() {
-  const pass = (document.getElementById('admin-pass-input')||{}).value;
-  if (pass === ADMIN_PASSWORD) {
-    adminLoggedIn = true;
-    renderAdminDashboard();
-    _origShowPage('admin-dashboard');
-    showToast('✅ Admin access granted!');
-  } else {
-    showToast('❌ Incorrect password. Access denied.', true);
-    document.getElementById('admin-pass-input').value = '';
-  }
+function toggleMobileNav(){
+  const n=document.getElementById('mobileNav');
+  n.style.display=n.style.display==='flex'?'none':'flex';
 }
 
-function adminLogout() {
-  adminLoggedIn = false;
-  _origShowPage('admin-login');
-  showToast('👋 Admin logged out.');
-}
-
-function renderAdminDashboard() {
-  const users = getUsers();
-  const pending = users.filter(u => u.status === 'pending');
-  const approved = users.filter(u => u.status === 'approved');
-  const rejected = users.filter(u => u.status === 'rejected');
-
-  // Update counts
-  el('admin-pending-count', pending.length);
-  el('admin-approved-count', approved.length);
-  el('admin-rejected-count', rejected.length);
-  el('admin-total-count', users.length);
-
-  // Pending table
-  const pendingTbody = document.getElementById('pending-tbody');
-  if (pendingTbody) {
-    pendingTbody.innerHTML = pending.length ? pending.map(u => `
-      <tr>
-        <td><strong>${u.fullname}</strong></td>
-        <td>${u.memberId}</td>
-        <td><span class="status-pill sp-active" style="background:var(--sky-light);color:var(--sky-dark);">${u.dept}</span></td>
-        <td>${u.email||'—'}</td>
-        <td>${u.phone||'—'}</td>
-        <td>${u.role||'student'}</td>
-        <td>${u.registeredAt||'—'}</td>
-        <td style="display:flex;gap:6px;">
-          <button class="btn-approve" onclick="approveUser(${u.id})">✅ Approve</button>
-          <button class="btn-cancel-sm" onclick="rejectUser(${u.id})">❌ Reject</button>
-        </td>
-      </tr>`).join('') 
-      : '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">No pending registrations</td></tr>';
-  }
-
-  // Approved table
-  const approvedTbody = document.getElementById('approved-tbody');
-  if (approvedTbody) {
-    approvedTbody.innerHTML = approved.length ? approved.map(u => `
-      <tr>
-        <td><strong>${u.fullname}</strong></td>
-        <td>${u.memberId}</td>
-        <td><span class="status-pill sp-active">${u.dept}</span></td>
-        <td>${u.email||'—'}</td>
-        <td><span class="status-pill sp-completed">✅ Approved</span></td>
-        <td><button class="btn-cancel-sm" onclick="revokeUser(${u.id})">Revoke</button></td>
-      </tr>`).join('')
-      : '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px;">No approved members yet</td></tr>';
-  }
-
-  // Rejected table
-  const rejectedTbody = document.getElementById('rejected-tbody');
-  if (rejectedTbody) {
-    rejectedTbody.innerHTML = rejected.length ? rejected.map(u => `
-      <tr>
-        <td><strong>${u.fullname}</strong></td>
-        <td>${u.memberId}</td>
-        <td>${u.dept}</td>
-        <td>Not approved by admin</td>
-        <td><button class="btn-approve" onclick="approveUser(${u.id})">Re-approve</button></td>
-      </tr>`).join('')
-      : '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:32px;">No rejected registrations</td></tr>';
+// ===== DASHBOARD TABS =====
+function showStudentTab(tab){
+  ['overview','mycourses','progress','certificates','live','profile'].forEach(t=>{
+    const el=document.getElementById('st-'+t);
+    if(el) el.style.display=t===tab?'block':'none';
+  });
+  document.querySelectorAll('.dash-menu-item').forEach(i=>i.classList.remove('active'));
+  if(tab==='mycourses') renderMyCoursesGrid();
+  if(tab==='live'){
+    const user=getCurrentUser();
+    const grid=document.getElementById('my-live-sessions-grid');
+    if(grid) grid.innerHTML=renderLiveSchedule(user?user.dept:null);
   }
 }
 
-function el(id, val) {
-  const e = document.getElementById(id);
-  if (e) e.textContent = val;
-}
-
-function approveUser(id) {
-  const users = getUsers();
-  const u = users.find(x => x.id === id);
-  if (u) { u.status = 'approved'; saveUsers(users); renderAdminDashboard(); showToast('✅ ' + u.fullname + ' approved!'); }
-}
-
-function rejectUser(id) {
-  const users = getUsers();
-  const u = users.find(x => x.id === id);
-  if (u) { u.status = 'rejected'; saveUsers(users); renderAdminDashboard(); showToast('❌ ' + u.fullname + ' rejected.'); }
-}
-
-function revokeUser(id) {
-  const users = getUsers();
-  const u = users.find(x => x.id === id);
-  if (u) { u.status = 'rejected'; saveUsers(users); renderAdminDashboard(); showToast('⚠️ Access revoked for ' + u.fullname); }
-}
-
-function switchAdminTab(tab) {
-  ['pending','approved','rejected'].forEach(t => {
-    const tabEl = document.getElementById('admin-tab-' + t);
-    const btnEl = document.getElementById('atab-' + t);
-    if (tabEl) tabEl.style.display = t === tab ? 'block' : 'none';
-    if (btnEl) btnEl.classList.toggle('active', t === tab);
+function showInstructorTab(tab){
+  ['overview','upload','courses','schedule','students'].forEach(t=>{
+    const el=document.getElementById('ins-'+t);
+    if(el) el.style.display=t===tab?'block':'none';
   });
 }
 
-// On page load - restore session if exists
-window.addEventListener('DOMContentLoaded', function() {
-  const user = getCurrentUser();
-  if (user && user.status === 'approved') {
+function switchRegTab(mode){
+  document.getElementById('tab-student').classList.toggle('active',mode==='student');
+  document.getElementById('tab-instructor').classList.toggle('active',mode==='instructor');
+}
+
+// ===== TOAST =====
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ===== INIT =====
+window.addEventListener('DOMContentLoaded',function(){
+  renderHomeGrid();
+  applyFilters();
+  const grid=document.getElementById('live-schedule-grid');
+  if(grid) grid.innerHTML=renderLiveSchedule();
+  // Restore session
+  const user=getCurrentUser();
+  if(user&&user.status==='approved'){
     updateTopbarAuth(user);
+    lockAllToDept(user.dept);
   }
 });
-
 </script>
-
-<!-- VIDEO MODAL -->
-<div class="video-modal-overlay" id="videoModalOverlay" onclick="closeVideoModal(event)">
-  <div class="video-modal" id="videoModal">
-    <div class="video-modal-title" id="videoModalTitle">Loading...</div>
-    <button class="video-modal-close" onclick="closeVideoModal()">✕ Close</button>
-    <iframe id="videoModalIframe" src="" allowfullscreen allow="autoplay"></iframe>
-  </div>
-</div>
-
-<!-- ==================== ADMIN PANEL ==================== -->
-<div class="page" id="page-admin-login">
-  <div class="auth-layout" style="background:var(--gray-50);">
-    <div class="auth-box" style="max-width:380px;">
-      <div class="auth-logo">
-        <div style="font-size:40px;margin-bottom:8px;">🔐</div>
-        <h2 style="font-family:'Playfair Display',serif;">Admin Panel</h2>
-        <p>IGEM Christ Covenant Church — Restricted Access</p>
-      </div>
-      <div class="form-group"><label>Admin Password</label><input type="password" id="admin-pass-input" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')checkAdminPass()"></div>
-      <button class="btn-auth" onclick="checkAdminPass()">🔐 Enter Admin Panel</button>
-      <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);">This page is restricted to authorized administrators only.</div>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== ADMIN DASHBOARD ==================== -->
-<div class="page" id="page-admin-dashboard">
-  <div class="breadcrumb"><div class="bc-inner"><span>🔐 Admin Panel</span><span>›</span><span>Member Approvals</span></div></div>
-  <div style="max-width:1100px;margin:auto;padding:28px 20px;">
-    <div style="background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:16px;padding:28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
-      <div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:6px;">🔐 Admin Dashboard</h2>
-        <p style="color:#94b8d4;font-size:14px;">IGEM Christ Covenant Church — Member Approval System</p>
-      </div>
-      <button onclick="adminLogout()" style="background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.4);color:#fca5a5;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">🚪 Logout</button>
-    </div>
-
-    <!-- STATS -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:24px;">
-      <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-val" id="admin-pending-count">0</div><div class="stat-label">Pending</div></div>
-      <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val" id="admin-approved-count">0</div><div class="stat-label">Approved</div></div>
-      <div class="stat-card"><div class="stat-icon">❌</div><div class="stat-val" id="admin-rejected-count">0</div><div class="stat-label">Rejected</div></div>
-      <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val" id="admin-total-count">0</div><div class="stat-label">Total</div></div>
-    </div>
-
-    <!-- TABS -->
-    <div style="display:flex;gap:4px;background:var(--gray-50);border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content;">
-      <div class="auth-tab active" id="atab-pending" onclick="switchAdminTab('pending')" style="padding:9px 20px;">⏳ Pending</div>
-      <div class="auth-tab" id="atab-approved" onclick="switchAdminTab('approved')" style="padding:9px 20px;">✅ Approved</div>
-      <div class="auth-tab" id="atab-rejected" onclick="switchAdminTab('rejected')" style="padding:9px 20px;">❌ Rejected</div>
-    </div>
-
-    <!-- PENDING TABLE -->
-    <div id="admin-tab-pending">
-      <div class="data-table">
-        <table>
-          <thead><tr><th>Name</th><th>Member ID</th><th>Department</th><th>Email</th><th>Phone</th><th>Role</th><th>Date</th><th>Actions</th></tr></thead>
-          <tbody id="pending-tbody">
-            <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">No pending registrations</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- APPROVED TABLE -->
-    <div id="admin-tab-approved" style="display:none;">
-      <div class="data-table">
-        <table>
-          <thead><tr><th>Name</th><th>Member ID</th><th>Department</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead>
-          <tbody id="approved-tbody">
-            <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px;">No approved members yet</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- REJECTED TABLE -->
-    <div id="admin-tab-rejected" style="display:none;">
-      <div class="data-table">
-        <table>
-          <thead><tr><th>Name</th><th>Member ID</th><th>Department</th><th>Reason</th><th>Actions</th></tr></thead>
-          <tbody id="rejected-tbody">
-            <tr><td colspan="5" style="text-align:center;color:var(--muted);padding:32px;">No rejected registrations</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ==================== PENDING APPROVAL PAGE ==================== -->
-<div class="page" id="page-pending">
-  <div class="auth-layout" style="background:var(--gray-50);">
-    <div class="auth-box" style="text-align:center;">
-      <div style="font-size:64px;margin-bottom:16px;">⏳</div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--navy);margin-bottom:10px;">Awaiting Approval</h2>
-      <p style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:20px;">Your registration has been received. The IGEM Christ Covenant Church admin will review and approve your account shortly.</p>
-      <div style="background:var(--sky-pale);border:1px solid var(--sky-light);border-radius:12px;padding:20px;margin-bottom:20px;text-align:left;">
-        <div style="font-weight:700;font-size:14px;color:var(--navy);margin-bottom:10px;">Your Registration Details:</div>
-        <div id="pending-details" style="font-size:13px;color:var(--muted);line-height:2;"></div>
-      </div>
-      <div style="background:#fef9c3;border:1px solid #f59e0b;border-radius:10px;padding:14px;font-size:13px;color:#92400e;">
-        ✝️ Please check back later or contact the church admin for updates.
-      </div>
-      <button onclick="showPage('login')" style="margin-top:20px;background:var(--sky);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;width:100%;">Back to Login</button>
-    </div>
-  </div>
-</div>
-
 </body>
 </html>
