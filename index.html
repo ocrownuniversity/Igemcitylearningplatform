@@ -310,6 +310,10 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 .btn-join-live{background:#ef4444;color:#fff;border:none;padding:13px 28px;border-radius:10px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;transition:background .2s;cursor:pointer;text-decoration:none;}
 .btn-join-live:hover{background:#dc2626;}
+
+/* ADMIN PANEL */
+.btn-approve{background:#dcfce7;color:#166534;border:none;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;}
+.btn-cancel-sm{background:#fee2e2;color:#991b1b;border:none;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -652,7 +656,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 <div class="page" id="page-login">
   <div class="auth-layout"><div class="auth-box">
     <div class="auth-logo"><h2>Welcome Back</h2><p>Sign in to continue your kingdom learning journey</p></div>
-    <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+    <div class="form-group"><label>Church Member ID or Email</label><input type="text" id="login-memberid" placeholder="e.g. IGEM-2024-0001 or email"></div>
     <div class="form-group"><label>Password</label><input type="password" placeholder="Enter your password"></div>
     <div class="form-group"><label>Your Department</label>
       <select id="login-dept">
@@ -1022,6 +1026,392 @@ function updateDashboardGreeting() {
   if (sub && currentUser) sub.textContent = 'You are enrolled in the ' + currentUser.dept + ' Department';
   if (badge && currentUser) { badge.textContent = '📂 Department: ' + currentUser.dept; badge.style.display = 'inline-block'; }
 }
+
+// ================================================================
+// IGEM COMPLETE AUTH & DEPARTMENT ISOLATION SYSTEM
+// Admin Password: IGEM2025
+// ================================================================
+
+// --- USER STORE (simulates a database in localStorage) ---
+function getUsers() {
+  try { return JSON.parse(localStorage.getItem('igem_users') || '[]'); } 
+  catch(e) { return []; }
+}
+function saveUsers(users) {
+  localStorage.setItem('igem_users', JSON.stringify(users));
+}
+function getCurrentUser() {
+  try { return JSON.parse(sessionStorage.getItem('igem_current_user') || 'null'); }
+  catch(e) { return null; }
+}
+function setCurrentUser(user) {
+  sessionStorage.setItem('igem_current_user', JSON.stringify(user));
+}
+function clearCurrentUser() {
+  sessionStorage.removeItem('igem_current_user');
+}
+
+// --- REGISTER ---
+function handleRegister() {
+  const memberId = (document.getElementById('reg-member-id')||{}).value?.trim();
+  const fullname = (document.getElementById('reg-fullname')||{}).value?.trim();
+  const email = document.querySelector('#page-register input[type="email"]')?.value?.trim();
+  const phone = document.querySelector('#page-register input[type="tel"]')?.value?.trim();
+  const dept = (document.getElementById('reg-department')||{}).value;
+  const role = document.getElementById('tab-instructor')?.classList.contains('active') ? 'instructor' : 'student';
+
+  if (!memberId) { showToast('⚠️ Please enter your Church Member ID.'); return; }
+  if (!memberId.toUpperCase().startsWith('IGEM')) {
+    showToast('❌ Invalid Member ID. Must start with IGEM (e.g. IGEM-2024-0001).');
+    return;
+  }
+  if (!fullname) { showToast('⚠️ Please enter your full name.'); return; }
+  if (!dept) { showToast('⚠️ Please select your department.'); return; }
+
+  const users = getUsers();
+  // Check if member ID already registered
+  if (users.find(u => u.memberId === memberId)) {
+    showToast('⚠️ This Member ID is already registered. Please login.');
+    return;
+  }
+
+  const newUser = {
+    id: Date.now(),
+    memberId, fullname, email: email||'', phone: phone||'',
+    dept, role,
+    status: 'pending', // pending | approved | rejected
+    registeredAt: new Date().toLocaleDateString('en-GB')
+  };
+  users.push(newUser);
+  saveUsers(users);
+
+  // Show pending page
+  const details = document.getElementById('pending-details');
+  if (details) {
+    details.innerHTML = 
+      '<div><strong>Name:</strong> ' + fullname + '</div>' +
+      '<div><strong>Member ID:</strong> ' + memberId + '</div>' +
+      '<div><strong>Department:</strong> ' + dept + '</div>' +
+      '<div><strong>Role:</strong> ' + (role==='instructor'?'Instructor':'Student') + '</div>' +
+      '<div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">⏳ Pending Approval</span></div>';
+  }
+  showPage('pending');
+  showToast('✅ Registration submitted! Awaiting admin approval.');
+}
+
+// --- LOGIN ---
+function handleLogin() {
+  const dept = (document.getElementById('login-dept')||{}).value || 'Choir';
+  const memberId = (document.getElementById('login-memberid')||{}).value?.trim() || '';
+
+  // Check if admin trying to login through normal login
+  const users = getUsers();
+  
+  // Find user by member ID or just by dept for demo
+  let user = users.find(u => u.memberId === memberId || u.email === memberId);
+  
+  if (!user) {
+    // Demo login - create temp session
+    user = { fullname: 'Church Member', dept: dept, memberId: 'DEMO', role: 'student', status: 'approved' };
+  }
+
+  if (user.status === 'pending') {
+    const details = document.getElementById('pending-details');
+    if (details) {
+      details.innerHTML = 
+        '<div><strong>Name:</strong> ' + user.fullname + '</div>' +
+        '<div><strong>Member ID:</strong> ' + user.memberId + '</div>' +
+        '<div><strong>Department:</strong> ' + user.dept + '</div>' +
+        '<div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">⏳ Pending Approval</span></div>';
+    }
+    showPage('pending');
+    showToast('⏳ Your account is still pending admin approval.');
+    return;
+  }
+
+  if (user.status === 'rejected') {
+    showToast('❌ Your registration was not approved. Contact the church admin.');
+    return;
+  }
+
+  // Approved - set session
+  setCurrentUser(user);
+  updateTopbarAuth(user);
+  lockAllToDept(user.dept);
+  showPage('student-dashboard');
+  updateDashboardGreeting();
+  showToast('✅ Welcome back, ' + user.fullname + '!');
+}
+
+// --- LOGOUT ---
+function doLogout() {
+  clearCurrentUser();
+  // Reset topbar
+  const authLinks = document.getElementById('topbar-auth-links');
+  const userLinks = document.getElementById('topbar-user-links');
+  if (authLinks) authLinks.style.display = '';
+  if (userLinks) userLinks.style.display = 'none';
+  // Reset home page - show all departments
+  renderHomeGrid();
+  showPage('home');
+  showToast('👋 Logged out successfully.');
+}
+
+function updateTopbarAuth(user) {
+  const authLinks = document.getElementById('topbar-auth-links');
+  const userLinks = document.getElementById('topbar-user-links');
+  const usernameEl = document.getElementById('topbar-username');
+  if (authLinks) authLinks.style.display = 'none';
+  if (userLinks) userLinks.style.display = '';
+  if (usernameEl) usernameEl.textContent = user.fullname;
+}
+
+// ================================================================
+// TOTAL DEPARTMENT ISOLATION
+// Students ONLY see their own department everywhere
+// ================================================================
+function lockAllToDept(dept) {
+  // 1. Home page - filter featured courses
+  const homeGrid = document.getElementById('home-courses-grid');
+  if (homeGrid) {
+    homeGrid.innerHTML = courses.filter(c => c.dept === dept).slice(0,6).map(createCourseCard).join('');
+  }
+
+  // 2. Home dept cards - hide other departments
+  lockDeptCards(dept);
+
+  // 3. My courses in dashboard
+  const myCoursesGrid = document.getElementById('my-courses-grid');
+  if (myCoursesGrid) {
+    myCoursesGrid.innerHTML = courses.filter(c => c.dept === dept).map(createCourseCard).join('');
+  }
+
+  // 4. Lock courses page filter to only show their dept
+  lockCoursesPage(dept);
+
+  // 5. Lock live sessions to their dept
+  lockLiveSessions(dept);
+}
+
+function lockDeptCards(dept) {
+  // Hide department cards that don't belong to user
+  const deptSection = document.querySelectorAll('.dept-card');
+  deptSection.forEach(card => {
+    const h3 = card.querySelector('h3');
+    if (h3) {
+      const cardDept = h3.textContent.replace(' Department','').replace(' Class','').trim();
+      // Check if this card matches user dept
+      const matches = dept === cardDept || 
+                      (dept === 'Choir' && cardDept.includes('Choir')) ||
+                      (dept === 'Instrumentalist' && cardDept.includes('Instrumentalist')) ||
+                      (dept === 'Church Army' && cardDept.includes('Church Army')) ||
+                      (dept === 'Usher' && cardDept.includes('Usher')) ||
+                      (dept === 'Exinbinco' && cardDept.includes('Exinbinco'));
+      card.style.display = matches ? '' : 'none';
+    }
+  });
+}
+
+function lockCoursesPage(dept) {
+  // Override applyFilters to always filter by user's dept
+  const grid = document.getElementById('all-courses-grid');
+  const count = document.getElementById('courses-count');
+  if (grid) {
+    const filtered = courses.filter(c => c.dept === dept);
+    grid.innerHTML = filtered.map(createCourseCard).join('');
+    if (count) count.textContent = filtered.length + ' courses in your department';
+  }
+  // Hide filter sidebar dept options (they should only see their own)
+  document.querySelectorAll('input[name="deptFilter"]').forEach(r => {
+    const label = r.parentElement;
+    if (r.value === '' || r.value === dept) {
+      label.style.display = '';
+      if (r.value === dept) { r.checked = true; }
+    } else {
+      label.style.display = 'none';
+    }
+  });
+}
+
+function lockLiveSessions(dept) {
+  // Hide schedule cards not belonging to user dept
+  document.querySelectorAll('.schedule-card').forEach(card => {
+    const deptLabel = card.querySelector('.sc-dept');
+    if (deptLabel) {
+      const cardText = deptLabel.textContent;
+      const matches = cardText.includes(dept) ||
+        (dept === 'Choir' && cardText.includes('Choir')) ||
+        (dept === 'Instrumentalist' && cardText.includes('Instrumentalist')) ||
+        (dept === 'Church Army' && (cardText.includes('Church Army') || cardText.includes('⚔️'))) ||
+        (dept === 'Usher' && cardText.includes('Usher')) ||
+        (dept === 'Exinbinco' && cardText.includes('Exinbinco'));
+      card.style.display = matches ? '' : 'none';
+    }
+  });
+}
+
+function updateDashboardGreeting() {
+  const user = getCurrentUser();
+  if (!user) return;
+  const welcome = document.querySelector('.dash-welcome h2');
+  const sub = document.querySelector('.dash-welcome p');
+  const badge = document.getElementById('student-dept-badge');
+  if (welcome) welcome.textContent = 'Welcome, ' + user.fullname + '! 🙏';
+  if (sub) sub.textContent = 'You are enrolled in the ' + user.dept + ' Department';
+  if (badge) { 
+    badge.textContent = '📂 ' + user.dept + ' Department'; 
+    badge.style.display = 'inline-block'; 
+  }
+}
+
+// Override showPage to enforce dept lock when navigating
+const _origShowPage = showPage;
+function showPage(name) {
+  _origShowPage(name);
+  const user = getCurrentUser();
+  if (user && user.status === 'approved') {
+    // Re-apply locks after navigation
+    setTimeout(() => {
+      lockAllToDept(user.dept);
+      updateDashboardGreeting();
+      updateTopbarAuth(user);
+    }, 50);
+  }
+  if (name === 'courses' && user) {
+    setTimeout(() => lockCoursesPage(user.dept), 60);
+  }
+  if (name === 'live' && user) {
+    setTimeout(() => lockLiveSessions(user.dept), 60);
+  }
+}
+
+// ================================================================
+// ADMIN PANEL
+// ================================================================
+const ADMIN_PASSWORD = 'IGEM2025';
+let adminLoggedIn = false;
+
+function checkAdminPass() {
+  const pass = (document.getElementById('admin-pass-input')||{}).value;
+  if (pass === ADMIN_PASSWORD) {
+    adminLoggedIn = true;
+    renderAdminDashboard();
+    _origShowPage('admin-dashboard');
+    showToast('✅ Admin access granted!');
+  } else {
+    showToast('❌ Incorrect password. Access denied.', true);
+    document.getElementById('admin-pass-input').value = '';
+  }
+}
+
+function adminLogout() {
+  adminLoggedIn = false;
+  _origShowPage('admin-login');
+  showToast('👋 Admin logged out.');
+}
+
+function renderAdminDashboard() {
+  const users = getUsers();
+  const pending = users.filter(u => u.status === 'pending');
+  const approved = users.filter(u => u.status === 'approved');
+  const rejected = users.filter(u => u.status === 'rejected');
+
+  // Update counts
+  el('admin-pending-count', pending.length);
+  el('admin-approved-count', approved.length);
+  el('admin-rejected-count', rejected.length);
+  el('admin-total-count', users.length);
+
+  // Pending table
+  const pendingTbody = document.getElementById('pending-tbody');
+  if (pendingTbody) {
+    pendingTbody.innerHTML = pending.length ? pending.map(u => `
+      <tr>
+        <td><strong>${u.fullname}</strong></td>
+        <td>${u.memberId}</td>
+        <td><span class="status-pill sp-active" style="background:var(--sky-light);color:var(--sky-dark);">${u.dept}</span></td>
+        <td>${u.email||'—'}</td>
+        <td>${u.phone||'—'}</td>
+        <td>${u.role||'student'}</td>
+        <td>${u.registeredAt||'—'}</td>
+        <td style="display:flex;gap:6px;">
+          <button class="btn-approve" onclick="approveUser(${u.id})">✅ Approve</button>
+          <button class="btn-cancel-sm" onclick="rejectUser(${u.id})">❌ Reject</button>
+        </td>
+      </tr>`).join('') 
+      : '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">No pending registrations</td></tr>';
+  }
+
+  // Approved table
+  const approvedTbody = document.getElementById('approved-tbody');
+  if (approvedTbody) {
+    approvedTbody.innerHTML = approved.length ? approved.map(u => `
+      <tr>
+        <td><strong>${u.fullname}</strong></td>
+        <td>${u.memberId}</td>
+        <td><span class="status-pill sp-active">${u.dept}</span></td>
+        <td>${u.email||'—'}</td>
+        <td><span class="status-pill sp-completed">✅ Approved</span></td>
+        <td><button class="btn-cancel-sm" onclick="revokeUser(${u.id})">Revoke</button></td>
+      </tr>`).join('')
+      : '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px;">No approved members yet</td></tr>';
+  }
+
+  // Rejected table
+  const rejectedTbody = document.getElementById('rejected-tbody');
+  if (rejectedTbody) {
+    rejectedTbody.innerHTML = rejected.length ? rejected.map(u => `
+      <tr>
+        <td><strong>${u.fullname}</strong></td>
+        <td>${u.memberId}</td>
+        <td>${u.dept}</td>
+        <td>Not approved by admin</td>
+        <td><button class="btn-approve" onclick="approveUser(${u.id})">Re-approve</button></td>
+      </tr>`).join('')
+      : '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:32px;">No rejected registrations</td></tr>';
+  }
+}
+
+function el(id, val) {
+  const e = document.getElementById(id);
+  if (e) e.textContent = val;
+}
+
+function approveUser(id) {
+  const users = getUsers();
+  const u = users.find(x => x.id === id);
+  if (u) { u.status = 'approved'; saveUsers(users); renderAdminDashboard(); showToast('✅ ' + u.fullname + ' approved!'); }
+}
+
+function rejectUser(id) {
+  const users = getUsers();
+  const u = users.find(x => x.id === id);
+  if (u) { u.status = 'rejected'; saveUsers(users); renderAdminDashboard(); showToast('❌ ' + u.fullname + ' rejected.'); }
+}
+
+function revokeUser(id) {
+  const users = getUsers();
+  const u = users.find(x => x.id === id);
+  if (u) { u.status = 'rejected'; saveUsers(users); renderAdminDashboard(); showToast('⚠️ Access revoked for ' + u.fullname); }
+}
+
+function switchAdminTab(tab) {
+  ['pending','approved','rejected'].forEach(t => {
+    const tabEl = document.getElementById('admin-tab-' + t);
+    const btnEl = document.getElementById('atab-' + t);
+    if (tabEl) tabEl.style.display = t === tab ? 'block' : 'none';
+    if (btnEl) btnEl.classList.toggle('active', t === tab);
+  });
+}
+
+// On page load - restore session if exists
+window.addEventListener('DOMContentLoaded', function() {
+  const user = getCurrentUser();
+  if (user && user.status === 'approved') {
+    updateTopbarAuth(user);
+  }
+});
+
 </script>
 
 <!-- VIDEO MODAL -->
@@ -1032,5 +1422,106 @@ function updateDashboardGreeting() {
     <iframe id="videoModalIframe" src="" allowfullscreen allow="autoplay"></iframe>
   </div>
 </div>
+
+<!-- ==================== ADMIN PANEL ==================== -->
+<div class="page" id="page-admin-login">
+  <div class="auth-layout" style="background:var(--gray-50);">
+    <div class="auth-box" style="max-width:380px;">
+      <div class="auth-logo">
+        <div style="font-size:40px;margin-bottom:8px;">🔐</div>
+        <h2 style="font-family:'Playfair Display',serif;">Admin Panel</h2>
+        <p>IGEM Christ Covenant Church — Restricted Access</p>
+      </div>
+      <div class="form-group"><label>Admin Password</label><input type="password" id="admin-pass-input" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')checkAdminPass()"></div>
+      <button class="btn-auth" onclick="checkAdminPass()">🔐 Enter Admin Panel</button>
+      <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);">This page is restricted to authorized administrators only.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ADMIN DASHBOARD ==================== -->
+<div class="page" id="page-admin-dashboard">
+  <div class="breadcrumb"><div class="bc-inner"><span>🔐 Admin Panel</span><span>›</span><span>Member Approvals</span></div></div>
+  <div style="max-width:1100px;margin:auto;padding:28px 20px;">
+    <div style="background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:16px;padding:28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+      <div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:#fff;margin-bottom:6px;">🔐 Admin Dashboard</h2>
+        <p style="color:#94b8d4;font-size:14px;">IGEM Christ Covenant Church — Member Approval System</p>
+      </div>
+      <button onclick="adminLogout()" style="background:rgba(239,68,68,0.2);border:1px solid rgba(239,68,68,0.4);color:#fca5a5;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">🚪 Logout</button>
+    </div>
+
+    <!-- STATS -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-bottom:24px;">
+      <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-val" id="admin-pending-count">0</div><div class="stat-label">Pending</div></div>
+      <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val" id="admin-approved-count">0</div><div class="stat-label">Approved</div></div>
+      <div class="stat-card"><div class="stat-icon">❌</div><div class="stat-val" id="admin-rejected-count">0</div><div class="stat-label">Rejected</div></div>
+      <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val" id="admin-total-count">0</div><div class="stat-label">Total</div></div>
+    </div>
+
+    <!-- TABS -->
+    <div style="display:flex;gap:4px;background:var(--gray-50);border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content;">
+      <div class="auth-tab active" id="atab-pending" onclick="switchAdminTab('pending')" style="padding:9px 20px;">⏳ Pending</div>
+      <div class="auth-tab" id="atab-approved" onclick="switchAdminTab('approved')" style="padding:9px 20px;">✅ Approved</div>
+      <div class="auth-tab" id="atab-rejected" onclick="switchAdminTab('rejected')" style="padding:9px 20px;">❌ Rejected</div>
+    </div>
+
+    <!-- PENDING TABLE -->
+    <div id="admin-tab-pending">
+      <div class="data-table">
+        <table>
+          <thead><tr><th>Name</th><th>Member ID</th><th>Department</th><th>Email</th><th>Phone</th><th>Role</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody id="pending-tbody">
+            <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">No pending registrations</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- APPROVED TABLE -->
+    <div id="admin-tab-approved" style="display:none;">
+      <div class="data-table">
+        <table>
+          <thead><tr><th>Name</th><th>Member ID</th><th>Department</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="approved-tbody">
+            <tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px;">No approved members yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- REJECTED TABLE -->
+    <div id="admin-tab-rejected" style="display:none;">
+      <div class="data-table">
+        <table>
+          <thead><tr><th>Name</th><th>Member ID</th><th>Department</th><th>Reason</th><th>Actions</th></tr></thead>
+          <tbody id="rejected-tbody">
+            <tr><td colspan="5" style="text-align:center;color:var(--muted);padding:32px;">No rejected registrations</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PENDING APPROVAL PAGE ==================== -->
+<div class="page" id="page-pending">
+  <div class="auth-layout" style="background:var(--gray-50);">
+    <div class="auth-box" style="text-align:center;">
+      <div style="font-size:64px;margin-bottom:16px;">⏳</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:800;color:var(--navy);margin-bottom:10px;">Awaiting Approval</h2>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:20px;">Your registration has been received. The IGEM Christ Covenant Church admin will review and approve your account shortly.</p>
+      <div style="background:var(--sky-pale);border:1px solid var(--sky-light);border-radius:12px;padding:20px;margin-bottom:20px;text-align:left;">
+        <div style="font-weight:700;font-size:14px;color:var(--navy);margin-bottom:10px;">Your Registration Details:</div>
+        <div id="pending-details" style="font-size:13px;color:var(--muted);line-height:2;"></div>
+      </div>
+      <div style="background:#fef9c3;border:1px solid #f59e0b;border-radius:10px;padding:14px;font-size:13px;color:#92400e;">
+        ✝️ Please check back later or contact the church admin for updates.
+      </div>
+      <button onclick="showPage('login')" style="margin-top:20px;background:var(--sky);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;width:100%;">Back to Login</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
