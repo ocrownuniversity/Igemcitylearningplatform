@@ -540,7 +540,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     </div></aside>
     <div class="dash-content">
       <div id="st-overview">
-        <div class="dash-welcome"><h2>Welcome back, Kingdom Learner! 🙏</h2><p>Continue your journey in faith and ministry excellence</p></div>
+        <div class="dash-welcome"><h2>Welcome back, Kingdom Learner! 🙏</h2><p>Continue your journey in faith and ministry excellence</p><div id="student-dept-badge" style="display:none;background:rgba(255,255,255,0.2);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:600;margin-top:10px;color:#fff;display:inline-block;"></div></div>
         <div class="stats-row">
           <div class="stat-card"><div class="stat-icon">📚</div><div class="stat-val">3</div><div class="stat-label">Enrolled Courses</div></div>
           <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val">1</div><div class="stat-label">Completed</div></div>
@@ -654,29 +654,61 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     <div class="auth-logo"><h2>Welcome Back</h2><p>Sign in to continue your kingdom learning journey</p></div>
     <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
     <div class="form-group"><label>Password</label><input type="password" placeholder="Enter your password"></div>
-    <button class="btn-auth" onclick="showToast('✅ Logged in!');showPage('student-dashboard')">Sign In</button>
+    <div class="form-group"><label>Your Department</label>
+      <select id="login-dept">
+        <option value="Choir">Choir Department</option>
+        <option value="Instrumentalist">Instrumentalist Department</option>
+        <option value="Church Army">Church Army Department</option>
+        <option value="Usher">Usher Department</option>
+        <option value="Exinbinco">Exinbinco Class</option>
+      </select>
+    </div>
+    <button class="btn-auth" onclick="handleLogin()">Sign In</button>
     <div class="auth-divider">or continue as</div>
     <button style="width:100%;background:var(--sky-light);color:var(--sky-dark);border:2px solid var(--sky-light);padding:12px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;" onclick="showToast('Instructor login!');showPage('instructor-dashboard')">👨‍🏫 Sign in as Instructor</button>
-    <div class="auth-switch">Don't have an account? <a href="#" onclick="showPage('register')">Join Free</a></div>
+    <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);">New member? <a href="#" onclick="showPage('register')" style="color:var(--sky);font-weight:600;">Request Access</a> with your Member ID</div>
   </div></div>
 </div>
-<!-- ==================== REGISTER ==================== -->
+<!-- ==================== REGISTER ====================-->
 <div class="page" id="page-register">
   <div class="auth-layout"><div class="auth-box">
-    <div class="auth-logo"><h2>Join IGEM Learning</h2><p>Start your ministry training today — it's completely free</p></div>
+    <div class="auth-logo">
+      <div style="font-size:36px;margin-bottom:8px;">🔐</div>
+      <h2>Members-Only Access</h2>
+      <p>This platform is exclusively for verified IGEM Christ Covenant Church members.</p>
+    </div>
+    <div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:13px;color:#92400e;display:flex;gap:10px;align-items:flex-start;">
+      <span style="font-size:18px;flex-shrink:0;">⚠️</span>
+      <span>Only current members of IGEM Christ Covenant Church, Ibadan can create an account. A valid <strong>Church Member ID</strong> is required.</span>
+    </div>
     <div class="auth-tabs">
       <div class="auth-tab active" id="tab-student" onclick="switchRegTab('student')">Student</div>
       <div class="auth-tab" id="tab-instructor" onclick="switchRegTab('instructor')">Instructor</div>
     </div>
-    <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your full name"></div>
-    <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
-    <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="e.g. 08123269499"></div>
-    <div class="form-group"><label>Department</label><select><option value="">— Select Your Department —</option><option>Choir Department</option><option>Instrumentalist Department</option><option>Church Army Department</option><option>Usher Department</option><option>Exinbinco Class</option></select></div>
-    <div class="form-group"><label>Password</label><input type="password" placeholder="Create a secure password"></div>
-    <button class="btn-auth" onclick="showToast('🎉 Account created! Welcome!');showPage('student-dashboard')">Create Account</button>
+    <div class="form-group"><label>Church Member ID <span style="color:#ef4444;">*</span></label><input type="text" id="reg-member-id" placeholder="e.g. IGEM-2024-0001"></div>
+    <div class="form-group"><label>Full Name <span style="color:#ef4444;">*</span></label><input type="text" id="reg-fullname" placeholder="Your full name as registered in church"></div>
+    <div class="form-group"><label>Email Address <span style="color:#ef4444;">*</span></label><input type="email" placeholder="your@email.com"></div>
+    <div class="form-group"><label>Phone Number <span style="color:#ef4444;">*</span></label><input type="tel" placeholder="e.g. 08123269499"></div>
+    <div class="form-group"><label>Department <span style="color:#ef4444;">*</span></label>
+      <select id="reg-department">
+        <option value="">— Select Your Department —</option>
+        <option value="Choir">Choir Department</option>
+        <option value="Instrumentalist">Instrumentalist Department</option>
+        <option value="Church Army">Church Army Department</option>
+        <option value="Usher">Usher Department</option>
+        <option value="Exinbinco">Exinbinco Class</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Password <span style="color:#ef4444;">*</span></label><input type="password" placeholder="Create a secure password"></div>
+    <div class="form-group"><label>Confirm Password <span style="color:#ef4444;">*</span></label><input type="password" placeholder="Repeat your password"></div>
+    <button class="btn-auth" onclick="handleRegister()">Request Access</button>
+    <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);background:var(--gray-50);padding:12px;border-radius:8px;">
+      🙏 Not yet a member? Visit <strong>IGEM Christ Covenant Church</strong> in Ibadan to register as a member first.
+    </div>
     <div class="auth-switch">Already have an account? <a href="#" onclick="showPage('login')">Sign In</a></div>
   </div></div>
 </div>
+
 <!-- ==================== ABOUT ==================== -->
 <div class="page" id="page-about">
   <div class="about-hero"><h1>About IGEM Church Learning</h1><p>Equipping the saints for the work of ministry through structured, Spirit-led education.</p></div>
@@ -892,7 +924,7 @@ function openCourse(id){
 }
 
 function renderHomeGrid(){document.getElementById('home-courses-grid').innerHTML=courses.filter(c=>c.hasLive).slice(0,8).map(createCourseCard).join('');}
-function renderMyCoursesGrid(){document.getElementById('my-courses-grid').innerHTML=courses.slice(0,3).map(createCourseCard).join('');}
+function renderMyCoursesGrid(){const dept=currentUser?currentUser.dept:null;const filtered=dept?courses.filter(c=>c.dept===dept):courses.slice(0,3);document.getElementById('my-courses-grid').innerHTML=filtered.map(createCourseCard).join('');}
 
 function applyFilters(){
   const dept=document.querySelector('input[name="deptFilter"]:checked')?.value||'';
@@ -946,6 +978,50 @@ function showToast(msg){const t=document.getElementById('toast');t.textContent=m
 
 renderHomeGrid();
 applyFilters();
+
+// ===== MEMBER AUTH & DEPARTMENT LOCK =====
+let currentUser = null;
+
+function handleRegister() {
+  const memberId = document.getElementById('reg-member-id').value.trim();
+  const fullname = document.getElementById('reg-fullname').value.trim();
+  const dept = document.getElementById('reg-department').value;
+  if (!memberId) { showToast('⚠️ Please enter your Church Member ID.'); return; }
+  if (!memberId.toUpperCase().startsWith('IGEM')) {
+    showToast('❌ Invalid Member ID. Must start with IGEM (e.g. IGEM-2024-0001).');
+    return;
+  }
+  if (!fullname) { showToast('⚠️ Please enter your full name.'); return; }
+  if (!dept) { showToast('⚠️ Please select your department.'); return; }
+  currentUser = { name: fullname, dept: dept, memberId: memberId, role: 'student' };
+  showToast('✅ Membership verified! Welcome, ' + fullname + '!');
+  setTimeout(() => { lockCoursesToDept(dept); showPage('student-dashboard'); updateDashboardGreeting(); }, 1000);
+}
+
+function handleLogin() {
+  const dept = document.getElementById('login-dept') ? document.getElementById('login-dept').value : 'Choir';
+  currentUser = { name: 'Church Member', dept: dept, memberId: 'IGEM-MEMBER', role: 'student' };
+  lockCoursesToDept(dept);
+  showToast('✅ Logged in successfully!');
+  showPage('student-dashboard');
+  updateDashboardGreeting();
+}
+
+function lockCoursesToDept(dept) {
+  const myCoursesGrid = document.getElementById('my-courses-grid');
+  if (myCoursesGrid) {
+    myCoursesGrid.innerHTML = courses.filter(c => c.dept === dept).map(createCourseCard).join('');
+  }
+}
+
+function updateDashboardGreeting() {
+  const welcome = document.querySelector('.dash-welcome h2');
+  const sub = document.querySelector('.dash-welcome p');
+  const badge = document.getElementById('student-dept-badge');
+  if (welcome && currentUser) welcome.textContent = 'Welcome, ' + currentUser.name + '! 🙏';
+  if (sub && currentUser) sub.textContent = 'You are enrolled in the ' + currentUser.dept + ' Department';
+  if (badge && currentUser) { badge.textContent = '📂 Department: ' + currentUser.dept; badge.style.display = 'inline-block'; }
+}
 </script>
 
 <!-- VIDEO MODAL -->
