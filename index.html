@@ -112,15 +112,15 @@ header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top
 .btn-cta-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2);}
 .btn-cta-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.5);padding:13px 30px;border-radius:10px;font-size:15px;font-weight:600;transition:all .2s;cursor:pointer;}
 .btn-cta-outline:hover{border-color:#fff;}
-.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;}
-.testi-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:box-shadow .2s;}
-.testi-card:hover{box-shadow:var(--shadow);}
-.testi-stars{color:var(--gold);font-size:14px;margin-bottom:12px;}
-.testi-text{font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px;font-style:italic;}
-.testi-author{display:flex;align-items:center;gap:12px;}
-.testi-avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;color:#fff;flex-shrink:0;}
-.testi-name{font-weight:600;font-size:14px;}
-.testi-dept{font-size:12px;color:var(--muted);}
+
+
+
+
+
+
+
+
+
 footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 .footer-grid{max-width:1280px;margin:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:36px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.1);}
 .footer-col h4{color:#fff;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:16px;}
@@ -411,18 +411,6 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     <div class="cta-btns">
       <button class="btn-cta-white" onclick="showPage('register')">Sign Up Free — It's Free!</button>
       <button class="btn-cta-outline" onclick="showPage('courses')">Browse Courses First</button>
-    </div>
-  </div>
-  <!-- TESTIMONIALS -->
-  <div class="section">
-    <div class="section-inner">
-      <div class="section-header" style="margin-bottom:32px;"><h2>What Members Say</h2><p>Hear from our learning community</p></div>
-      <div class="testimonials-grid">
-        <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"The Choir Department courses transformed how I understand worship. The video lessons are clear, well-structured, and deeply spiritual."</div><div class="testi-author"><div class="testi-avatar" style="background:var(--sky);">A</div><div><div class="testi-name">Adebimpe Okafor</div><div class="testi-dept">Choir Department</div></div></div></div>
-        <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"I joined the Usher training and it completely changed my understanding of church protocol and servant leadership."</div><div class="testi-author"><div class="testi-avatar" style="background:var(--green);">B</div><div><div class="testi-name">Babajide Emmanuel</div><div class="testi-dept">Usher Department</div></div></div></div>
-        <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"The live sessions are incredible! Being able to learn real-time from our instructors while at home is a blessing."</div><div class="testi-author"><div class="testi-avatar" style="background:#8b5cf6;">C</div><div><div class="testi-name">Chiamaka Nwachukwu</div><div class="testi-dept">Exinbinco Class</div></div></div></div>
-        <div class="testi-card"><div class="testi-stars">★★★★★</div><div class="testi-text">"Church Army training prepared me to confidently share the Gospel. The evangelism modules are practical and scripturally grounded."</div><div class="testi-author"><div class="testi-avatar" style="background:var(--gold);">D</div><div><div class="testi-name">David Akinola</div><div class="testi-dept">Church Army</div></div></div></div>
-      </div>
     </div>
   </div>
   <!-- FOOTER -->
@@ -733,8 +721,58 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 </div>
 <script>
 // ===== VIDEO & LIVE SESSION FUNCTIONS =====
-const choirVideos = [{"id": "ZLlkGVDHLAI", "title": "Choir Fundamentals \u2013 Vocal Basics"}, {"id": "7maJOI3QMu0", "title": "Worship Leadership \u2013 Song Selection"}, {"id": "Oe7WXScdtzM", "title": "Vocal Techniques & Voice Care"}, {"id": "9bZkp7q19f0", "title": "Harmony & Part Singing"}, {"id": "kffacxfA7G4", "title": "Sight Reading & Music Theory"}, {"id": "hT_nvWreIhg", "title": "Stage Presence & Performance"}];
-const instrVideos = [{"id": "yCjJyiqpAuU", "title": "Piano for Worship \u2013 Beginners"}, {"id": "GxFuL3yNi0Y", "title": "Guitar for Church Ministry"}, {"id": "9EOMXK6HREY", "title": "Drums & Percussion Basics"}, {"id": "F2PPFRrHzEs", "title": "Piano \u2013 Intermediate Level"}, {"id": "2Z5GPLDpbLk", "title": "Bass Guitar Foundations"}, {"id": "t99KH0TR-J4", "title": "Music Production for Church"}];
+const choirVideos = [
+  {
+    "id": "T7bpVDSSMwc",
+    "title": "Choir Fundamentals \u2013 Vocal Basics"
+  },
+  {
+    "id": "4Tr0otuiQuU",
+    "title": "Worship Leadership \u2013 Song Selection"
+  },
+  {
+    "id": "hKRUTzSh6Ks",
+    "title": "Vocal Techniques & Voice Care"
+  },
+  {
+    "id": "0eLRBHkCx8A",
+    "title": "Harmony & Part Singing"
+  },
+  {
+    "id": "CvFH_6DNRCY",
+    "title": "Sight Reading & Music Theory"
+  },
+  {
+    "id": "wFJX4BoRPhc",
+    "title": "Stage Presence & Performance"
+  }
+];
+const instrVideos = [
+  {
+    "id": "jfKfPfyJRdk",
+    "title": "Piano for Worship \u2013 Beginners"
+  },
+  {
+    "id": "L_XJ_s5IsQc",
+    "title": "Guitar for Church Ministry"
+  },
+  {
+    "id": "gE4YdPVBsOs",
+    "title": "Drums & Percussion Basics"
+  },
+  {
+    "id": "l1Wbkl_3tRE",
+    "title": "Piano \u2013 Intermediate Level"
+  },
+  {
+    "id": "B1koJ33FGsU",
+    "title": "Bass Guitar Foundations"
+  },
+  {
+    "id": "uwUt1fVHb-E",
+    "title": "Music Production for Church"
+  }
+];
 
 function getVideosForDept(dept) {
   if (dept === 'Choir') return choirVideos;
