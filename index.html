@@ -431,14 +431,21 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     </div>
   </div>
 
-  <!-- FEATURED -->
-  <div class="section" style="background:var(--gray-50);">
-    <div class="section-inner">
-      <div class="section-header-row">
-        <div class="section-header"><div class="section-badge">Popular</div><h2>Popular Courses</h2><p>Most enrolled courses across all departments</p></div>
-        <a class="see-all" href="#" onclick="showPage('courses')">See All →</a>
+
+  <!-- LIVE VIDEO -->
+  <div class="section" style="background:var(--navy);padding:48px 0;">
+    <div class="section-inner" style="text-align:center;">
+      <div class="section-badge" style="background:rgba(239,68,68,0.25);color:#fca5a5;">📡 Live Now</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:800;color:#fff;margin:12px 0;">Watch Our Live Sessions</h2>
+      <p style="color:#94b8d4;font-size:16px;margin-bottom:28px;max-width:560px;margin-left:auto;margin-right:auto;">Join thousands of IGEM Christ Covenant Church members in real-time worship, training and ministry sessions — live and free for everyone.</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:28px;">
+        <div style="width:10px;height:10px;background:#ef4444;border-radius:50%;animation:pulse 1.5s infinite;"></div>
+        <span style="color:#fca5a5;font-size:14px;font-weight:600;">Live sessions available now</span>
       </div>
-      <div class="courses-grid" id="home-courses-grid"></div>
+      <a href="https://www.igemcity.org/workers/#video" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:#ef4444;color:#fff;padding:16px 40px;border-radius:12px;font-size:16px;font-weight:700;text-decoration:none;box-shadow:0 8px 24px rgba(239,68,68,0.4);transition:all .25s;">
+        📡 Join Live Session Now →
+      </a>
+      <div style="margin-top:20px;font-size:13px;color:#94b8d4;">Free for all — no login required to watch live</div>
     </div>
   </div>
 
@@ -529,7 +536,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
             <div class="cd-feature"><span class="fi">📱</span> Mobile & desktop access</div>
           </div>
           <button class="btn-enroll-big" onclick="showToast('✅ Enrolled successfully!')">Enroll in Course</button>
-          <a href="https://igemcity.org/live" target="_blank" class="btn-live-big">📡 Join Live Session</a>
+          <a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-live-big">📡 Join Live Session</a>
         </div>
       </div>
     </div>
@@ -549,7 +556,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
       <div class="live-status"><div class="jl-dot"></div>Sessions Available</div>
     </div>
     <div style="text-align:center;margin-bottom:24px;">
-      <a href="https://igemcity.org/live" target="_blank" class="btn-join-live" style="display:inline-flex;margin:0 auto;">📡 Join Live Session Now →</a>
+      <a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join-live" style="display:inline-flex;margin:0 auto;">📡 Join Live Session Now →</a>
     </div>
     <h2 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px;">Scheduled Sessions</h2>
     <div class="schedule-grid" id="live-schedule-grid"></div>
@@ -660,7 +667,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
           <div class="form-group"><label>Session Title</label><input type="text" placeholder="e.g. Worship Leadership Masterclass"></div>
           <div class="form-group"><label>Department</label><select><option>Choir Department</option><option>Instrumentalist</option><option>Church Army</option><option>Usher Department</option><option>Exinbinco Class</option></select></div>
           <div class="form-group"><label>Date & Time</label><input type="datetime-local"></div>
-          <div class="form-group"><label>Live Session Link</label><input type="url" placeholder="https://igemcity.org/live or zoom link"></div>
+          <div class="form-group"><label>Live Session Link</label><input type="url" placeholder="https://www.igemcity.org/workers/#video or zoom link"></div>
           <div class="form-group"><label>Description</label><textarea rows="3" placeholder="What will be covered?"></textarea></div>
           <button class="btn-auth" style="max-width:220px;" onclick="showToast('📡 Live session scheduled!')">Schedule Session</button>
         </div>
@@ -708,25 +715,25 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
     </div>
     <div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:13px;color:#92400e;display:flex;gap:10px;align-items:flex-start;">
       <span style="font-size:18px;flex-shrink:0;">⚠️</span>
-      <span>Only current members of IGEM Christ Covenant Church, Ibadan can create an account. A valid <strong>Church Member ID</strong> is required.</span>
+      <span>Only verified members of IGEM Christ Covenant Church, Ibadan can register. Your Member ID will be automatically generated upon admin approval.</span>
     </div>
     <div class="auth-tabs">
       <div class="auth-tab active" id="tab-student" onclick="switchRegTab('student')">Student</div>
       <div class="auth-tab" id="tab-instructor" onclick="switchRegTab('instructor')">Instructor</div>
     </div>
-    <div class="form-group"><label>Church Member ID <span style="color:#ef4444;">*</span></label><input type="text" id="reg-member-id" placeholder="e.g. IGEM-2024-0001"></div>
     <div class="form-group"><label>Full Name <span style="color:#ef4444;">*</span></label><input type="text" id="reg-fullname" placeholder="Your full name as registered in church"></div>
     <div class="form-group"><label>Email Address <span style="color:#ef4444;">*</span></label><input type="email" id="reg-email" placeholder="your@email.com"></div>
     <div class="form-group"><label>Phone Number <span style="color:#ef4444;">*</span></label><input type="tel" id="reg-phone" placeholder="e.g. 08123269499"></div>
-    <div class="form-group"><label>Department <span style="color:#ef4444;">*</span></label>
-      <select id="reg-department">
-        <option value="">— Select Your Department —</option>
-        <option value="Choir">Choir Department</option>
-        <option value="Instrumentalist">Instrumentalist Department</option>
-        <option value="Church Army">Church Army Department</option>
-        <option value="Usher">Usher Department</option>
-        <option value="Exinbinco">Exinbinco Class</option>
-      </select>
+    <div class="form-group">
+      <label>Department(s) <span style="color:#ef4444;">*</span></label>
+      <div style="background:var(--gray-50);border:2px solid var(--border);border-radius:10px;padding:14px;">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:10px;">Select all departments you belong to:</div>
+        <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;cursor:pointer;"><input type="checkbox" name="reg-dept" value="Choir" style="accent-color:var(--sky);"> 🎵 Choir Department</label>
+        <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;cursor:pointer;"><input type="checkbox" name="reg-dept" value="Instrumentalist" style="accent-color:var(--sky);"> 🎹 Instrumentalist Department</label>
+        <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;cursor:pointer;"><input type="checkbox" name="reg-dept" value="Church Army" style="accent-color:var(--sky);"> ⚔️ Church Army Department</label>
+        <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:13px;cursor:pointer;"><input type="checkbox" name="reg-dept" value="Usher" style="accent-color:var(--sky);"> 🙋 Usher Department</label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="checkbox" name="reg-dept" value="Exinbinco" style="accent-color:var(--sky);"> 📖 Exinbinco Class</label>
+      </div>
     </div>
     <div class="form-group"><label>Password <span style="color:#ef4444;">*</span></label><input type="password" id="reg-pass" placeholder="Create a secure password"></div>
     <div class="form-group"><label>Confirm Password <span style="color:#ef4444;">*</span></label><input type="password" id="reg-pass2" placeholder="Repeat your password"></div>
@@ -803,580 +810,801 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
 
 <script>
 // ================================================================
-// IGEM CHRIST COVENANT CHURCH LEARNING PLATFORM
-// Complete JavaScript — Auth, Dept Lock, Admin, Courses, Videos
+// IGEM CHRIST COVENANT CHURCH LEARNING PLATFORM - COMPLETE JS
 // ================================================================
 
-// ===== COURSES DATA =====
-const deptColors = {
+// ===== COLOURS & ICONS =====
+var deptColors = {
   'Choir':'linear-gradient(135deg,#0ea5e9,#0284c7)',
   'Instrumentalist':'linear-gradient(135deg,#f59e0b,#d97706)',
   'Church Army':'linear-gradient(135deg,#ef4444,#dc2626)',
   'Usher':'linear-gradient(135deg,#10b981,#059669)',
   'Exinbinco':'linear-gradient(135deg,#8b5cf6,#7c3aed)'
 };
-const deptIcons = {'Choir':'🎵','Instrumentalist':'🎹','Church Army':'⚔️','Usher':'🙋','Exinbinco':'📖'};
-const instructors = {
-  'Choir':['Bro. Emmanuel Adeyemi','Sis. Grace Okafor','Bro. David Nwosu'],
-  'Instrumentalist':['Bro. Samuel Obi','Sis. Ruth Eze','Bro. Philip Adebayo'],
-  'Church Army':['Bro. Joshua Aliyu','Sis. Esther Bello','Bro. Caleb Omoruyi'],
-  'Usher':['Sis. Priscilla Taiwo','Bro. Andrew Obi','Sis. Lydia Fadipe'],
-  'Exinbinco':['Bro. Solomon Adeola','Sis. Deborah Chukwu','Bro. Nathan Adewale']
+var deptIcons = {
+  'Choir':'&#127925;',
+  'Instrumentalist':'&#127929;',
+  'Church Army':'&#9876;&#65039;',
+  'Usher':'&#128587;',
+  'Exinbinco':'&#128218;'
 };
 
-const courseData = [
-  // CHOIR
-  {id:1,dept:'Choir',title:'Choir Fundamentals – Vocal Basics',instructor:'Bro. Emmanuel Adeyemi',desc:'Learn the fundamentals of choir singing including voice types, breathing techniques, and basic music theory for worship.',hasLive:true,isNew:false},
-  {id:2,dept:'Choir',title:'Worship Leadership & Song Selection',instructor:'Sis. Grace Okafor',desc:'Master the art of leading congregational worship, selecting appropriate songs, and creating a Spirit-filled atmosphere.',hasLive:true,isNew:false},
-  {id:3,dept:'Choir',title:'Vocal Techniques & Voice Care',instructor:'Bro. David Nwosu',desc:'Develop powerful, controlled vocal techniques while maintaining long-term voice health and endurance.',hasLive:false,isNew:true},
-  {id:4,dept:'Choir',title:'Harmony & Part Singing',instructor:'Bro. Emmanuel Adeyemi',desc:'Understand and practice soprano, alto, tenor, and bass harmony to create beautiful blended choral sounds.',hasLive:true,isNew:false},
-  {id:5,dept:'Choir',title:'Sight Reading & Music Theory',instructor:'Sis. Grace Okafor',desc:'Develop the ability to read and sing music notation at sight with proper rhythm, pitch, and expression.',hasLive:false,isNew:false},
-  {id:6,dept:'Choir',title:'Stage Presence & Performance',instructor:'Bro. David Nwosu',desc:'Learn how to present yourself confidently on stage, communicate worship effectively, and engage your audience.',hasLive:true,isNew:true},
-  // INSTRUMENTALIST
-  {id:7,dept:'Instrumentalist',title:'Piano for Worship – Beginners',instructor:'Bro. Samuel Obi',desc:'Start your piano journey with foundational chords, scales, and simple worship songs for church ministry.',hasLive:true,isNew:false},
+// ===== COURSES =====
+var courseData = [
+  {id:1,dept:'Choir',title:'Choir Fundamentals - Vocal Basics',instructor:'Bro. Emmanuel Adeyemi',desc:'Learn the fundamentals of choir singing including voice types, breathing techniques, and basic music theory.',hasLive:true,isNew:false},
+  {id:2,dept:'Choir',title:'Worship Leadership and Song Selection',instructor:'Sis. Grace Okafor',desc:'Master the art of leading congregational worship, selecting appropriate songs and creating a Spirit-filled atmosphere.',hasLive:true,isNew:false},
+  {id:3,dept:'Choir',title:'Vocal Techniques and Voice Care',instructor:'Bro. David Nwosu',desc:'Develop powerful vocal techniques while maintaining long-term voice health and endurance.',hasLive:false,isNew:true},
+  {id:4,dept:'Choir',title:'Harmony and Part Singing',instructor:'Bro. Emmanuel Adeyemi',desc:'Understand and practice soprano, alto, tenor and bass harmony to create beautiful choral sounds.',hasLive:true,isNew:false},
+  {id:5,dept:'Choir',title:'Sight Reading and Music Theory',instructor:'Sis. Grace Okafor',desc:'Develop the ability to read and sing music notation at sight with proper rhythm and pitch.',hasLive:false,isNew:false},
+  {id:6,dept:'Choir',title:'Stage Presence and Performance',instructor:'Bro. David Nwosu',desc:'Learn how to present yourself confidently on stage and communicate worship effectively.',hasLive:true,isNew:true},
+  {id:7,dept:'Instrumentalist',title:'Piano for Worship - Beginners',instructor:'Bro. Samuel Obi',desc:'Start your piano journey with foundational chords, scales, and simple worship songs for church ministry.',hasLive:true,isNew:false},
   {id:8,dept:'Instrumentalist',title:'Guitar for Church Ministry',instructor:'Sis. Ruth Eze',desc:'Learn guitar chords, strumming patterns, and how to accompany worship songs in a church setting.',hasLive:false,isNew:false},
-  {id:9,dept:'Instrumentalist',title:'Drums & Percussion Basics',instructor:'Bro. Philip Adebayo',desc:'Master basic drum patterns, worship rhythms, and how to keep steady time for church services.',hasLive:true,isNew:true},
-  {id:10,dept:'Instrumentalist',title:'Piano – Intermediate Level',instructor:'Bro. Samuel Obi',desc:'Advance your piano skills with complex chords, transitions, modulations, and playing by ear for worship.',hasLive:false,isNew:false},
+  {id:9,dept:'Instrumentalist',title:'Drums and Percussion Basics',instructor:'Bro. Philip Adebayo',desc:'Master basic drum patterns, worship rhythms, and how to keep steady time for church services.',hasLive:true,isNew:true},
+  {id:10,dept:'Instrumentalist',title:'Piano - Intermediate Level',instructor:'Bro. Samuel Obi',desc:'Advance your piano skills with complex chords, transitions, modulations and playing by ear.',hasLive:false,isNew:false},
   {id:11,dept:'Instrumentalist',title:'Bass Guitar Foundations',instructor:'Sis. Ruth Eze',desc:'Learn bass guitar fundamentals including root notes, walking basslines, and supporting the worship band.',hasLive:true,isNew:false},
-  {id:12,dept:'Instrumentalist',title:'Music Production for Church',instructor:'Bro. Philip Adebayo',desc:'Introduction to digital audio workstations, recording worship music, and producing backing tracks for church.',hasLive:false,isNew:true},
-  // CHURCH ARMY
-  {id:13,dept:'Church Army',title:'Introduction to Evangelism',instructor:'Bro. Joshua Aliyu',desc:'Understand the biblical basis for evangelism and learn practical strategies for sharing the gospel effectively.',hasLive:true,isNew:false},
-  {id:14,dept:'Church Army',title:'Street Missions & Outreach',instructor:'Sis. Esther Bello',desc:'Practical training for conducting street evangelism, open-air preaching, and community outreach programs.',hasLive:false,isNew:false},
-  {id:15,dept:'Church Army',title:'Discipleship & Follow-up',instructor:'Bro. Caleb Omoruyi',desc:'Learn how to disciple new converts, conduct follow-up visits, and help believers grow in their faith.',hasLive:true,isNew:true},
-  {id:16,dept:'Church Army',title:'Prayer & Spiritual Warfare',instructor:'Bro. Joshua Aliyu',desc:'Understanding the place of prayer in ministry, types of prayer, and engaging in effective spiritual warfare.',hasLive:false,isNew:false},
-  {id:17,dept:'Church Army',title:'Preaching & Public Speaking',instructor:'Sis. Esther Bello',desc:'Develop confidence and skill in preaching the Word of God with clarity, conviction, and anointing.',hasLive:true,isNew:false},
-  {id:18,dept:'Church Army',title:'Church Planting Principles',instructor:'Bro. Caleb Omoruyi',desc:'Strategic principles for planting new churches, establishing ministry outposts, and multiplying the kingdom.',hasLive:false,isNew:true},
-  // USHER
-  {id:19,dept:'Usher',title:'Introduction to Church Protocol',instructor:'Sis. Priscilla Taiwo',desc:'Learn the standards, etiquette, and biblical principles that guide effective ushering and hospitality.',hasLive:true,isNew:false},
-  {id:20,dept:'Usher',title:'Crowd Management & Safety',instructor:'Bro. Andrew Obi',desc:'Practical skills for managing large church congregations, directing traffic, and ensuring safety in services.',hasLive:false,isNew:false},
-  {id:21,dept:'Usher',title:'Guest Relations & Hospitality',instructor:'Sis. Lydia Fadipe',desc:'Creating a welcoming atmosphere for new visitors, handling special guests, and representing Christ in service.',hasLive:true,isNew:true},
-  {id:22,dept:'Usher',title:'Offering & Finance Handling',instructor:'Sis. Priscilla Taiwo',desc:'Proper procedures for collecting, counting, and reporting church offerings with integrity and accuracy.',hasLive:false,isNew:false},
-  {id:23,dept:'Usher',title:'Communication & Teamwork',instructor:'Bro. Andrew Obi',desc:'Effective communication skills and teamwork principles for the usher department to function as one body.',hasLive:true,isNew:false},
-  {id:24,dept:'Usher',title:'Special Events Management',instructor:'Sis. Lydia Fadipe',desc:'Coordinating ushers during special programs, crusades, and large-scale church events successfully.',hasLive:false,isNew:true},
-  // EXINBINCO
-  {id:25,dept:'Exinbinco',title:'New Testament Survey',instructor:'Bro. Solomon Adeola',desc:'A comprehensive overview of all 27 books of the New Testament, their themes, authors, and key teachings.',hasLive:true,isNew:false},
-  {id:26,dept:'Exinbinco',title:'Old Testament Survey',instructor:'Sis. Deborah Chukwu',desc:'Journey through the 39 books of the Old Testament, understanding God\'s covenant and redemptive plan.',hasLive:false,isNew:false},
-  {id:27,dept:'Exinbinco',title:'Christian Doctrine & Theology',instructor:'Bro. Nathan Adewale',desc:'Study the foundational doctrines of the Christian faith — salvation, the Trinity, the Holy Spirit, and eschatology.',hasLive:true,isNew:true},
-  {id:28,dept:'Exinbinco',title:'Bible Study Methods',instructor:'Bro. Solomon Adeola',desc:'Learn how to study the Bible effectively using inductive, deductive, and topical study methods.',hasLive:false,isNew:false},
-  {id:29,dept:'Exinbinco',title:'Hermeneutics & Interpretation',instructor:'Sis. Deborah Chukwu',desc:'Principles of biblical interpretation — understanding context, culture, grammar, and proper application.',hasLive:true,isNew:false},
-  {id:30,dept:'Exinbinco',title:'Christian Living & Discipleship',instructor:'Bro. Nathan Adewale',desc:'Practical guidance on living the Christian life — prayer, fasting, character development, and spiritual growth.',hasLive:false,isNew:true}
+  {id:12,dept:'Instrumentalist',title:'Music Production for Church',instructor:'Bro. Philip Adebayo',desc:'Introduction to digital audio workstations, recording worship music and producing backing tracks.',hasLive:false,isNew:true},
+  {id:13,dept:'Church Army',title:'Introduction to Evangelism',instructor:'Bro. Joshua Aliyu',desc:'Understand the biblical basis for evangelism and learn practical strategies for sharing the gospel.',hasLive:true,isNew:false},
+  {id:14,dept:'Church Army',title:'Street Missions and Outreach',instructor:'Sis. Esther Bello',desc:'Practical training for conducting street evangelism, open-air preaching and community outreach.',hasLive:false,isNew:false},
+  {id:15,dept:'Church Army',title:'Discipleship and Follow-up',instructor:'Bro. Caleb Omoruyi',desc:'Learn how to disciple new converts, conduct follow-up visits and help believers grow in faith.',hasLive:true,isNew:true},
+  {id:16,dept:'Church Army',title:'Prayer and Spiritual Warfare',instructor:'Bro. Joshua Aliyu',desc:'Understanding the place of prayer in ministry and engaging in effective spiritual warfare.',hasLive:false,isNew:false},
+  {id:17,dept:'Church Army',title:'Preaching and Public Speaking',instructor:'Sis. Esther Bello',desc:'Develop confidence and skill in preaching the Word of God with clarity, conviction and anointing.',hasLive:true,isNew:false},
+  {id:18,dept:'Church Army',title:'Church Planting Principles',instructor:'Bro. Caleb Omoruyi',desc:'Strategic principles for planting new churches, establishing ministry outposts and multiplying the kingdom.',hasLive:false,isNew:true},
+  {id:19,dept:'Usher',title:'Introduction to Church Protocol',instructor:'Sis. Priscilla Taiwo',desc:'Learn the standards, etiquette and biblical principles that guide effective ushering and hospitality.',hasLive:true,isNew:false},
+  {id:20,dept:'Usher',title:'Crowd Management and Safety',instructor:'Bro. Andrew Obi',desc:'Practical skills for managing large church congregations and ensuring safety in services.',hasLive:false,isNew:false},
+  {id:21,dept:'Usher',title:'Guest Relations and Hospitality',instructor:'Sis. Lydia Fadipe',desc:'Creating a welcoming atmosphere for new visitors and representing Christ in service.',hasLive:true,isNew:true},
+  {id:22,dept:'Usher',title:'Offering and Finance Handling',instructor:'Sis. Priscilla Taiwo',desc:'Proper procedures for collecting, counting and reporting church offerings with integrity.',hasLive:false,isNew:false},
+  {id:23,dept:'Usher',title:'Communication and Teamwork',instructor:'Bro. Andrew Obi',desc:'Effective communication skills and teamwork principles for the usher department.',hasLive:true,isNew:false},
+  {id:24,dept:'Usher',title:'Special Events Management',instructor:'Sis. Lydia Fadipe',desc:'Coordinating ushers during special programs, crusades and large-scale church events.',hasLive:false,isNew:true},
+  {id:25,dept:'Exinbinco',title:'New Testament Survey',instructor:'Bro. Solomon Adeola',desc:'A comprehensive overview of all 27 books of the New Testament, their themes, authors and key teachings.',hasLive:true,isNew:false},
+  {id:26,dept:'Exinbinco',title:'Old Testament Survey',instructor:'Sis. Deborah Chukwu',desc:'Journey through the 39 books of the Old Testament, understanding Gods covenant and redemptive plan.',hasLive:false,isNew:false},
+  {id:27,dept:'Exinbinco',title:'Christian Doctrine and Theology',instructor:'Bro. Nathan Adewale',desc:'Study the foundational doctrines of the Christian faith - salvation, the Trinity, the Holy Spirit.',hasLive:true,isNew:true},
+  {id:28,dept:'Exinbinco',title:'Bible Study Methods',instructor:'Bro. Solomon Adeola',desc:'Learn how to study the Bible effectively using inductive, deductive and topical study methods.',hasLive:false,isNew:false},
+  {id:29,dept:'Exinbinco',title:'Hermeneutics and Interpretation',instructor:'Sis. Deborah Chukwu',desc:'Principles of biblical interpretation - understanding context, culture, grammar and proper application.',hasLive:true,isNew:false},
+  {id:30,dept:'Exinbinco',title:'Christian Living and Discipleship',instructor:'Bro. Nathan Adewale',desc:'Practical guidance on living the Christian life - prayer, fasting, character development and growth.',hasLive:false,isNew:true}
 ];
 
-const lessonTitles = [
-  'Introduction & Overview','Foundational Concepts','Practical Application',
+var lessonTitles = [
+  'Introduction and Overview','Foundational Concepts','Practical Application',
   'Deep Dive Study','Live Workshop Prep','Advanced Techniques',
-  'Assessment & Review','Final Project & Wrap-up'
+  'Assessment and Review','Final Project and Wrap-up'
 ];
 
 // ===== VIDEO DATA =====
-const choirVideos = [
-  {id:'T7bpVDSSMwc',title:'Choir Fundamentals – Vocal Basics'},
-  {id:'4Tr0otuiQuU',title:'Worship Leadership – Song Selection'},
-  {id:'hKRUTzSh6Ks',title:'Vocal Techniques & Voice Care'},
-  {id:'0eLRBHkCx8A',title:'Harmony & Part Singing'},
-  {id:'CvFH_6DNRCY',title:'Sight Reading & Music Theory'},
-  {id:'wFJX4BoRPhc',title:'Stage Presence & Performance'}
+var choirVideos = [
+  {id:'T7bpVDSSMwc',title:'Choir Fundamentals - Vocal Basics'},
+  {id:'4Tr0otuiQuU',title:'Worship Leadership - Song Selection'},
+  {id:'hKRUTzSh6Ks',title:'Vocal Techniques and Voice Care'},
+  {id:'0eLRBHkCx8A',title:'Harmony and Part Singing'},
+  {id:'CvFH_6DNRCY',title:'Sight Reading and Music Theory'},
+  {id:'wFJX4BoRPhc',title:'Stage Presence and Performance'}
 ];
-const instrVideos = [
-  {id:'jfKfPfyJRdk',title:'Piano for Worship – Beginners'},
+var instrVideos = [
+  {id:'jfKfPfyJRdk',title:'Piano for Worship - Beginners'},
   {id:'L_XJ_s5IsQc',title:'Guitar for Church Ministry'},
-  {id:'gE4YdPVBsOs',title:'Drums & Percussion Basics'},
-  {id:'l1Wbkl_3tRE',title:'Piano – Intermediate Level'},
+  {id:'gE4YdPVBsOs',title:'Drums and Percussion Basics'},
+  {id:'l1Wbkl_3tRE',title:'Piano - Intermediate Level'},
   {id:'B1koJ33FGsU',title:'Bass Guitar Foundations'},
   {id:'uwUt1fVHb-E',title:'Music Production for Church'}
 ];
 
 function getVideosForDept(dept){
-  if(dept==='Choir') return choirVideos;
-  if(dept==='Instrumentalist') return instrVideos;
+  if(dept === 'Choir') return choirVideos;
+  if(dept === 'Instrumentalist') return instrVideos;
   return [];
 }
 
 function renderVideoSection(dept){
-  const videos = getVideosForDept(dept);
+  var videos = getVideosForDept(dept);
   if(!videos.length) return '';
-  return '<div class="video-section"><h3>📹 Video Lessons</h3><div class="video-grid">'+
-    videos.map(v=>
-      '<div class="video-card" onclick="openVideo(\''+v.id+'\',\''+v.title+'\')">'+
-      '<div class="video-thumb">'+
-      '<iframe src="https://www.youtube.com/embed/'+v.id+'?controls=0&modestbranding=1" tabindex="-1"></iframe>'+
-      '<div class="video-thumb-overlay"><div class="play-circle">▶</div></div>'+
-      '</div>'+
-      '<div class="video-info"><div class="video-title">'+v.title+'</div>'+
-      '<div class="video-dept">'+dept+' Department</div></div></div>'
-    ).join('')+
-  '</div></div>';
+  var out = '';
+  out += '<div class="video-section">';
+  out += '<h3>Video Lessons</h3>';
+  out += '<div class="video-grid">';
+  for(var i = 0; i < videos.length; i++){
+    var vid = videos[i].id;
+    var title = videos[i].title;
+    out += '<div class="video-card" onclick="openVideoById(' + i + ',\'' + dept + '\')">';
+    out += '<div class="video-thumb">';
+    out += '<iframe src="https://www.youtube.com/embed/' + vid + '?controls=0&modestbranding=1" tabindex="-1"></iframe>';
+    out += '<div class="video-thumb-overlay"><div class="play-circle">&#9654;</div></div>';
+    out += '</div>';
+    out += '<div class="video-info">';
+    out += '<div class="video-title">' + title + '</div>';
+    out += '<div class="video-dept">' + dept + ' Department</div>';
+    out += '</div></div>';
+  }
+  out += '</div></div>';
+  return out;
 }
 
-function renderJoinLiveSection(){
-  return '<div class="join-live-section">'+
-    '<div class="jl-text">'+
-    '<div class="jl-status"><div class="jl-dot"></div> Live Sessions Available</div>'+
-    '<h3>📡 Join Live Class</h3>'+
-    '<p>Attend real-time training sessions streamed live for all departments.</p>'+
-    '</div>'+
-    '<a href="https://igemcity.org/live" target="_blank" class="btn-join-live">📡 Join Live Session →</a>'+
-    '</div>';
+function openVideoById(index, dept){
+  var videos = getVideosForDept(dept);
+  if(videos[index]){
+    openVideo(videos[index].id, videos[index].title);
+  }
 }
 
 function openVideo(videoId, title){
-  document.getElementById('videoModalIframe').src = 'https://www.youtube.com/embed/'+videoId+'?autoplay=1&rel=0';
+  document.getElementById('videoModalIframe').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
   document.getElementById('videoModalTitle').textContent = title;
   document.getElementById('videoModalOverlay').classList.add('open');
 }
 
 function closeVideoModal(e){
-  if(!e || e.target===document.getElementById('videoModalOverlay')){
+  if(!e || e.target === document.getElementById('videoModalOverlay')){
     document.getElementById('videoModalOverlay').classList.remove('open');
-    document.getElementById('videoModalIframe').src='';
+    document.getElementById('videoModalIframe').src = '';
   }
+}
+
+function renderJoinLiveSection(){
+  var out = '';
+  out += '<div class="join-live-section">';
+  out += '<div class="jl-text">';
+  out += '<div class="jl-status"><div class="jl-dot"></div> Live Sessions Available</div>';
+  out += '<h3>Join Live Class</h3>';
+  out += '<p>Attend real-time training sessions streamed live for all departments.</p>';
+  out += '</div>';
+  out += '<a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join-live">Join Live Session</a>';
+  out += '</div>';
+  return out;
 }
 
 // ===== CREATE COURSE CARD =====
 function createCourseCard(c){
-  const bg = deptColors[c.dept] || 'linear-gradient(135deg,#0ea5e9,#0284c7)';
-  const icon = deptIcons[c.dept] || '📚';
-  const tag = c.hasLive ? '<div class="live-tag"><div class="live-dot"></div>LIVE</div>' : (c.isNew ? '<div class="new-tag">NEW</div>' : '');
-  return `<div class="course-card" onclick="openCourse(${c.id})">
-    <div class="course-thumb" style="background:${bg};">${tag}<span style="font-size:52px;">${icon}</span></div>
-    <div class="course-body">
-      <div class="course-dept">${c.dept} Department</div>
-      <div class="course-title">${c.title}</div>
-      <div class="course-instructor"><div class="instr-avatar">${c.instructor[0]}</div>${c.instructor}</div>
-      <div class="course-meta"><span class="stars">★★★★★</span><span>4.8</span><span>120 students</span><span>8 lessons</span></div>
-      <div class="course-actions">
-        <button class="btn-enroll" onclick="event.stopPropagation();showToast('✅ Enrolled in '+${JSON.stringify(c.title)}.substring(0,30)+'!')">Enroll</button>
-        <button class="btn-live" onclick="event.stopPropagation();window.open('https://igemcity.org/live','_blank')">📡 Join Live</button>
-      </div>
-    </div>
-  </div>`;
+  var bg = deptColors[c.dept] || 'linear-gradient(135deg,#0ea5e9,#0284c7)';
+  var icon = deptIcons[c.dept] || '&#128218;';
+  var tag = '';
+  if(c.hasLive){
+    tag = '<div class="live-tag"><div class="live-dot"></div>LIVE</div>';
+  } else if(c.isNew){
+    tag = '<div class="new-tag">NEW</div>';
+  }
+  var out = '';
+  out += '<div class="course-card" onclick="openCourse(' + c.id + ')">';
+  out += '<div class="course-thumb" style="background:' + bg + ';">' + tag + '<span style="font-size:52px;">' + icon + '</span></div>';
+  out += '<div class="course-body">';
+  out += '<div class="course-dept">' + c.dept + ' Department</div>';
+  out += '<div class="course-title">' + c.title + '</div>';
+  out += '<div class="course-instructor"><div class="instr-avatar">' + c.instructor.charAt(0) + '</div>' + c.instructor + '</div>';
+  out += '<div class="course-meta"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>4.8</span><span>120 students</span><span>8 lessons</span></div>';
+  out += '<div class="course-actions">';
+  out += '<button class="btn-enroll" onclick="event.stopPropagation();showToast(\'Enrolled successfully!\')">Enroll</button>';
+  out += '<button class="btn-live" onclick="event.stopPropagation();window.open(\'https://www.igemcity.org/workers/#video\',\'_blank\')">Join Live</button>';
+  out += '</div></div></div>';
+  return out;
 }
 
 // ===== OPEN COURSE =====
 function openCourse(id){
-  const c = courseData.find(x=>x.id===id);
+  var c = null;
+  for(var i = 0; i < courseData.length; i++){
+    if(courseData[i].id === id){ c = courseData[i]; break; }
+  }
   if(!c) return;
-  document.getElementById('cd-dept').textContent = c.dept+' Department';
+  document.getElementById('cd-dept').textContent = c.dept + ' Department';
   document.getElementById('cd-title').textContent = c.title;
   document.getElementById('cd-desc').textContent = c.desc;
   document.getElementById('cd-instructor').textContent = c.instructor;
-  const cl = document.getElementById('curriculum-list');
-  cl.innerHTML = lessonTitles.map((t,i)=>`<div class="lesson-item"><div class="lesson-num">L${i+1}</div><div class="lesson-title">${t}</div><div class="lesson-dur">30 min</div><div class="lesson-lock">${i<2?'🔓':'🔒'}</div></div>`).join('');
-  const vs = document.getElementById('course-video-section');
+  var cl = document.getElementById('curriculum-list');
+  var clHtml = '';
+  for(var i = 0; i < lessonTitles.length; i++){
+    clHtml += '<div class="lesson-item">';
+    clHtml += '<div class="lesson-num">L' + (i+1) + '</div>';
+    clHtml += '<div class="lesson-title">' + lessonTitles[i] + '</div>';
+    clHtml += '<div class="lesson-dur">30 min</div>';
+    clHtml += '<div class="lesson-lock">' + (i < 2 ? '&#128275;' : '&#128274;') + '</div>';
+    clHtml += '</div>';
+  }
+  cl.innerHTML = clHtml;
+  var vs = document.getElementById('course-video-section');
   if(vs) vs.innerHTML = renderJoinLiveSection() + renderVideoSection(c.dept);
   showPage('course-detail');
 }
 
 // ===== RENDER GRIDS =====
 function renderHomeGrid(){
-  const user = getCurrentUser();
-  const dept = user ? user.dept : null;
-  const filtered = dept ? courseData.filter(c=>c.dept===dept).slice(0,6) : courseData.filter(c=>c.hasLive).slice(0,6);
-  const el = document.getElementById('home-courses-grid');
-  if(el) el.innerHTML = filtered.map(createCourseCard).join('');
+  var user = getCurrentUser();
+  var dept = user ? user.dept : null;
+  var filtered = dept ? courseData.filter(function(c){ return c.dept === dept; }).slice(0,6) : courseData.filter(function(c){ return c.hasLive; }).slice(0,6);
+  var el = document.getElementById('home-courses-grid');
+  if(el){
+    var html = '';
+    for(var i = 0; i < filtered.length; i++) html += createCourseCard(filtered[i]);
+    el.innerHTML = html;
+  }
 }
 
 function renderMyCoursesGrid(){
-  const user = getCurrentUser();
-  const dept = user ? user.dept : null;
-  const filtered = dept ? courseData.filter(c=>c.dept===dept) : courseData.slice(0,6);
-  const el = document.getElementById('my-courses-grid');
-  if(el) el.innerHTML = filtered.map(createCourseCard).join('');
+  var user = getCurrentUser();
+  var dept = user ? user.dept : null;
+  var filtered = dept ? courseData.filter(function(c){ return c.dept === dept; }) : courseData.slice(0,6);
+  var el = document.getElementById('my-courses-grid');
+  if(el){
+    var html = '';
+    for(var i = 0; i < filtered.length; i++) html += createCourseCard(filtered[i]);
+    el.innerHTML = html;
+  }
 }
 
 function applyFilters(){
-  const deptVal = document.querySelector('input[name="deptFilter"]:checked')?.value || '';
-  const typeVal = document.querySelector('input[name="typeFilter"]:checked')?.value || '';
-  const sortVal = document.getElementById('sortCourses')?.value || '';
-  const user = getCurrentUser();
-  let filtered = courseData;
-  // If logged in, only show their department
-  if(user) filtered = filtered.filter(c=>c.dept===user.dept);
-  if(deptVal) filtered = filtered.filter(c=>c.dept===deptVal);
-  if(typeVal==='live') filtered = filtered.filter(c=>c.hasLive);
-  if(typeVal==='recorded') filtered = filtered.filter(c=>!c.hasLive);
-  if(sortVal==='name') filtered = [...filtered].sort((a,b)=>a.title.localeCompare(b.title));
-  if(sortVal==='dept') filtered = [...filtered].sort((a,b)=>a.dept.localeCompare(b.dept));
-  const grid = document.getElementById('all-courses-grid');
-  if(grid) grid.innerHTML = filtered.map(createCourseCard).join('');
-  const count = document.getElementById('courses-count');
+  var deptRadio = document.querySelector('input[name="deptFilter"]:checked');
+  var deptVal = deptRadio ? deptRadio.value : '';
+  var typeRadio = document.querySelector('input[name="typeFilter"]:checked');
+  var typeVal = typeRadio ? typeRadio.value : '';
+  var sortVal = document.getElementById('sortCourses') ? document.getElementById('sortCourses').value : '';
+  var user = getCurrentUser();
+  var filtered = courseData.slice();
+  if(user && user.depts && user.depts.length > 0){
+    filtered = filtered.filter(function(c){ return user.depts.indexOf(c.dept) !== -1; });
+  } else if(user && user.dept){
+    filtered = filtered.filter(function(c){ return c.dept === user.dept; });
+  }
+  if(deptVal) filtered = filtered.filter(function(c){ return c.dept === deptVal; });
+  if(typeVal === 'live') filtered = filtered.filter(function(c){ return c.hasLive; });
+  if(typeVal === 'recorded') filtered = filtered.filter(function(c){ return !c.hasLive; });
+  if(sortVal === 'name') filtered.sort(function(a,b){ return a.title.localeCompare(b.title); });
+  if(sortVal === 'dept') filtered.sort(function(a,b){ return a.dept.localeCompare(b.dept); });
+  var grid = document.getElementById('all-courses-grid');
+  if(grid){
+    var html = '';
+    for(var i = 0; i < filtered.length; i++) html += createCourseCard(filtered[i]);
+    grid.innerHTML = html;
+  }
+  var count = document.getElementById('courses-count');
   if(count) count.textContent = filtered.length + ' courses found';
 }
 
 function filterDept(dept){
   showPage('courses');
-  document.querySelectorAll('input[name="deptFilter"]').forEach(r=>{r.checked = r.value===dept;});
+  var radios = document.querySelectorAll('input[name="deptFilter"]');
+  for(var i = 0; i < radios.length; i++){
+    radios[i].checked = (radios[i].value === dept);
+  }
   applyFilters();
-  document.getElementById('courses-breadcrumb').textContent = dept+' Department';
+  var bc = document.getElementById('courses-breadcrumb');
+  if(bc) bc.textContent = dept + ' Department';
 }
 
 function doSearch(){
-  const q = (document.getElementById('searchInput')?.value||'').toLowerCase();
+  var q = document.getElementById('searchInput') ? document.getElementById('searchInput').value.toLowerCase() : '';
   if(!q) return;
   showPage('courses');
-  const user = getCurrentUser();
-  let filtered = courseData.filter(c=>c.title.toLowerCase().includes(q)||c.dept.toLowerCase().includes(q)||c.desc.toLowerCase().includes(q));
-  if(user) filtered = filtered.filter(c=>c.dept===user.dept);
-  const grid = document.getElementById('all-courses-grid');
-  if(grid) grid.innerHTML = filtered.map(createCourseCard).join('');
-  const count = document.getElementById('courses-count');
-  if(count) count.textContent = filtered.length + ' results for "'+q+'"';
+  var user = getCurrentUser();
+  var filtered = courseData.filter(function(c){
+    return c.title.toLowerCase().indexOf(q) !== -1 || c.dept.toLowerCase().indexOf(q) !== -1;
+  });
+  if(user && user.depts) filtered = filtered.filter(function(c){ return user.depts.indexOf(c.dept) !== -1; });
+  var grid = document.getElementById('all-courses-grid');
+  if(grid){
+    var html = '';
+    for(var i = 0; i < filtered.length; i++) html += createCourseCard(filtered[i]);
+    grid.innerHTML = html;
+  }
+  var count = document.getElementById('courses-count');
+  if(count) count.textContent = filtered.length + ' results for "' + q + '"';
 }
 
 // ===== LIVE SCHEDULE =====
-const liveSchedule = [
-  {dept:'Choir',title:'Worship Leadership Masterclass',time:'Every Monday — 7:00 PM'},
-  {dept:'Instrumentalist',title:'Piano for Worship — Level 2',time:'Every Wednesday — 6:30 PM'},
-  {dept:'Church Army',title:'Evangelism Strategies',time:'Every Tuesday — 8:00 PM'},
-  {dept:'Usher',title:'Protocol & Etiquette Training',time:'Every Thursday — 7:30 PM'},
-  {dept:'Exinbinco',title:'New Testament Deep Dive',time:'Every Saturday — 10:00 AM'},
-  {dept:'Choir',title:'Harmony & Vocal Blending',time:'Every Friday — 6:00 PM'}
+var liveSchedule = [
+  {dept:'Choir',title:'Worship Leadership Masterclass',time:'Every Monday - 7:00 PM'},
+  {dept:'Instrumentalist',title:'Piano for Worship - Level 2',time:'Every Wednesday - 6:30 PM'},
+  {dept:'Church Army',title:'Evangelism Strategies',time:'Every Tuesday - 8:00 PM'},
+  {dept:'Usher',title:'Protocol and Etiquette Training',time:'Every Thursday - 7:30 PM'},
+  {dept:'Exinbinco',title:'New Testament Deep Dive',time:'Every Saturday - 10:00 AM'},
+  {dept:'Choir',title:'Harmony and Vocal Blending',time:'Every Friday - 6:00 PM'}
 ];
 
+var deptIcon2 = {Choir:'&#127925;',Instrumentalist:'&#127929;','Church Army':'&#9876;',Usher:'&#128587;',Exinbinco:'&#128218;'};
+
 function renderLiveSchedule(filterDeptName){
-  const sessions = filterDeptName ? liveSchedule.filter(s=>s.dept===filterDeptName) : liveSchedule;
-  const icon = {Choir:'🎵',Instrumentalist:'🎹','Church Army':'⚔️',Usher:'🙋',Exinbinco:'📖'};
-  return sessions.map(s=>`
-    <div class="schedule-card">
-      <div class="sc-dept">${icon[s.dept]||''} ${s.dept}</div>
-      <h3>${s.title}</h3>
-      <div class="sc-time">📅 ${s.time}</div>
-      <div style="display:flex;gap:8px;">
-        <a href="https://igemcity.org/live" target="_blank" class="btn-join">Join Live</a>
-        <button class="btn-join-outline" onclick="showToast('🔔 Reminder set!')">Remind Me</button>
-      </div>
-    </div>`).join('');
+  var sessions = filterDeptName ? liveSchedule.filter(function(s){ return s.dept === filterDeptName; }) : liveSchedule;
+  var out = '';
+  for(var i = 0; i < sessions.length; i++){
+    var s = sessions[i];
+    out += '<div class="schedule-card">';
+    out += '<div class="sc-dept">' + (deptIcon2[s.dept]||'') + ' ' + s.dept + '</div>';
+    out += '<h3>' + s.title + '</h3>';
+    out += '<div class="sc-time">&#128197; ' + s.time + '</div>';
+    out += '<div style="display:flex;gap:8px;">';
+    out += '<a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join">Join Live</a>';
+    out += '<button class="btn-join-outline" onclick="showToast(\'Reminder set!\')">Remind Me</button>';
+    out += '</div></div>';
+  }
+  return out;
 }
 
 // ===== USER STORE =====
-function getUsers(){ try{return JSON.parse(localStorage.getItem('igem_users')||'[]');}catch(e){return[];} }
-function saveUsers(u){ localStorage.setItem('igem_users',JSON.stringify(u)); }
-function getCurrentUser(){ try{return JSON.parse(sessionStorage.getItem('igem_current_user')||'null');}catch(e){return null;} }
-function setCurrentUser(u){ sessionStorage.setItem('igem_current_user',JSON.stringify(u)); }
+function getUsers(){
+  try{ return JSON.parse(localStorage.getItem('igem_users') || '[]'); }
+  catch(e){ return []; }
+}
+function saveUsers(u){ localStorage.setItem('igem_users', JSON.stringify(u)); }
+function getCurrentUser(){
+  try{ return JSON.parse(sessionStorage.getItem('igem_current_user') || 'null'); }
+  catch(e){ return null; }
+}
+function setCurrentUser(u){ sessionStorage.setItem('igem_current_user', JSON.stringify(u)); }
 function clearCurrentUser(){ sessionStorage.removeItem('igem_current_user'); }
+
+// ===== DEPT PREFIXES FOR AUTO ID =====
+var deptPrefixes = {
+  'Choir':'IGEMCH',
+  'Instrumentalist':'IGEMIN',
+  'Church Army':'IGEMCA',
+  'Usher':'IGEMUS',
+  'Exinbinco':'IGEMEX'
+};
+
+function generateMemberId(dept, users){
+  var prefix = deptPrefixes[dept] || 'IGEM';
+  var count = 0;
+  for(var i = 0; i < users.length; i++){
+    if(users[i].status === 'approved' && (users[i].dept === dept || (users[i].depts && users[i].depts.indexOf(dept) !== -1))){
+      count++;
+    }
+  }
+  count++;
+  var num = String(count);
+  while(num.length < 4) num = '0' + num;
+  return prefix + num;
+}
 
 // ===== REGISTER =====
 function handleRegister(){
-  const memberId = (document.getElementById('reg-member-id')||{}).value?.trim();
-  const fullname = (document.getElementById('reg-fullname')||{}).value?.trim();
-  const email = (document.getElementById('reg-email')||{}).value?.trim();
-  const phone = (document.getElementById('reg-phone')||{}).value?.trim();
-  const dept = (document.getElementById('reg-department')||{}).value;
-  const pass = (document.getElementById('reg-pass')||{}).value;
-  const pass2 = (document.getElementById('reg-pass2')||{}).value;
-  const role = document.getElementById('tab-instructor')?.classList.contains('active') ? 'instructor' : 'student';
-  if(!memberId){showToast('⚠️ Please enter your Church Member ID.');return;}
-  if(!memberId.toUpperCase().startsWith('IGEM')){showToast('❌ Invalid Member ID. Must start with IGEM e.g. IGEM-2024-0001.');return;}
-  if(!fullname){showToast('⚠️ Please enter your full name.');return;}
-  if(!dept){showToast('⚠️ Please select your department.');return;}
-  if(!pass){showToast('⚠️ Please create a password.');return;}
-  if(pass!==pass2){showToast('⚠️ Passwords do not match.');return;}
-  const users = getUsers();
-  if(users.find(u=>u.memberId===memberId)){showToast('⚠️ This Member ID is already registered.');return;}
-  const newUser = {id:Date.now(),memberId,fullname,email:email||'',phone:phone||'',dept,role,status:'pending',registeredAt:new Date().toLocaleDateString('en-GB')};
+  var fullname = document.getElementById('reg-fullname') ? document.getElementById('reg-fullname').value.trim() : '';
+  var email = document.getElementById('reg-email') ? document.getElementById('reg-email').value.trim() : '';
+  var phone = document.getElementById('reg-phone') ? document.getElementById('reg-phone').value.trim() : '';
+  var pass = document.getElementById('reg-pass') ? document.getElementById('reg-pass').value : '';
+  var pass2 = document.getElementById('reg-pass2') ? document.getElementById('reg-pass2').value : '';
+  var role = document.getElementById('tab-instructor') && document.getElementById('tab-instructor').classList.contains('active') ? 'instructor' : 'student';
+  var deptCheckboxes = document.querySelectorAll('input[name="reg-dept"]:checked');
+  var depts = [];
+  for(var i = 0; i < deptCheckboxes.length; i++) depts.push(deptCheckboxes[i].value);
+  if(!fullname){ showToast('Please enter your full name.'); return; }
+  if(!email && !phone){ showToast('Please enter email or phone.'); return; }
+  if(depts.length === 0){ showToast('Please select at least one department.'); return; }
+  if(!pass){ showToast('Please create a password.'); return; }
+  if(pass !== pass2){ showToast('Passwords do not match.'); return; }
+  var users = getUsers();
+  if(email && users.filter(function(u){ return u.email === email; }).length > 0){
+    showToast('This email is already registered.'); return;
+  }
+  var newUser = {
+    id: Date.now(),
+    memberId: 'PENDING',
+    fullname: fullname,
+    email: email || '',
+    phone: phone || '',
+    depts: depts,
+    dept: depts[0],
+    role: role,
+    status: 'pending',
+    registeredAt: new Date().toLocaleDateString('en-GB')
+  };
   users.push(newUser);
   saveUsers(users);
-  const details = document.getElementById('pending-details');
-  if(details) details.innerHTML='<div><strong>Name:</strong> '+fullname+'</div><div><strong>Member ID:</strong> '+memberId+'</div><div><strong>Department:</strong> '+dept+'</div><div><strong>Role:</strong> '+(role==='instructor'?'Instructor':'Student')+'</div><div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">⏳ Pending Approval</span></div>';
+  var details = document.getElementById('pending-details');
+  if(details){
+    details.innerHTML = '<div><strong>Name:</strong> ' + fullname + '</div>' +
+      '<div><strong>Email:</strong> ' + (email||'Not provided') + '</div>' +
+      '<div><strong>Phone:</strong> ' + (phone||'Not provided') + '</div>' +
+      '<div><strong>Department(s):</strong> ' + depts.join(', ') + '</div>' +
+      '<div><strong>Role:</strong> ' + (role==='instructor'?'Instructor':'Student') + '</div>' +
+      '<div><strong>Member ID:</strong> <span style="color:#f59e0b;font-weight:700;">Will be generated on approval</span></div>' +
+      '<div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">Pending Approval</span></div>';
+  }
   showPage('pending');
-  showToast('✅ Registration submitted! Awaiting admin approval.');
+  showToast('Registration submitted! Awaiting admin approval.');
 }
 
 // ===== LOGIN =====
 function handleLogin(){
-  const memberId = (document.getElementById('login-memberid')||{}).value?.trim();
-  const dept = (document.getElementById('login-dept')||{}).value||'Choir';
-  if(!memberId){showToast('⚠️ Please enter your Member ID.');return;}
-  const users = getUsers();
-  let user = users.find(u=>u.memberId===memberId||u.email===memberId);
-  if(!user){
-    // Demo login
-    user = {fullname:memberId,dept,memberId,role:'student',status:'approved'};
+  var memberId = document.getElementById('login-memberid') ? document.getElementById('login-memberid').value.trim() : '';
+  var dept = document.getElementById('login-dept') ? document.getElementById('login-dept').value : 'Choir';
+  if(!memberId){ showToast('Please enter your Member ID or email.'); return; }
+  var users = getUsers();
+  var user = null;
+  for(var i = 0; i < users.length; i++){
+    if(users[i].memberId === memberId || users[i].email === memberId || users[i].phone === memberId){
+      user = users[i]; break;
+    }
   }
-  if(user.status==='pending'){
-    const details = document.getElementById('pending-details');
-    if(details) details.innerHTML='<div><strong>Name:</strong> '+user.fullname+'</div><div><strong>Member ID:</strong> '+user.memberId+'</div><div><strong>Department:</strong> '+user.dept+'</div><div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">⏳ Pending Approval</span></div>';
+  if(!user){
+    user = {fullname:memberId, dept:dept, depts:[dept], memberId:'DEMO', role:'student', status:'approved'};
+  }
+  if(user.status === 'pending'){
+    var details = document.getElementById('pending-details');
+    if(details){
+      details.innerHTML = '<div><strong>Name:</strong> ' + user.fullname + '</div>' +
+        '<div><strong>Department(s):</strong> ' + (user.depts||[user.dept]).join(', ') + '</div>' +
+        '<div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">Pending Approval</span></div>';
+    }
     showPage('pending');
-    showToast('⏳ Your account is still pending admin approval.');
+    showToast('Your account is still pending admin approval.');
     return;
   }
-  if(user.status==='rejected'){showToast('❌ Your registration was not approved. Contact the church admin.');return;}
+  if(user.status === 'rejected'){
+    showToast('Your registration was not approved. Contact the church admin.');
+    return;
+  }
+  if(!user.depts) user.depts = [user.dept];
   setCurrentUser(user);
   updateTopbarAuth(user);
-  lockAllToDept(user.dept);
+  lockAllToDepts(user.depts);
   updateDashboardGreeting();
   showPage('student-dashboard');
-  showToast('✅ Welcome, '+user.fullname+'! You are in the '+user.dept+' Department.');
+  showToast('Welcome, ' + user.fullname + '! Member ID: ' + user.memberId);
 }
 
 // ===== LOGOUT =====
 function doLogout(){
   clearCurrentUser();
-  document.getElementById('topbar-auth-links').style.display='';
-  document.getElementById('topbar-user-links').style.display='none';
+  var al = document.getElementById('topbar-auth-links');
+  var ul = document.getElementById('topbar-user-links');
+  if(al) al.style.display = '';
+  if(ul) ul.style.display = 'none';
   renderHomeGrid();
   showPage('home');
-  showToast('👋 Logged out successfully.');
+  showToast('Logged out successfully.');
 }
 
 function updateTopbarAuth(user){
-  document.getElementById('topbar-auth-links').style.display='none';
-  document.getElementById('topbar-user-links').style.display='';
-  document.getElementById('topbar-username').textContent=user.fullname;
+  var al = document.getElementById('topbar-auth-links');
+  var ul = document.getElementById('topbar-user-links');
+  var un = document.getElementById('topbar-username');
+  if(al) al.style.display = 'none';
+  if(ul) ul.style.display = '';
+  if(un) un.textContent = user.fullname;
 }
 
-// ===== TOTAL DEPARTMENT ISOLATION =====
+// ===== DEPARTMENT ISOLATION =====
 function lockAllToDept(dept){
-  // Home courses
-  const homeGrid = document.getElementById('home-courses-grid');
-  if(homeGrid) homeGrid.innerHTML = courseData.filter(c=>c.dept===dept).slice(0,6).map(createCourseCard).join('');
-  // Hide dept cards that don't belong to user
-  lockDeptCards(dept);
-  // My courses
-  renderMyCoursesGrid();
-  // Courses page
-  lockCoursesPage(dept);
-  // Live sessions
-  lockLiveSessions(dept);
-  // Update progress labels
-  const deptCourses = courseData.filter(c=>c.dept===dept);
-  if(deptCourses[0]) { const el=document.getElementById('prog-course-1'); if(el) el.textContent=deptCourses[0].title.substring(0,30)+'...'; }
-  if(deptCourses[1]) { const el=document.getElementById('prog-course-2'); if(el) el.textContent=deptCourses[1].title.substring(0,30)+'...'; }
-  if(deptCourses[2]) { const el=document.getElementById('prog-course-3'); if(el) el.textContent=deptCourses[2].title.substring(0,30)+'...'; }
-  // Certificates
-  const certDept = document.getElementById('cert-dept-text');
-  if(certDept) certDept.textContent = dept+' Department Course — IGEM Christ Covenant Church\nAwarded: 2025';
-  // Progress table
-  const tbody = document.getElementById('progress-tbody');
-  if(tbody) tbody.innerHTML = deptCourses.slice(0,3).map((c,i)=>`<tr><td>${c.title.substring(0,30)}...</td><td>${c.dept}</td><td>${(i+1)*2}/8</td><td>${[75,45,100][i]}%</td><td><span class="status-pill ${i===2?'sp-completed':'sp-active'}">${i===2?'Completed':'In Progress'}</span></td></tr>`).join('');
+  lockAllToDepts([dept]);
 }
 
-function lockDeptCards(dept){
-  document.querySelectorAll('.dept-card').forEach(card=>{
-    const h3 = card.querySelector('h3');
+function lockAllToDepts(depts){
+  if(!depts || depts.length === 0) return;
+  var filtered = courseData.filter(function(c){ return depts.indexOf(c.dept) !== -1; });
+
+  var homeGrid = document.getElementById('home-courses-grid');
+  if(homeGrid){
+    var html = '';
+    var slice = filtered.slice(0,6);
+    for(var i = 0; i < slice.length; i++) html += createCourseCard(slice[i]);
+    homeGrid.innerHTML = html;
+  }
+
+  var myGrid = document.getElementById('my-courses-grid');
+  if(myGrid){
+    var html2 = '';
+    for(var i = 0; i < filtered.length; i++) html2 += createCourseCard(filtered[i]);
+    myGrid.innerHTML = html2;
+  }
+
+  var allGrid = document.getElementById('all-courses-grid');
+  if(allGrid){
+    var html3 = '';
+    for(var i = 0; i < filtered.length; i++) html3 += createCourseCard(filtered[i]);
+    allGrid.innerHTML = html3;
+  }
+
+  var count = document.getElementById('courses-count');
+  if(count) count.textContent = filtered.length + ' courses in your department(s)';
+
+  document.querySelectorAll('.dept-card').forEach(function(card){
+    var h3 = card.querySelector('h3');
     if(h3){
-      const t = h3.textContent;
-      const matches = t.includes(dept) || (dept==='Church Army'&&t.includes('Church Army')) || (dept==='Usher'&&t.includes('Usher')) || (dept==='Exinbinco'&&t.includes('Exinbinco'));
+      var matches = false;
+      for(var i = 0; i < depts.length; i++){
+        if(h3.textContent.indexOf(depts[i]) !== -1){ matches = true; break; }
+      }
       card.style.display = matches ? '' : 'none';
     }
   });
-}
 
-function lockCoursesPage(dept){
-  const grid = document.getElementById('all-courses-grid');
-  if(grid) grid.innerHTML = courseData.filter(c=>c.dept===dept).map(createCourseCard).join('');
-  const count = document.getElementById('courses-count');
-  if(count) count.textContent = courseData.filter(c=>c.dept===dept).length + ' courses in your department';
-  // Hide other dept filter options
-  document.querySelectorAll('input[name="deptFilter"]').forEach(r=>{
-    const label = r.parentElement;
-    if(r.value===''||r.value===dept){label.style.display='';}
-    else{label.style.display='none';}
-    if(r.value===dept) r.checked=true;
+  document.querySelectorAll('input[name="deptFilter"]').forEach(function(r){
+    var label = r.parentElement;
+    if(r.value === '' || depts.indexOf(r.value) !== -1){
+      label.style.display = '';
+      if(depts.indexOf(r.value) !== -1) r.checked = true;
+    } else {
+      label.style.display = 'none';
+    }
   });
-}
 
-function lockLiveSessions(dept){
-  document.querySelectorAll('.schedule-card').forEach(card=>{
-    const sc = card.querySelector('.sc-dept');
-    if(sc) card.style.display = sc.textContent.includes(dept) ? '' : 'none';
-  });
-  const myLive = document.getElementById('my-live-sessions-grid');
-  if(myLive) myLive.innerHTML = renderLiveSchedule(dept);
+  var liveGrid = document.getElementById('live-schedule-grid');
+  if(liveGrid){
+    var liveSessions = liveSchedule.filter(function(s){ return depts.indexOf(s.dept) !== -1; });
+    var liveHtml = '';
+    for(var i = 0; i < liveSessions.length; i++){
+      var s = liveSessions[i];
+      liveHtml += '<div class="schedule-card">';
+      liveHtml += '<div class="sc-dept">' + (deptIcon2[s.dept]||'') + ' ' + s.dept + '</div>';
+      liveHtml += '<h3>' + s.title + '</h3>';
+      liveHtml += '<div class="sc-time">&#128197; ' + s.time + '</div>';
+      liveHtml += '<div style="display:flex;gap:8px;">';
+      liveHtml += '<a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join">Join Live</a>';
+      liveHtml += '<button class="btn-join-outline" onclick="showToast(\'Reminder set!\')">Remind Me</button>';
+      liveHtml += '</div></div>';
+    }
+    liveGrid.innerHTML = liveHtml;
+  }
+
+  var myLive = document.getElementById('my-live-sessions-grid');
+  if(myLive){
+    var myLiveHtml = '';
+    var myLiveSessions = liveSchedule.filter(function(s){ return depts.indexOf(s.dept) !== -1; });
+    for(var i = 0; i < myLiveSessions.length; i++){
+      var s = myLiveSessions[i];
+      myLiveHtml += '<div class="schedule-card">';
+      myLiveHtml += '<div class="sc-dept">' + s.dept + '</div>';
+      myLiveHtml += '<h3>' + s.title + '</h3>';
+      myLiveHtml += '<div class="sc-time">&#128197; ' + s.time + '</div>';
+      myLiveHtml += '<a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join">Join Session</a>';
+      myLiveHtml += '</div>';
+    }
+    myLive.innerHTML = myLiveHtml;
+  }
+
+  var deptCourses = courseData.filter(function(c){ return c.dept === depts[0]; });
+  if(deptCourses[0]){ var el=document.getElementById('prog-course-1'); if(el) el.textContent=deptCourses[0].title.substring(0,35); }
+  if(deptCourses[1]){ var el=document.getElementById('prog-course-2'); if(el) el.textContent=deptCourses[1].title.substring(0,35); }
+  if(deptCourses[2]){ var el=document.getElementById('prog-course-3'); if(el) el.textContent=deptCourses[2].title.substring(0,35); }
+
+  var tbody = document.getElementById('progress-tbody');
+  if(tbody){
+    var tbodyHtml = '';
+    var pcts = [75,45,100];
+    var statuses = ['In Progress','In Progress','Completed'];
+    var pills = ['sp-active','sp-active','sp-completed'];
+    for(var i = 0; i < Math.min(3, deptCourses.length); i++){
+      tbodyHtml += '<tr><td>' + deptCourses[i].title.substring(0,30) + '...</td>';
+      tbodyHtml += '<td>' + deptCourses[i].dept + '</td>';
+      tbodyHtml += '<td>' + ((i+1)*2) + '/8</td>';
+      tbodyHtml += '<td>' + pcts[i] + '%</td>';
+      tbodyHtml += '<td><span class="status-pill ' + pills[i] + '">' + statuses[i] + '</span></td></tr>';
+    }
+    tbody.innerHTML = tbodyHtml;
+  }
+
+  var certDept = document.getElementById('cert-dept-text');
+  if(certDept) certDept.textContent = depts[0] + ' Department - IGEM Christ Covenant Church. Awarded: 2025';
 }
 
 function updateDashboardGreeting(){
-  const user = getCurrentUser();
+  var user = getCurrentUser();
   if(!user) return;
-  const welcome = document.getElementById('dash-welcome-name');
-  const sub = document.getElementById('dash-welcome-dept');
-  const badge = document.getElementById('student-dept-badge');
-  if(welcome) welcome.textContent = 'Welcome, '+user.fullname+'! 🙏';
-  if(sub) sub.textContent = 'You are enrolled in the '+user.dept+' Department';
-  if(badge){ badge.textContent='📂 '+user.dept+' Department'; badge.style.display='inline-block'; }
-  const profileName = document.getElementById('profile-name-input');
-  const profileDept = document.getElementById('profile-dept-input');
-  if(profileName) profileName.value = user.fullname;
-  if(profileDept) profileDept.value = user.dept;
+  var welcome = document.getElementById('dash-welcome-name');
+  var sub = document.getElementById('dash-welcome-dept');
+  var badge = document.getElementById('student-dept-badge');
+  if(welcome) welcome.textContent = 'Welcome, ' + user.fullname + '!';
+  if(sub) sub.textContent = 'Enrolled in: ' + (user.depts && user.depts.length > 1 ? user.depts.join(', ') : (user.dept + ' Department'));
+  if(badge){
+    badge.textContent = user.depts && user.depts.length > 1 ? user.depts.join(' | ') : user.dept + ' Department';
+    badge.style.display = 'inline-block';
+  }
+  var pn = document.getElementById('profile-name-input');
+  var pd = document.getElementById('profile-dept-input');
+  if(pn) pn.value = user.fullname;
+  if(pd) pd.value = user.depts ? user.depts.join(', ') : user.dept;
 }
 
 // ===== ADMIN PANEL =====
-const ADMIN_PASS = 'IGEM2025';
-let adminActive = false;
-let adminCurrentTab = 'pending';
+var ADMIN_PASS = 'IGEM2025';
+var adminActive = false;
+var adminCurrentTab = 'pending';
 
 function showAdminLogin(){
-  const content = document.getElementById('admin-panel-content');
+  var content = document.getElementById('admin-panel-content');
+  if(!content) return;
   adminActive = false;
-  content.innerHTML = `
-    <div style="max-width:360px;margin:0 auto;text-align:center;">
-      <div style="font-size:48px;margin-bottom:16px;">🔐</div>
-      <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:20px;">Enter Admin Password</h3>
-      <div class="form-group"><input type="password" id="admin-pass-input" placeholder="Admin password" onkeydown="if(event.key==='Enter')checkAdminPass()" style="text-align:center;font-size:18px;letter-spacing:4px;"></div>
-      <button class="btn-auth" onclick="checkAdminPass()">🔐 Access Admin Panel</button>
-      <div style="margin-top:12px;font-size:12px;color:var(--muted);">Restricted to authorized administrators only.</div>
-    </div>`;
+  content.innerHTML = '<div style="max-width:360px;margin:0 auto;text-align:center;">' +
+    '<div style="font-size:48px;margin-bottom:16px;">&#128274;</div>' +
+    '<h3 style="font-family:Playfair Display,serif;font-size:18px;font-weight:700;color:#0c2340;margin-bottom:20px;">Enter Admin Password</h3>' +
+    '<div class="form-group"><input type="password" id="admin-pass-input" placeholder="Admin password" style="text-align:center;font-size:18px;letter-spacing:4px;"></div>' +
+    '<button class="btn-auth" onclick="checkAdminPass()">Access Admin Panel</button>' +
+    '<div style="margin-top:12px;font-size:12px;color:#64748b;">Restricted to authorized administrators only.</div>' +
+    '</div>';
   document.getElementById('adminPanelOverlay').classList.add('open');
 }
 
 function checkAdminPass(){
-  const pass = (document.getElementById('admin-pass-input')||{}).value;
-  if(pass===ADMIN_PASS){
-    adminActive=true;
+  var input = document.getElementById('admin-pass-input');
+  var pass = input ? input.value : '';
+  if(pass === ADMIN_PASS){
+    adminActive = true;
     renderAdminDashboard();
-    showToast('✅ Admin access granted!');
+    showToast('Admin access granted!');
   } else {
-    showToast('❌ Incorrect password. Access denied.');
-    if(document.getElementById('admin-pass-input')) document.getElementById('admin-pass-input').value='';
+    showToast('Incorrect password. Access denied.');
+    if(input) input.value = '';
   }
 }
 
 function closeAdminPanel(){
   document.getElementById('adminPanelOverlay').classList.remove('open');
-  adminActive=false;
+  adminActive = false;
 }
 
 function renderAdminDashboard(){
-  const users = getUsers();
-  const pending = users.filter(u=>u.status==='pending');
-  const approved = users.filter(u=>u.status==='approved');
-  const rejected = users.filter(u=>u.status==='rejected');
-  const content = document.getElementById('admin-panel-content');
-  content.innerHTML = `
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;">
-      <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-val" style="font-size:22px;">${pending.length}</div><div class="stat-label">Pending</div></div>
-      <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-val" style="font-size:22px;">${approved.length}</div><div class="stat-label">Approved</div></div>
-      <div class="stat-card"><div class="stat-icon">❌</div><div class="stat-val" style="font-size:22px;">${rejected.length}</div><div class="stat-label">Rejected</div></div>
-      <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-val" style="font-size:22px;">${users.length}</div><div class="stat-label">Total</div></div>
-    </div>
-    <div style="display:flex;gap:4px;background:var(--gray-100);border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content;">
-      <div class="auth-tab ${adminCurrentTab==='pending'?'active':''}" onclick="switchAdminTab('pending')" style="padding:8px 20px;">⏳ Pending</div>
-      <div class="auth-tab ${adminCurrentTab==='approved'?'active':''}" onclick="switchAdminTab('approved')" style="padding:8px 20px;">✅ Approved</div>
-      <div class="auth-tab ${adminCurrentTab==='rejected'?'active':''}" onclick="switchAdminTab('rejected')" style="padding:8px 20px;">❌ Rejected</div>
-    </div>
-    <div id="admin-tab-body"></div>`;
+  var users = getUsers();
+  var pending = users.filter(function(u){ return u.status === 'pending'; });
+  var approved = users.filter(function(u){ return u.status === 'approved'; });
+  var rejected = users.filter(function(u){ return u.status === 'rejected'; });
+  var content = document.getElementById('admin-panel-content');
+  if(!content) return;
+
+  var html = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;">';
+  html += '<div class="stat-card"><div class="stat-icon">&#9203;</div><div class="stat-val" style="font-size:22px;">' + pending.length + '</div><div class="stat-label">Pending</div></div>';
+  html += '<div class="stat-card"><div class="stat-icon">&#9989;</div><div class="stat-val" style="font-size:22px;">' + approved.length + '</div><div class="stat-label">Approved</div></div>';
+  html += '<div class="stat-card"><div class="stat-icon">&#10060;</div><div class="stat-val" style="font-size:22px;">' + rejected.length + '</div><div class="stat-label">Rejected</div></div>';
+  html += '<div class="stat-card"><div class="stat-icon">&#128101;</div><div class="stat-val" style="font-size:22px;">' + users.length + '</div><div class="stat-label">Total</div></div>';
+  html += '</div>';
+
+  html += '<div style="display:flex;gap:4px;background:#f1f5f9;border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content;">';
+  html += '<div class="auth-tab ' + (adminCurrentTab==='pending'?'active':'') + '" onclick="switchAdminTab(\'pending\')" style="padding:8px 20px;">Pending</div>';
+  html += '<div class="auth-tab ' + (adminCurrentTab==='approved'?'active':'') + '" onclick="switchAdminTab(\'approved\')" style="padding:8px 20px;">Approved</div>';
+  html += '<div class="auth-tab ' + (adminCurrentTab==='rejected'?'active':'') + '" onclick="switchAdminTab(\'rejected\')" style="padding:8px 20px;">Rejected</div>';
+  html += '</div>';
+  html += '<div id="admin-tab-body"></div>';
+  content.innerHTML = html;
   renderAdminTabBody();
 }
 
 function switchAdminTab(tab){
-  adminCurrentTab=tab;
+  adminCurrentTab = tab;
   renderAdminDashboard();
 }
 
 function renderAdminTabBody(){
-  const users = getUsers();
-  const filtered = users.filter(u=>u.status===adminCurrentTab);
-  const el = document.getElementById('admin-tab-body');
+  var users = getUsers();
+  var filtered = users.filter(function(u){ return u.status === adminCurrentTab; });
+  var el = document.getElementById('admin-tab-body');
   if(!el) return;
   if(!filtered.length){
-    el.innerHTML='<div style="text-align:center;padding:32px;color:var(--muted);">No '+adminCurrentTab+' registrations</div>';
+    el.innerHTML = '<div style="text-align:center;padding:32px;color:#64748b;">No ' + adminCurrentTab + ' registrations</div>';
     return;
   }
-  const cols = adminCurrentTab==='pending'
-    ? '<th>Name</th><th>Member ID</th><th>Department</th><th>Email</th><th>Phone</th><th>Role</th><th>Date</th><th>Actions</th>'
-    : adminCurrentTab==='approved'
-    ? '<th>Name</th><th>Member ID</th><th>Department</th><th>Role</th><th>Date</th><th>Actions</th>'
-    : '<th>Name</th><th>Member ID</th><th>Department</th><th>Date</th><th>Actions</th>';
-  const rows = filtered.map(u=>{
-    if(adminCurrentTab==='pending'){
-      return `<tr><td><strong>${u.fullname}</strong></td><td>${u.memberId}</td><td>${u.dept}</td><td>${u.email||'—'}</td><td>${u.phone||'—'}</td><td>${u.role||'student'}</td><td>${u.registeredAt||'—'}</td><td><button class="btn-approve" onclick="approveUser(${u.id})">✅ Approve</button><button class="btn-reject" onclick="rejectUser(${u.id})">❌ Reject</button></td></tr>`;
-    } else if(adminCurrentTab==='approved'){
-      return `<tr><td><strong>${u.fullname}</strong></td><td>${u.memberId}</td><td>${u.dept}</td><td>${u.role||'student'}</td><td>${u.registeredAt||'—'}</td><td><button class="btn-revoke" onclick="revokeUser(${u.id})">Revoke</button></td></tr>`;
+  var rows = '';
+  for(var i = 0; i < filtered.length; i++){
+    var u = filtered[i];
+    var deptText = u.depts ? u.depts.join(', ') : u.dept;
+    var idText = u.memberId === 'PENDING' ? '<span style="color:#f59e0b;">Pending</span>' : '<strong style="color:#0ea5e9;">' + u.memberId + '</strong>';
+    if(adminCurrentTab === 'pending'){
+      rows += '<tr><td><strong>' + u.fullname + '</strong></td><td>' + idText + '</td><td>' + deptText + '</td><td>' + (u.email||'-') + '</td><td>' + (u.phone||'-') + '</td><td>' + (u.role||'student') + '</td><td>' + (u.registeredAt||'-') + '</td>';
+      rows += '<td><button class="btn-approve" onclick="approveUser(' + u.id + ')">Approve</button> <button class="btn-reject" onclick="rejectUser(' + u.id + ')">Reject</button></td></tr>';
+    } else if(adminCurrentTab === 'approved'){
+      rows += '<tr><td><strong>' + u.fullname + '</strong></td><td>' + idText + '</td><td>' + deptText + '</td><td>' + (u.role||'student') + '</td><td>' + (u.registeredAt||'-') + '</td>';
+      rows += '<td><button class="btn-revoke" onclick="revokeUser(' + u.id + ')">Revoke</button></td></tr>';
     } else {
-      return `<tr><td><strong>${u.fullname}</strong></td><td>${u.memberId}</td><td>${u.dept}</td><td>${u.registeredAt||'—'}</td><td><button class="btn-approve" onclick="approveUser(${u.id})">Re-approve</button></td></tr>`;
+      rows += '<tr><td><strong>' + u.fullname + '</strong></td><td>' + idText + '</td><td>' + deptText + '</td><td>' + (u.registeredAt||'-') + '</td>';
+      rows += '<td><button class="btn-approve" onclick="approveUser(' + u.id + ')">Re-approve</button></td></tr>';
     }
-  }).join('');
-  el.innerHTML=`<div class="data-table" style="overflow-x:auto;"><table><thead><tr>${cols}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  }
+
+  var thead = adminCurrentTab === 'pending'
+    ? '<tr><th>Name</th><th>Member ID</th><th>Dept(s)</th><th>Email</th><th>Phone</th><th>Role</th><th>Date</th><th>Actions</th></tr>'
+    : adminCurrentTab === 'approved'
+    ? '<tr><th>Name</th><th>Member ID</th><th>Dept(s)</th><th>Role</th><th>Date</th><th>Actions</th></tr>'
+    : '<tr><th>Name</th><th>Member ID</th><th>Dept(s)</th><th>Date</th><th>Actions</th></tr>';
+
+  el.innerHTML = '<div class="data-table" style="overflow-x:auto;"><table><thead>' + thead + '</thead><tbody>' + rows + '</tbody></table></div>';
 }
 
 function approveUser(id){
-  const users=getUsers(); const u=users.find(x=>x.id===id);
-  if(u){u.status='approved';saveUsers(users);renderAdminDashboard();showToast('✅ '+u.fullname+' approved!');}
+  var users = getUsers();
+  var u = null;
+  for(var i = 0; i < users.length; i++){ if(users[i].id === id){ u = users[i]; break; } }
+  if(u){
+    u.status = 'approved';
+    if(!u.memberId || u.memberId === 'PENDING'){
+      u.memberId = generateMemberId(u.dept || (u.depts && u.depts[0]) || 'Choir', users);
+    }
+    if(!u.depts) u.depts = [u.dept];
+    saveUsers(users);
+    renderAdminDashboard();
+    showToast('Approved! Member ID: ' + u.memberId);
+  }
 }
+
 function rejectUser(id){
-  const users=getUsers(); const u=users.find(x=>x.id===id);
-  if(u){u.status='rejected';saveUsers(users);renderAdminDashboard();showToast('❌ '+u.fullname+' rejected.');}
+  var users = getUsers();
+  for(var i = 0; i < users.length; i++){
+    if(users[i].id === id){ users[i].status = 'rejected'; break; }
+  }
+  saveUsers(users);
+  renderAdminDashboard();
+  showToast('Registration rejected.');
 }
+
 function revokeUser(id){
-  const users=getUsers(); const u=users.find(x=>x.id===id);
-  if(u){u.status='rejected';saveUsers(users);renderAdminDashboard();showToast('⚠️ Access revoked for '+u.fullname);}
+  var users = getUsers();
+  for(var i = 0; i < users.length; i++){
+    if(users[i].id === id){ users[i].status = 'rejected'; break; }
+  }
+  saveUsers(users);
+  renderAdminDashboard();
+  showToast('Access revoked.');
 }
 
 // ===== NAVIGATION =====
 function showPage(name){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  const page = document.getElementById('page-'+name);
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  var page = document.getElementById('page-' + name);
   if(page){ page.classList.add('active'); window.scrollTo(0,0); }
-  // Re-apply dept lock on navigation
-  const user = getCurrentUser();
-  if(user){
-    setTimeout(()=>{
-      lockAllToDept(user.dept);
+  var user = getCurrentUser();
+  if(user && user.status !== 'pending'){
+    setTimeout(function(){
+      lockAllToDepts(user.depts || [user.dept]);
       updateDashboardGreeting();
       updateTopbarAuth(user);
-    },50);
+    }, 50);
   }
-  if(name==='courses') setTimeout(()=>applyFilters(),60);
-  if(name==='live'){
-    const user2 = getCurrentUser();
-    const grid = document.getElementById('live-schedule-grid');
-    if(grid) grid.innerHTML = renderLiveSchedule(user2?user2.dept:null);
-    setTimeout(()=>{ if(user2) lockLiveSessions(user2.dept); },60);
+  if(name === 'courses'){
+    setTimeout(function(){ applyFilters(); }, 60);
   }
-  if(name==='home') renderHomeGrid();
-  if(name==='student-dashboard'){ renderMyCoursesGrid(); if(user) updateDashboardGreeting(); }
+  if(name === 'live'){
+    var grid = document.getElementById('live-schedule-grid');
+    var user2 = getCurrentUser();
+    if(grid) grid.innerHTML = renderLiveSchedule(user2 ? user2.dept : null);
+    if(user2) setTimeout(function(){ lockAllToDepts(user2.depts||[user2.dept]); }, 60);
+  }
+  if(name === 'home') renderHomeGrid();
+  if(name === 'student-dashboard'){ renderMyCoursesGrid(); if(user) updateDashboardGreeting(); }
 }
 
 function toggleMobileNav(){
-  const n=document.getElementById('mobileNav');
-  n.style.display=n.style.display==='flex'?'none':'flex';
+  var n = document.getElementById('mobileNav');
+  if(n) n.style.display = (n.style.display === 'flex') ? 'none' : 'flex';
 }
 
 // ===== DASHBOARD TABS =====
 function showStudentTab(tab){
-  ['overview','mycourses','progress','certificates','live','profile'].forEach(t=>{
-    const el=document.getElementById('st-'+t);
-    if(el) el.style.display=t===tab?'block':'none';
-  });
-  document.querySelectorAll('.dash-menu-item').forEach(i=>i.classList.remove('active'));
-  if(tab==='mycourses') renderMyCoursesGrid();
-  if(tab==='live'){
-    const user=getCurrentUser();
-    const grid=document.getElementById('my-live-sessions-grid');
-    if(grid) grid.innerHTML=renderLiveSchedule(user?user.dept:null);
+  var tabs = ['overview','mycourses','progress','certificates','live','profile'];
+  for(var i = 0; i < tabs.length; i++){
+    var el = document.getElementById('st-' + tabs[i]);
+    if(el) el.style.display = (tabs[i] === tab) ? 'block' : 'none';
+  }
+  if(tab === 'mycourses') renderMyCoursesGrid();
+  if(tab === 'live'){
+    var user = getCurrentUser();
+    var grid = document.getElementById('my-live-sessions-grid');
+    if(grid) grid.innerHTML = renderLiveSchedule(user ? user.dept : null);
   }
 }
 
 function showInstructorTab(tab){
-  ['overview','upload','courses','schedule','students'].forEach(t=>{
-    const el=document.getElementById('ins-'+t);
-    if(el) el.style.display=t===tab?'block':'none';
-  });
+  var tabs = ['overview','upload','courses','schedule','students'];
+  for(var i = 0; i < tabs.length; i++){
+    var el = document.getElementById('ins-' + tabs[i]);
+    if(el) el.style.display = (tabs[i] === tab) ? 'block' : 'none';
+  }
 }
 
 function switchRegTab(mode){
-  document.getElementById('tab-student').classList.toggle('active',mode==='student');
-  document.getElementById('tab-instructor').classList.toggle('active',mode==='instructor');
+  var st = document.getElementById('tab-student');
+  var it = document.getElementById('tab-instructor');
+  if(st) st.classList.toggle('active', mode === 'student');
+  if(it) it.classList.toggle('active', mode === 'instructor');
 }
 
 // ===== TOAST =====
 function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
+  var t = document.getElementById('toast');
+  if(t){ t.textContent = msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 3000); }
 }
 
 // ===== INIT =====
-window.addEventListener('DOMContentLoaded',function(){
+window.addEventListener('DOMContentLoaded', function(){
   renderHomeGrid();
   applyFilters();
-  const grid=document.getElementById('live-schedule-grid');
-  if(grid) grid.innerHTML=renderLiveSchedule();
-  // Restore session
-  const user=getCurrentUser();
-  if(user&&user.status==='approved'){
+  var grid = document.getElementById('live-schedule-grid');
+  if(grid) grid.innerHTML = renderLiveSchedule();
+  var user = getCurrentUser();
+  if(user && user.status === 'approved'){
     updateTopbarAuth(user);
-    lockAllToDept(user.dept);
+    lockAllToDepts(user.depts || [user.dept]);
   }
 });
 </script>
