@@ -808,12 +808,43 @@ footer{background:var(--navy);color:#a8c4e0;padding:56px 20px 0;}
   </div>
 </div>
 
+<script type="module">
+// ================================================================
+// FIREBASE CONFIGURATION
+// ================================================================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBTGw5D330hAGENCyAuxkPD337ui90-i6g",
+  authDomain: "igem-christ-covenant-church.firebaseapp.com",
+  projectId: "igem-christ-covenant-church",
+  storageBucket: "igem-christ-covenant-church.firebasestorage.app",
+  messagingSenderId: "693151373035",
+  appId: "1:693151373035:web:c06be0c1a4563ebaa890ae"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Make db available globally
+window._db = db;
+window._fbCollection = collection;
+window._fbAddDoc = addDoc;
+window._fbGetDocs = getDocs;
+window._fbDoc = doc;
+window._fbUpdateDoc = updateDoc;
+window._fbQuery = query;
+window._fbWhere = where;
+
+console.log("Firebase connected!");
+</script>
+
 <script>
 // ================================================================
 // IGEM CHRIST COVENANT CHURCH LEARNING PLATFORM - COMPLETE JS
 // ================================================================
 
-// ===== COLOURS & ICONS =====
 var deptColors = {
   'Choir':'linear-gradient(135deg,#0ea5e9,#0284c7)',
   'Instrumentalist':'linear-gradient(135deg,#f59e0b,#d97706)',
@@ -829,7 +860,6 @@ var deptIcons = {
   'Exinbinco':'&#128218;'
 };
 
-// ===== COURSES =====
 var courseData = [
   {id:1,dept:'Choir',title:'Choir Fundamentals - Vocal Basics',instructor:'Bro. Emmanuel Adeyemi',desc:'Learn the fundamentals of choir singing including voice types, breathing techniques, and basic music theory.',hasLive:true,isNew:false},
   {id:2,dept:'Choir',title:'Worship Leadership and Song Selection',instructor:'Sis. Grace Okafor',desc:'Master the art of leading congregational worship, selecting appropriate songs and creating a Spirit-filled atmosphere.',hasLive:true,isNew:false},
@@ -869,7 +899,6 @@ var lessonTitles = [
   'Assessment and Review','Final Project and Wrap-up'
 ];
 
-// ===== VIDEO DATA =====
 var choirVideos = [
   {id:'T7bpVDSSMwc',title:'Choir Fundamentals - Vocal Basics'},
   {id:'4Tr0otuiQuU',title:'Worship Leadership - Song Selection'},
@@ -896,22 +925,17 @@ function getVideosForDept(dept){
 function renderVideoSection(dept){
   var videos = getVideosForDept(dept);
   if(!videos.length) return '';
-  var out = '';
-  out += '<div class="video-section">';
-  out += '<h3>Video Lessons</h3>';
-  out += '<div class="video-grid">';
+  var out = '<div class="video-section"><h3>Video Lessons</h3><div class="video-grid">';
   for(var i = 0; i < videos.length; i++){
     var vid = videos[i].id;
     var title = videos[i].title;
-    out += '<div class="video-card" onclick="openVideoById(' + i + ',\'' + dept + '\')">';
+    out += '<div class="video-card" onclick="openVideoById(' + i + ','' + dept + '')">';
     out += '<div class="video-thumb">';
     out += '<iframe src="https://www.youtube.com/embed/' + vid + '?controls=0&modestbranding=1" tabindex="-1"></iframe>';
     out += '<div class="video-thumb-overlay"><div class="play-circle">&#9654;</div></div>';
     out += '</div>';
-    out += '<div class="video-info">';
-    out += '<div class="video-title">' + title + '</div>';
-    out += '<div class="video-dept">' + dept + ' Department</div>';
-    out += '</div></div>';
+    out += '<div class="video-info"><div class="video-title">' + title + '</div>';
+    out += '<div class="video-dept">' + dept + ' Department</div></div></div>';
   }
   out += '</div></div>';
   return out;
@@ -919,9 +943,7 @@ function renderVideoSection(dept){
 
 function openVideoById(index, dept){
   var videos = getVideosForDept(dept);
-  if(videos[index]){
-    openVideo(videos[index].id, videos[index].title);
-  }
+  if(videos[index]) openVideo(videos[index].id, videos[index].title);
 }
 
 function openVideo(videoId, title){
@@ -938,30 +960,14 @@ function closeVideoModal(e){
 }
 
 function renderJoinLiveSection(){
-  var out = '';
-  out += '<div class="join-live-section">';
-  out += '<div class="jl-text">';
-  out += '<div class="jl-status"><div class="jl-dot"></div> Live Sessions Available</div>';
-  out += '<h3>Join Live Class</h3>';
-  out += '<p>Attend real-time training sessions streamed live for all departments.</p>';
-  out += '</div>';
-  out += '<a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join-live">Join Live Session</a>';
-  out += '</div>';
-  return out;
+  return '<div class="join-live-section"><div class="jl-text"><div class="jl-status"><div class="jl-dot"></div> Live Sessions Available</div><h3>Join Live Class</h3><p>Attend real-time training sessions streamed live for all departments.</p></div><a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join-live">Join Live Session</a></div>';
 }
 
-// ===== CREATE COURSE CARD =====
 function createCourseCard(c){
   var bg = deptColors[c.dept] || 'linear-gradient(135deg,#0ea5e9,#0284c7)';
   var icon = deptIcons[c.dept] || '&#128218;';
-  var tag = '';
-  if(c.hasLive){
-    tag = '<div class="live-tag"><div class="live-dot"></div>LIVE</div>';
-  } else if(c.isNew){
-    tag = '<div class="new-tag">NEW</div>';
-  }
-  var out = '';
-  out += '<div class="course-card" onclick="openCourse(' + c.id + ')">';
+  var tag = c.hasLive ? '<div class="live-tag"><div class="live-dot"></div>LIVE</div>' : (c.isNew ? '<div class="new-tag">NEW</div>' : '');
+  var out = '<div class="course-card" onclick="openCourse(' + c.id + ')">';
   out += '<div class="course-thumb" style="background:' + bg + ';">' + tag + '<span style="font-size:52px;">' + icon + '</span></div>';
   out += '<div class="course-body">';
   out += '<div class="course-dept">' + c.dept + ' Department</div>';
@@ -969,13 +975,12 @@ function createCourseCard(c){
   out += '<div class="course-instructor"><div class="instr-avatar">' + c.instructor.charAt(0) + '</div>' + c.instructor + '</div>';
   out += '<div class="course-meta"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>4.8</span><span>120 students</span><span>8 lessons</span></div>';
   out += '<div class="course-actions">';
-  out += '<button class="btn-enroll" onclick="event.stopPropagation();showToast(\'Enrolled successfully!\')">Enroll</button>';
-  out += '<button class="btn-live" onclick="event.stopPropagation();window.open(\'https://www.igemcity.org/workers/#video\',\'_blank\')">Join Live</button>';
+  out += '<button class="btn-enroll" onclick="event.stopPropagation();showToast('Enrolled successfully!')">Enroll</button>';
+  out += '<button class="btn-live" onclick="event.stopPropagation();window.open('https://www.igemcity.org/workers/#video','_blank')">Join Live</button>';
   out += '</div></div></div>';
   return out;
 }
 
-// ===== OPEN COURSE =====
 function openCourse(id){
   var c = null;
   for(var i = 0; i < courseData.length; i++){
@@ -989,12 +994,10 @@ function openCourse(id){
   var cl = document.getElementById('curriculum-list');
   var clHtml = '';
   for(var i = 0; i < lessonTitles.length; i++){
-    clHtml += '<div class="lesson-item">';
-    clHtml += '<div class="lesson-num">L' + (i+1) + '</div>';
+    clHtml += '<div class="lesson-item"><div class="lesson-num">L' + (i+1) + '</div>';
     clHtml += '<div class="lesson-title">' + lessonTitles[i] + '</div>';
     clHtml += '<div class="lesson-dur">30 min</div>';
-    clHtml += '<div class="lesson-lock">' + (i < 2 ? '&#128275;' : '&#128274;') + '</div>';
-    clHtml += '</div>';
+    clHtml += '<div class="lesson-lock">' + (i < 2 ? '&#128275;' : '&#128274;') + '</div></div>';
   }
   cl.innerHTML = clHtml;
   var vs = document.getElementById('course-video-section');
@@ -1002,29 +1005,20 @@ function openCourse(id){
   showPage('course-detail');
 }
 
-// ===== RENDER GRIDS =====
 function renderHomeGrid(){
   var user = getCurrentUser();
   var dept = user ? user.dept : null;
   var filtered = dept ? courseData.filter(function(c){ return c.dept === dept; }).slice(0,6) : courseData.filter(function(c){ return c.hasLive; }).slice(0,6);
   var el = document.getElementById('home-courses-grid');
-  if(el){
-    var html = '';
-    for(var i = 0; i < filtered.length; i++) html += createCourseCard(filtered[i]);
-    el.innerHTML = html;
-  }
+  if(el){ var h=''; for(var i=0;i<filtered.length;i++) h+=createCourseCard(filtered[i]); el.innerHTML=h; }
 }
 
 function renderMyCoursesGrid(){
   var user = getCurrentUser();
-  var dept = user ? user.dept : null;
-  var filtered = dept ? courseData.filter(function(c){ return c.dept === dept; }) : courseData.slice(0,6);
+  var depts = user ? (user.depts||[user.dept]) : null;
+  var filtered = depts ? courseData.filter(function(c){ return depts.indexOf(c.dept)!==-1; }) : courseData.slice(0,6);
   var el = document.getElementById('my-courses-grid');
-  if(el){
-    var html = '';
-    for(var i = 0; i < filtered.length; i++) html += createCourseCard(filtered[i]);
-    el.innerHTML = html;
-  }
+  if(el){ var h=''; for(var i=0;i<filtered.length;i++) h+=createCourseCard(filtered[i]); el.innerHTML=h; }
 }
 
 function applyFilters(){
@@ -1035,58 +1029,41 @@ function applyFilters(){
   var sortVal = document.getElementById('sortCourses') ? document.getElementById('sortCourses').value : '';
   var user = getCurrentUser();
   var filtered = courseData.slice();
-  if(user && user.depts && user.depts.length > 0){
-    filtered = filtered.filter(function(c){ return user.depts.indexOf(c.dept) !== -1; });
-  } else if(user && user.dept){
-    filtered = filtered.filter(function(c){ return c.dept === user.dept; });
-  }
-  if(deptVal) filtered = filtered.filter(function(c){ return c.dept === deptVal; });
-  if(typeVal === 'live') filtered = filtered.filter(function(c){ return c.hasLive; });
-  if(typeVal === 'recorded') filtered = filtered.filter(function(c){ return !c.hasLive; });
-  if(sortVal === 'name') filtered.sort(function(a,b){ return a.title.localeCompare(b.title); });
-  if(sortVal === 'dept') filtered.sort(function(a,b){ return a.dept.localeCompare(b.dept); });
-  var grid = document.getElementById('all-courses-grid');
-  if(grid){
-    var html = '';
-    for(var i = 0; i < filtered.length; i++) html += createCourseCard(filtered[i]);
-    grid.innerHTML = html;
-  }
-  var count = document.getElementById('courses-count');
-  if(count) count.textContent = filtered.length + ' courses found';
+  if(user){ var ud=user.depts||[user.dept]; filtered=filtered.filter(function(c){ return ud.indexOf(c.dept)!==-1; }); }
+  if(deptVal) filtered=filtered.filter(function(c){ return c.dept===deptVal; });
+  if(typeVal==='live') filtered=filtered.filter(function(c){ return c.hasLive; });
+  if(typeVal==='recorded') filtered=filtered.filter(function(c){ return !c.hasLive; });
+  if(sortVal==='name') filtered.sort(function(a,b){ return a.title.localeCompare(b.title); });
+  if(sortVal==='dept') filtered.sort(function(a,b){ return a.dept.localeCompare(b.dept); });
+  var grid=document.getElementById('all-courses-grid');
+  if(grid){ var h=''; for(var i=0;i<filtered.length;i++) h+=createCourseCard(filtered[i]); grid.innerHTML=h; }
+  var count=document.getElementById('courses-count');
+  if(count) count.textContent=filtered.length+' courses found';
 }
 
 function filterDept(dept){
   showPage('courses');
-  var radios = document.querySelectorAll('input[name="deptFilter"]');
-  for(var i = 0; i < radios.length; i++){
-    radios[i].checked = (radios[i].value === dept);
-  }
+  var radios=document.querySelectorAll('input[name="deptFilter"]');
+  for(var i=0;i<radios.length;i++) radios[i].checked=(radios[i].value===dept);
   applyFilters();
-  var bc = document.getElementById('courses-breadcrumb');
-  if(bc) bc.textContent = dept + ' Department';
+  var bc=document.getElementById('courses-breadcrumb');
+  if(bc) bc.textContent=dept+' Department';
 }
 
 function doSearch(){
-  var q = document.getElementById('searchInput') ? document.getElementById('searchInput').value.toLowerCase() : '';
+  var q=document.getElementById('searchInput')?document.getElementById('searchInput').value.toLowerCase():'';
   if(!q) return;
   showPage('courses');
-  var user = getCurrentUser();
-  var filtered = courseData.filter(function(c){
-    return c.title.toLowerCase().indexOf(q) !== -1 || c.dept.toLowerCase().indexOf(q) !== -1;
-  });
-  if(user && user.depts) filtered = filtered.filter(function(c){ return user.depts.indexOf(c.dept) !== -1; });
-  var grid = document.getElementById('all-courses-grid');
-  if(grid){
-    var html = '';
-    for(var i = 0; i < filtered.length; i++) html += createCourseCard(filtered[i]);
-    grid.innerHTML = html;
-  }
-  var count = document.getElementById('courses-count');
-  if(count) count.textContent = filtered.length + ' results for "' + q + '"';
+  var user=getCurrentUser();
+  var filtered=courseData.filter(function(c){ return c.title.toLowerCase().indexOf(q)!==-1||c.dept.toLowerCase().indexOf(q)!==-1; });
+  if(user){ var ud=user.depts||[user.dept]; filtered=filtered.filter(function(c){ return ud.indexOf(c.dept)!==-1; }); }
+  var grid=document.getElementById('all-courses-grid');
+  if(grid){ var h=''; for(var i=0;i<filtered.length;i++) h+=createCourseCard(filtered[i]); grid.innerHTML=h; }
+  var count=document.getElementById('courses-count');
+  if(count) count.textContent=filtered.length+' results for "'+q+'"';
 }
 
-// ===== LIVE SCHEDULE =====
-var liveSchedule = [
+var liveSchedule=[
   {dept:'Choir',title:'Worship Leadership Masterclass',time:'Every Monday - 7:00 PM'},
   {dept:'Instrumentalist',title:'Piano for Worship - Level 2',time:'Every Wednesday - 6:30 PM'},
   {dept:'Church Army',title:'Evangelism Strategies',time:'Every Tuesday - 8:00 PM'},
@@ -1094,517 +1071,430 @@ var liveSchedule = [
   {dept:'Exinbinco',title:'New Testament Deep Dive',time:'Every Saturday - 10:00 AM'},
   {dept:'Choir',title:'Harmony and Vocal Blending',time:'Every Friday - 6:00 PM'}
 ];
-
-var deptIcon2 = {Choir:'&#127925;',Instrumentalist:'&#127929;','Church Army':'&#9876;',Usher:'&#128587;',Exinbinco:'&#128218;'};
+var deptIcon2={Choir:'&#127925;',Instrumentalist:'&#127929;','Church Army':'&#9876;',Usher:'&#128587;',Exinbinco:'&#128218;'};
 
 function renderLiveSchedule(filterDeptName){
-  var sessions = filterDeptName ? liveSchedule.filter(function(s){ return s.dept === filterDeptName; }) : liveSchedule;
-  var out = '';
-  for(var i = 0; i < sessions.length; i++){
-    var s = sessions[i];
-    out += '<div class="schedule-card">';
-    out += '<div class="sc-dept">' + (deptIcon2[s.dept]||'') + ' ' + s.dept + '</div>';
-    out += '<h3>' + s.title + '</h3>';
-    out += '<div class="sc-time">&#128197; ' + s.time + '</div>';
-    out += '<div style="display:flex;gap:8px;">';
-    out += '<a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join">Join Live</a>';
-    out += '<button class="btn-join-outline" onclick="showToast(\'Reminder set!\')">Remind Me</button>';
-    out += '</div></div>';
+  var sessions=filterDeptName?liveSchedule.filter(function(s){ return s.dept===filterDeptName; }):liveSchedule;
+  var out='';
+  for(var i=0;i<sessions.length;i++){
+    var s=sessions[i];
+    out+='<div class="schedule-card">';
+    out+='<div class="sc-dept">'+(deptIcon2[s.dept]||'')+' '+s.dept+'</div>';
+    out+='<h3>'+s.title+'</h3>';
+    out+='<div class="sc-time">&#128197; '+s.time+'</div>';
+    out+='<div style="display:flex;gap:8px;">';
+    out+='<a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join">Join Live</a>';
+    out+='<button class="btn-join-outline" onclick="showToast('Reminder set!')">Remind Me</button>';
+    out+='</div></div>';
   }
   return out;
 }
 
-// ===== USER STORE =====
-function getUsers(){
-  try{ return JSON.parse(localStorage.getItem('igem_users') || '[]'); }
-  catch(e){ return []; }
-}
-function saveUsers(u){ localStorage.setItem('igem_users', JSON.stringify(u)); }
+// ===== SESSION =====
 function getCurrentUser(){
-  try{ return JSON.parse(sessionStorage.getItem('igem_current_user') || 'null'); }
-  catch(e){ return null; }
+  try{ return JSON.parse(sessionStorage.getItem('igem_current_user')||'null'); }catch(e){ return null; }
 }
-function setCurrentUser(u){ sessionStorage.setItem('igem_current_user', JSON.stringify(u)); }
+function setCurrentUser(u){ sessionStorage.setItem('igem_current_user',JSON.stringify(u)); }
 function clearCurrentUser(){ sessionStorage.removeItem('igem_current_user'); }
 
-// ===== DEPT PREFIXES FOR AUTO ID =====
-var deptPrefixes = {
-  'Choir':'IGEMCH',
-  'Instrumentalist':'IGEMIN',
-  'Church Army':'IGEMCA',
-  'Usher':'IGEMUS',
-  'Exinbinco':'IGEMEX'
-};
+// ===== DEPT PREFIXES =====
+var deptPrefixes={'Choir':'IGEMCH','Instrumentalist':'IGEMIN','Church Army':'IGEMCA','Usher':'IGEMUS','Exinbinco':'IGEMEX'};
 
-function generateMemberId(dept, users){
-  var prefix = deptPrefixes[dept] || 'IGEM';
-  var count = 0;
-  for(var i = 0; i < users.length; i++){
-    if(users[i].status === 'approved' && (users[i].dept === dept || (users[i].depts && users[i].depts.indexOf(dept) !== -1))){
-      count++;
-    }
-  }
-  count++;
-  var num = String(count);
-  while(num.length < 4) num = '0' + num;
-  return prefix + num;
+function generateMemberId(dept, count){
+  var prefix=deptPrefixes[dept]||'IGEM';
+  var num=String(count+1);
+  while(num.length<4) num='0'+num;
+  return prefix+num;
 }
 
-// ===== REGISTER =====
+// ===== FIREBASE REGISTER =====
 function handleRegister(){
-  var fullname = document.getElementById('reg-fullname') ? document.getElementById('reg-fullname').value.trim() : '';
-  var email = document.getElementById('reg-email') ? document.getElementById('reg-email').value.trim() : '';
-  var phone = document.getElementById('reg-phone') ? document.getElementById('reg-phone').value.trim() : '';
-  var pass = document.getElementById('reg-pass') ? document.getElementById('reg-pass').value : '';
-  var pass2 = document.getElementById('reg-pass2') ? document.getElementById('reg-pass2').value : '';
-  var role = document.getElementById('tab-instructor') && document.getElementById('tab-instructor').classList.contains('active') ? 'instructor' : 'student';
-  var deptCheckboxes = document.querySelectorAll('input[name="reg-dept"]:checked');
-  var depts = [];
-  for(var i = 0; i < deptCheckboxes.length; i++) depts.push(deptCheckboxes[i].value);
+  var fullname=document.getElementById('reg-fullname')?document.getElementById('reg-fullname').value.trim():'';
+  var email=document.getElementById('reg-email')?document.getElementById('reg-email').value.trim():'';
+  var phone=document.getElementById('reg-phone')?document.getElementById('reg-phone').value.trim():'';
+  var pass=document.getElementById('reg-pass')?document.getElementById('reg-pass').value:'';
+  var pass2=document.getElementById('reg-pass2')?document.getElementById('reg-pass2').value:'';
+  var role=document.getElementById('tab-instructor')&&document.getElementById('tab-instructor').classList.contains('active')?'instructor':'student';
+  var deptCheckboxes=document.querySelectorAll('input[name="reg-dept"]:checked');
+  var depts=[];
+  for(var i=0;i<deptCheckboxes.length;i++) depts.push(deptCheckboxes[i].value);
   if(!fullname){ showToast('Please enter your full name.'); return; }
-  if(!email && !phone){ showToast('Please enter email or phone.'); return; }
-  if(depts.length === 0){ showToast('Please select at least one department.'); return; }
+  if(!email&&!phone){ showToast('Please enter email or phone.'); return; }
+  if(depts.length===0){ showToast('Please select at least one department.'); return; }
   if(!pass){ showToast('Please create a password.'); return; }
-  if(pass !== pass2){ showToast('Passwords do not match.'); return; }
-  var users = getUsers();
-  if(email && users.filter(function(u){ return u.email === email; }).length > 0){
-    showToast('This email is already registered.'); return;
-  }
-  var newUser = {
-    id: Date.now(),
-    memberId: 'PENDING',
-    fullname: fullname,
-    email: email || '',
-    phone: phone || '',
-    depts: depts,
-    dept: depts[0],
-    role: role,
-    status: 'pending',
-    registeredAt: new Date().toLocaleDateString('en-GB')
-  };
-  users.push(newUser);
-  saveUsers(users);
-  var details = document.getElementById('pending-details');
-  if(details){
-    details.innerHTML = '<div><strong>Name:</strong> ' + fullname + '</div>' +
-      '<div><strong>Email:</strong> ' + (email||'Not provided') + '</div>' +
-      '<div><strong>Phone:</strong> ' + (phone||'Not provided') + '</div>' +
-      '<div><strong>Department(s):</strong> ' + depts.join(', ') + '</div>' +
-      '<div><strong>Role:</strong> ' + (role==='instructor'?'Instructor':'Student') + '</div>' +
-      '<div><strong>Member ID:</strong> <span style="color:#f59e0b;font-weight:700;">Will be generated on approval</span></div>' +
-      '<div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">Pending Approval</span></div>';
-  }
-  showPage('pending');
-  showToast('Registration submitted! Awaiting admin approval.');
-}
+  if(pass!==pass2){ showToast('Passwords do not match.'); return; }
 
-// ===== LOGIN =====
-function handleLogin(){
-  var memberId = document.getElementById('login-memberid') ? document.getElementById('login-memberid').value.trim() : '';
-  var dept = document.getElementById('login-dept') ? document.getElementById('login-dept').value : 'Choir';
-  if(!memberId){ showToast('Please enter your Member ID or email.'); return; }
-  var users = getUsers();
-  var user = null;
-  for(var i = 0; i < users.length; i++){
-    if(users[i].memberId === memberId || users[i].email === memberId || users[i].phone === memberId){
-      user = users[i]; break;
-    }
-  }
-  if(!user){
-    user = {fullname:memberId, dept:dept, depts:[dept], memberId:'DEMO', role:'student', status:'approved'};
-  }
-  if(user.status === 'pending'){
-    var details = document.getElementById('pending-details');
+  // Save to Firebase
+  var db=window._db;
+  if(!db){ showToast('Connecting to database...'); setTimeout(handleRegister, 2000); return; }
+
+  var newUser={
+    memberId:'PENDING',
+    fullname:fullname,
+    email:email||'',
+    phone:phone||'',
+    depts:depts,
+    dept:depts[0],
+    role:role,
+    status:'pending',
+    registeredAt:new Date().toLocaleDateString('en-GB'),
+    createdAt:new Date().toISOString()
+  };
+
+  window._fbAddDoc(window._fbCollection(db,'igem_users'), newUser).then(function(docRef){
+    newUser.id = docRef.id;
+    var details=document.getElementById('pending-details');
     if(details){
-      details.innerHTML = '<div><strong>Name:</strong> ' + user.fullname + '</div>' +
-        '<div><strong>Department(s):</strong> ' + (user.depts||[user.dept]).join(', ') + '</div>' +
+      details.innerHTML='<div><strong>Name:</strong> '+fullname+'</div>'+
+        '<div><strong>Email:</strong> '+(email||'Not provided')+'</div>'+
+        '<div><strong>Phone:</strong> '+(phone||'Not provided')+'</div>'+
+        '<div><strong>Department(s):</strong> '+depts.join(', ')+'</div>'+
+        '<div><strong>Role:</strong> '+(role==='instructor'?'Instructor':'Student')+'</div>'+
+        '<div><strong>Member ID:</strong> <span style="color:#f59e0b;font-weight:700;">Will be generated on approval</span></div>'+
         '<div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">Pending Approval</span></div>';
     }
     showPage('pending');
-    showToast('Your account is still pending admin approval.');
-    return;
-  }
-  if(user.status === 'rejected'){
-    showToast('Your registration was not approved. Contact the church admin.');
-    return;
-  }
-  if(!user.depts) user.depts = [user.dept];
-  setCurrentUser(user);
-  updateTopbarAuth(user);
-  lockAllToDepts(user.depts);
-  updateDashboardGreeting();
-  showPage('student-dashboard');
-  showToast('Welcome, ' + user.fullname + '! Member ID: ' + user.memberId);
+    showToast('Registration submitted! Awaiting admin approval.');
+  }).catch(function(err){
+    showToast('Error: '+err.message);
+  });
+}
+
+// ===== FIREBASE LOGIN =====
+function handleLogin(){
+  var memberId=document.getElementById('login-memberid')?document.getElementById('login-memberid').value.trim():'';
+  var dept=document.getElementById('login-dept')?document.getElementById('login-dept').value:'Choir';
+  if(!memberId){ showToast('Please enter your Member ID or email.'); return; }
+
+  var db=window._db;
+  if(!db){ showToast('Connecting...'); setTimeout(handleLogin,2000); return; }
+
+  showToast('Signing in...');
+
+  // Search by memberId or email
+  var usersRef=window._fbCollection(db,'igem_users');
+  window._fbGetDocs(usersRef).then(function(snapshot){
+    var user=null;
+    snapshot.forEach(function(d){
+      var u=d.data(); u.id=d.id;
+      if(u.memberId===memberId||u.email===memberId||u.phone===memberId) user=u;
+    });
+    if(!user){
+      // Demo login
+      user={fullname:memberId,dept:dept,depts:[dept],memberId:'DEMO',role:'student',status:'approved',id:'demo'};
+    }
+    if(user.status==='pending'){
+      var details=document.getElementById('pending-details');
+      if(details) details.innerHTML='<div><strong>Name:</strong> '+user.fullname+'</div><div><strong>Department(s):</strong> '+(user.depts||[user.dept]).join(', ')+'</div><div><strong>Status:</strong> <span style="color:#f59e0b;font-weight:700;">Pending Approval</span></div>';
+      showPage('pending');
+      showToast('Your account is still pending admin approval.');
+      return;
+    }
+    if(user.status==='rejected'){ showToast('Your registration was not approved. Contact admin.'); return; }
+    if(!user.depts) user.depts=[user.dept];
+    setCurrentUser(user);
+    updateTopbarAuth(user);
+    lockAllToDepts(user.depts);
+    updateDashboardGreeting();
+    showPage('student-dashboard');
+    showToast('Welcome, '+user.fullname+'! Member ID: '+user.memberId);
+  }).catch(function(err){ showToast('Login error: '+err.message); });
 }
 
 // ===== LOGOUT =====
 function doLogout(){
   clearCurrentUser();
-  var al = document.getElementById('topbar-auth-links');
-  var ul = document.getElementById('topbar-user-links');
-  if(al) al.style.display = '';
-  if(ul) ul.style.display = 'none';
+  var al=document.getElementById('topbar-auth-links');
+  var ul=document.getElementById('topbar-user-links');
+  if(al) al.style.display='';
+  if(ul) ul.style.display='none';
   renderHomeGrid();
   showPage('home');
   showToast('Logged out successfully.');
 }
 
 function updateTopbarAuth(user){
-  var al = document.getElementById('topbar-auth-links');
-  var ul = document.getElementById('topbar-user-links');
-  var un = document.getElementById('topbar-username');
-  if(al) al.style.display = 'none';
-  if(ul) ul.style.display = '';
-  if(un) un.textContent = user.fullname;
+  var al=document.getElementById('topbar-auth-links');
+  var ul=document.getElementById('topbar-user-links');
+  var un=document.getElementById('topbar-username');
+  if(al) al.style.display='none';
+  if(ul) ul.style.display='';
+  if(un) un.textContent=user.fullname;
 }
 
 // ===== DEPARTMENT ISOLATION =====
-function lockAllToDept(dept){
-  lockAllToDepts([dept]);
-}
+function lockAllToDept(dept){ lockAllToDepts([dept]); }
 
 function lockAllToDepts(depts){
-  if(!depts || depts.length === 0) return;
-  var filtered = courseData.filter(function(c){ return depts.indexOf(c.dept) !== -1; });
-
-  var homeGrid = document.getElementById('home-courses-grid');
-  if(homeGrid){
-    var html = '';
-    var slice = filtered.slice(0,6);
-    for(var i = 0; i < slice.length; i++) html += createCourseCard(slice[i]);
-    homeGrid.innerHTML = html;
-  }
-
-  var myGrid = document.getElementById('my-courses-grid');
-  if(myGrid){
-    var html2 = '';
-    for(var i = 0; i < filtered.length; i++) html2 += createCourseCard(filtered[i]);
-    myGrid.innerHTML = html2;
-  }
-
-  var allGrid = document.getElementById('all-courses-grid');
-  if(allGrid){
-    var html3 = '';
-    for(var i = 0; i < filtered.length; i++) html3 += createCourseCard(filtered[i]);
-    allGrid.innerHTML = html3;
-  }
-
-  var count = document.getElementById('courses-count');
-  if(count) count.textContent = filtered.length + ' courses in your department(s)';
-
+  if(!depts||depts.length===0) return;
+  var filtered=courseData.filter(function(c){ return depts.indexOf(c.dept)!==-1; });
+  var homeGrid=document.getElementById('home-courses-grid');
+  if(homeGrid){ var h=''; var s=filtered.slice(0,6); for(var i=0;i<s.length;i++) h+=createCourseCard(s[i]); homeGrid.innerHTML=h; }
+  var myGrid=document.getElementById('my-courses-grid');
+  if(myGrid){ var h2=''; for(var i=0;i<filtered.length;i++) h2+=createCourseCard(filtered[i]); myGrid.innerHTML=h2; }
+  var allGrid=document.getElementById('all-courses-grid');
+  if(allGrid){ var h3=''; for(var i=0;i<filtered.length;i++) h3+=createCourseCard(filtered[i]); allGrid.innerHTML=h3; }
+  var count=document.getElementById('courses-count');
+  if(count) count.textContent=filtered.length+' courses in your department(s)';
   document.querySelectorAll('.dept-card').forEach(function(card){
-    var h3 = card.querySelector('h3');
-    if(h3){
-      var matches = false;
-      for(var i = 0; i < depts.length; i++){
-        if(h3.textContent.indexOf(depts[i]) !== -1){ matches = true; break; }
-      }
-      card.style.display = matches ? '' : 'none';
-    }
+    var h3e=card.querySelector('h3');
+    if(h3e){ var m=false; for(var i=0;i<depts.length;i++){ if(h3e.textContent.indexOf(depts[i])!==-1){m=true;break;} } card.style.display=m?'':'none'; }
   });
-
   document.querySelectorAll('input[name="deptFilter"]').forEach(function(r){
-    var label = r.parentElement;
-    if(r.value === '' || depts.indexOf(r.value) !== -1){
-      label.style.display = '';
-      if(depts.indexOf(r.value) !== -1) r.checked = true;
-    } else {
-      label.style.display = 'none';
-    }
+    var label=r.parentElement;
+    if(r.value===''||depts.indexOf(r.value)!==-1){ label.style.display=''; if(depts.indexOf(r.value)!==-1) r.checked=true; }
+    else{ label.style.display='none'; }
   });
-
-  var liveGrid = document.getElementById('live-schedule-grid');
+  var liveGrid=document.getElementById('live-schedule-grid');
   if(liveGrid){
-    var liveSessions = liveSchedule.filter(function(s){ return depts.indexOf(s.dept) !== -1; });
-    var liveHtml = '';
-    for(var i = 0; i < liveSessions.length; i++){
-      var s = liveSessions[i];
-      liveHtml += '<div class="schedule-card">';
-      liveHtml += '<div class="sc-dept">' + (deptIcon2[s.dept]||'') + ' ' + s.dept + '</div>';
-      liveHtml += '<h3>' + s.title + '</h3>';
-      liveHtml += '<div class="sc-time">&#128197; ' + s.time + '</div>';
-      liveHtml += '<div style="display:flex;gap:8px;">';
-      liveHtml += '<a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join">Join Live</a>';
-      liveHtml += '<button class="btn-join-outline" onclick="showToast(\'Reminder set!\')">Remind Me</button>';
-      liveHtml += '</div></div>';
+    var ls=liveSchedule.filter(function(s){ return depts.indexOf(s.dept)!==-1; });
+    var lh='';
+    for(var i=0;i<ls.length;i++){
+      var s=ls[i];
+      lh+='<div class="schedule-card"><div class="sc-dept">'+(deptIcon2[s.dept]||'')+' '+s.dept+'</div><h3>'+s.title+'</h3><div class="sc-time">&#128197; '+s.time+'</div><div style="display:flex;gap:8px;"><a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join">Join Live</a><button class="btn-join-outline" onclick="showToast('Reminder set!')">Remind Me</button></div></div>';
     }
-    liveGrid.innerHTML = liveHtml;
+    liveGrid.innerHTML=lh;
   }
-
-  var myLive = document.getElementById('my-live-sessions-grid');
+  var myLive=document.getElementById('my-live-sessions-grid');
   if(myLive){
-    var myLiveHtml = '';
-    var myLiveSessions = liveSchedule.filter(function(s){ return depts.indexOf(s.dept) !== -1; });
-    for(var i = 0; i < myLiveSessions.length; i++){
-      var s = myLiveSessions[i];
-      myLiveHtml += '<div class="schedule-card">';
-      myLiveHtml += '<div class="sc-dept">' + s.dept + '</div>';
-      myLiveHtml += '<h3>' + s.title + '</h3>';
-      myLiveHtml += '<div class="sc-time">&#128197; ' + s.time + '</div>';
-      myLiveHtml += '<a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join">Join Session</a>';
-      myLiveHtml += '</div>';
+    var mls=liveSchedule.filter(function(s){ return depts.indexOf(s.dept)!==-1; });
+    var mlh='';
+    for(var i=0;i<mls.length;i++){
+      var s=mls[i];
+      mlh+='<div class="schedule-card"><div class="sc-dept">'+s.dept+'</div><h3>'+s.title+'</h3><div class="sc-time">&#128197; '+s.time+'</div><a href="https://www.igemcity.org/workers/#video" target="_blank" class="btn-join">Join Session</a></div>';
     }
-    myLive.innerHTML = myLiveHtml;
+    myLive.innerHTML=mlh;
   }
-
-  var deptCourses = courseData.filter(function(c){ return c.dept === depts[0]; });
-  if(deptCourses[0]){ var el=document.getElementById('prog-course-1'); if(el) el.textContent=deptCourses[0].title.substring(0,35); }
-  if(deptCourses[1]){ var el=document.getElementById('prog-course-2'); if(el) el.textContent=deptCourses[1].title.substring(0,35); }
-  if(deptCourses[2]){ var el=document.getElementById('prog-course-3'); if(el) el.textContent=deptCourses[2].title.substring(0,35); }
-
-  var tbody = document.getElementById('progress-tbody');
+  var dc=courseData.filter(function(c){ return c.dept===depts[0]; });
+  if(dc[0]){ var e=document.getElementById('prog-course-1'); if(e) e.textContent=dc[0].title.substring(0,35); }
+  if(dc[1]){ var e=document.getElementById('prog-course-2'); if(e) e.textContent=dc[1].title.substring(0,35); }
+  if(dc[2]){ var e=document.getElementById('prog-course-3'); if(e) e.textContent=dc[2].title.substring(0,35); }
+  var tbody=document.getElementById('progress-tbody');
   if(tbody){
-    var tbodyHtml = '';
-    var pcts = [75,45,100];
-    var statuses = ['In Progress','In Progress','Completed'];
-    var pills = ['sp-active','sp-active','sp-completed'];
-    for(var i = 0; i < Math.min(3, deptCourses.length); i++){
-      tbodyHtml += '<tr><td>' + deptCourses[i].title.substring(0,30) + '...</td>';
-      tbodyHtml += '<td>' + deptCourses[i].dept + '</td>';
-      tbodyHtml += '<td>' + ((i+1)*2) + '/8</td>';
-      tbodyHtml += '<td>' + pcts[i] + '%</td>';
-      tbodyHtml += '<td><span class="status-pill ' + pills[i] + '">' + statuses[i] + '</span></td></tr>';
+    var tbh=''; var pcts=[75,45,100]; var pills=['sp-active','sp-active','sp-completed'];
+    for(var i=0;i<Math.min(3,dc.length);i++){
+      tbh+='<tr><td>'+dc[i].title.substring(0,30)+'...</td><td>'+dc[i].dept+'</td><td>'+((i+1)*2)+'/8</td><td>'+pcts[i]+'%</td><td><span class="status-pill '+pills[i]+'">'+(i===2?'Completed':'In Progress')+'</span></td></tr>';
     }
-    tbody.innerHTML = tbodyHtml;
+    tbody.innerHTML=tbh;
   }
-
-  var certDept = document.getElementById('cert-dept-text');
-  if(certDept) certDept.textContent = depts[0] + ' Department - IGEM Christ Covenant Church. Awarded: 2025';
+  var certDept=document.getElementById('cert-dept-text');
+  if(certDept) certDept.textContent=depts[0]+' Department - IGEM Christ Covenant Church. Awarded: 2025';
 }
 
 function updateDashboardGreeting(){
-  var user = getCurrentUser();
+  var user=getCurrentUser();
   if(!user) return;
-  var welcome = document.getElementById('dash-welcome-name');
-  var sub = document.getElementById('dash-welcome-dept');
-  var badge = document.getElementById('student-dept-badge');
-  if(welcome) welcome.textContent = 'Welcome, ' + user.fullname + '!';
-  if(sub) sub.textContent = 'Enrolled in: ' + (user.depts && user.depts.length > 1 ? user.depts.join(', ') : (user.dept + ' Department'));
-  if(badge){
-    badge.textContent = user.depts && user.depts.length > 1 ? user.depts.join(' | ') : user.dept + ' Department';
-    badge.style.display = 'inline-block';
-  }
-  var pn = document.getElementById('profile-name-input');
-  var pd = document.getElementById('profile-dept-input');
-  if(pn) pn.value = user.fullname;
-  if(pd) pd.value = user.depts ? user.depts.join(', ') : user.dept;
+  var welcome=document.getElementById('dash-welcome-name');
+  var sub=document.getElementById('dash-welcome-dept');
+  var badge=document.getElementById('student-dept-badge');
+  if(welcome) welcome.textContent='Welcome, '+user.fullname+'!';
+  if(sub) sub.textContent='Enrolled in: '+(user.depts&&user.depts.length>1?user.depts.join(', '):(user.dept+' Department'));
+  if(badge){ badge.textContent=user.depts&&user.depts.length>1?user.depts.join(' | '):user.dept+' Department'; badge.style.display='inline-block'; }
+  var pn=document.getElementById('profile-name-input');
+  var pd=document.getElementById('profile-dept-input');
+  if(pn) pn.value=user.fullname;
+  if(pd) pd.value=user.depts?user.depts.join(', '):user.dept;
 }
 
 // ===== ADMIN PANEL =====
-var ADMIN_PASS = 'IGEM2025';
-var adminActive = false;
-var adminCurrentTab = 'pending';
+var ADMIN_PASS='IGEM2025';
+var adminCurrentTab='pending';
 
 function showAdminLogin(){
-  var content = document.getElementById('admin-panel-content');
+  var content=document.getElementById('admin-panel-content');
   if(!content) return;
-  adminActive = false;
-  content.innerHTML = '<div style="max-width:360px;margin:0 auto;text-align:center;">' +
-    '<div style="font-size:48px;margin-bottom:16px;">&#128274;</div>' +
-    '<h3 style="font-family:Playfair Display,serif;font-size:18px;font-weight:700;color:#0c2340;margin-bottom:20px;">Enter Admin Password</h3>' +
-    '<div class="form-group"><input type="password" id="admin-pass-input" placeholder="Admin password" style="text-align:center;font-size:18px;letter-spacing:4px;"></div>' +
-    '<button class="btn-auth" onclick="checkAdminPass()">Access Admin Panel</button>' +
-    '<div style="margin-top:12px;font-size:12px;color:#64748b;">Restricted to authorized administrators only.</div>' +
+  content.innerHTML='<div style="max-width:360px;margin:0 auto;text-align:center;">'+
+    '<div style="font-size:48px;margin-bottom:16px;">&#128274;</div>'+
+    '<h3 style="font-family:Playfair Display,serif;font-size:18px;font-weight:700;color:#0c2340;margin-bottom:20px;">Enter Admin Password</h3>'+
+    '<div class="form-group"><input type="password" id="admin-pass-input" placeholder="Admin password" style="text-align:center;font-size:18px;letter-spacing:4px;"></div>'+
+    '<button class="btn-auth" onclick="checkAdminPass()">Access Admin Panel</button>'+
+    '<div style="margin-top:12px;font-size:12px;color:#64748b;">Restricted to authorized administrators only.</div>'+
     '</div>';
   document.getElementById('adminPanelOverlay').classList.add('open');
 }
 
 function checkAdminPass(){
-  var input = document.getElementById('admin-pass-input');
-  var pass = input ? input.value : '';
-  if(pass === ADMIN_PASS){
-    adminActive = true;
+  var input=document.getElementById('admin-pass-input');
+  var pass=input?input.value:'';
+  if(pass===ADMIN_PASS){
     renderAdminDashboard();
     showToast('Admin access granted!');
   } else {
-    showToast('Incorrect password. Access denied.');
-    if(input) input.value = '';
+    showToast('Incorrect password!');
+    if(input) input.value='';
   }
 }
 
 function closeAdminPanel(){
   document.getElementById('adminPanelOverlay').classList.remove('open');
-  adminActive = false;
 }
 
 function renderAdminDashboard(){
-  var users = getUsers();
-  var pending = users.filter(function(u){ return u.status === 'pending'; });
-  var approved = users.filter(function(u){ return u.status === 'approved'; });
-  var rejected = users.filter(function(u){ return u.status === 'rejected'; });
-  var content = document.getElementById('admin-panel-content');
+  var content=document.getElementById('admin-panel-content');
   if(!content) return;
+  content.innerHTML='<div style="text-align:center;padding:20px;"><div style="font-size:24px;">&#128260; Loading registrations...</div></div>';
 
-  var html = '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;">';
-  html += '<div class="stat-card"><div class="stat-icon">&#9203;</div><div class="stat-val" style="font-size:22px;">' + pending.length + '</div><div class="stat-label">Pending</div></div>';
-  html += '<div class="stat-card"><div class="stat-icon">&#9989;</div><div class="stat-val" style="font-size:22px;">' + approved.length + '</div><div class="stat-label">Approved</div></div>';
-  html += '<div class="stat-card"><div class="stat-icon">&#10060;</div><div class="stat-val" style="font-size:22px;">' + rejected.length + '</div><div class="stat-label">Rejected</div></div>';
-  html += '<div class="stat-card"><div class="stat-icon">&#128101;</div><div class="stat-val" style="font-size:22px;">' + users.length + '</div><div class="stat-label">Total</div></div>';
-  html += '</div>';
+  var db=window._db;
+  if(!db){ content.innerHTML='<div style="text-align:center;padding:20px;color:red;">Database not connected yet. Please wait a moment and try again.</div>'; return; }
 
-  html += '<div style="display:flex;gap:4px;background:#f1f5f9;border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content;">';
-  html += '<div class="auth-tab ' + (adminCurrentTab==='pending'?'active':'') + '" onclick="switchAdminTab(\'pending\')" style="padding:8px 20px;">Pending</div>';
-  html += '<div class="auth-tab ' + (adminCurrentTab==='approved'?'active':'') + '" onclick="switchAdminTab(\'approved\')" style="padding:8px 20px;">Approved</div>';
-  html += '<div class="auth-tab ' + (adminCurrentTab==='rejected'?'active':'') + '" onclick="switchAdminTab(\'rejected\')" style="padding:8px 20px;">Rejected</div>';
-  html += '</div>';
-  html += '<div id="admin-tab-body"></div>';
-  content.innerHTML = html;
-  renderAdminTabBody();
+  window._fbGetDocs(window._fbCollection(db,'igem_users')).then(function(snapshot){
+    var users=[];
+    snapshot.forEach(function(d){ var u=d.data(); u.id=d.id; users.push(u); });
+    var pending=users.filter(function(u){ return u.status==='pending'; });
+    var approved=users.filter(function(u){ return u.status==='approved'; });
+    var rejected=users.filter(function(u){ return u.status==='rejected'; });
+
+    var html='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;">';
+    html+='<div class="stat-card"><div class="stat-icon">&#9203;</div><div class="stat-val" style="font-size:22px;">'+pending.length+'</div><div class="stat-label">Pending</div></div>';
+    html+='<div class="stat-card"><div class="stat-icon">&#9989;</div><div class="stat-val" style="font-size:22px;">'+approved.length+'</div><div class="stat-label">Approved</div></div>';
+    html+='<div class="stat-card"><div class="stat-icon">&#10060;</div><div class="stat-val" style="font-size:22px;">'+rejected.length+'</div><div class="stat-label">Rejected</div></div>';
+    html+='<div class="stat-card"><div class="stat-icon">&#128101;</div><div class="stat-val" style="font-size:22px;">'+users.length+'</div><div class="stat-label">Total</div></div>';
+    html+='</div>';
+    html+='<div style="display:flex;gap:4px;background:#f1f5f9;border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content;">';
+    html+='<div class="auth-tab '+(adminCurrentTab==='pending'?'active':'')+'" onclick="switchAdminTab('pending')" style="padding:8px 20px;">Pending ('+pending.length+')</div>';
+    html+='<div class="auth-tab '+(adminCurrentTab==='approved'?'active':'')+'" onclick="switchAdminTab('approved')" style="padding:8px 20px;">Approved ('+approved.length+')</div>';
+    html+='<div class="auth-tab '+(adminCurrentTab==='rejected'?'active':'')+'" onclick="switchAdminTab('rejected')" style="padding:8px 20px;">Rejected ('+rejected.length+')</div>';
+    html+='</div>';
+
+    var current=adminCurrentTab==='pending'?pending:adminCurrentTab==='approved'?approved:rejected;
+    if(!current.length){
+      html+='<div style="text-align:center;padding:32px;color:#64748b;">No '+adminCurrentTab+' registrations</div>';
+    } else {
+      html+='<div class="data-table" style="overflow-x:auto;"><table><thead><tr>';
+      if(adminCurrentTab==='pending') html+='<th>Name</th><th>Dept(s)</th><th>Email</th><th>Phone</th><th>Role</th><th>Date</th><th>Actions</th>';
+      else if(adminCurrentTab==='approved') html+='<th>Name</th><th>Member ID</th><th>Dept(s)</th><th>Role</th><th>Date</th><th>Actions</th>';
+      else html+='<th>Name</th><th>Dept(s)</th><th>Date</th><th>Actions</th>';
+      html+='</tr></thead><tbody>';
+      for(var i=0;i<current.length;i++){
+        var u=current[i];
+        var deptText=(u.depts||[u.dept]).join(', ');
+        html+='<tr>';
+        if(adminCurrentTab==='pending'){
+          html+='<td><strong>'+u.fullname+'</strong></td><td>'+deptText+'</td><td>'+(u.email||'-')+'</td><td>'+(u.phone||'-')+'</td><td>'+(u.role||'student')+'</td><td>'+(u.registeredAt||'-')+'</td>';
+          html+='<td><button class="btn-approve" onclick="approveUser(''+u.id+'',''+u.dept+'')">Approve</button> <button class="btn-reject" onclick="rejectUser(''+u.id+'')">Reject</button></td>';
+        } else if(adminCurrentTab==='approved'){
+          html+='<td><strong>'+u.fullname+'</strong></td><td><strong style="color:#0ea5e9;">'+u.memberId+'</strong></td><td>'+deptText+'</td><td>'+(u.role||'student')+'</td><td>'+(u.registeredAt||'-')+'</td>';
+          html+='<td><button class="btn-revoke" onclick="revokeUser(''+u.id+'')">Revoke</button></td>';
+        } else {
+          html+='<td><strong>'+u.fullname+'</strong></td><td>'+deptText+'</td><td>'+(u.registeredAt||'-')+'</td>';
+          html+='<td><button class="btn-approve" onclick="approveUser(''+u.id+'',''+u.dept+'')">Re-approve</button></td>';
+        }
+        html+='</tr>';
+      }
+      html+='</tbody></table></div>';
+    }
+    content.innerHTML=html;
+  }).catch(function(err){
+    content.innerHTML='<div style="color:red;padding:20px;">Error loading data: '+err.message+'</div>';
+  });
 }
 
 function switchAdminTab(tab){
-  adminCurrentTab = tab;
+  adminCurrentTab=tab;
   renderAdminDashboard();
 }
 
-function renderAdminTabBody(){
-  var users = getUsers();
-  var filtered = users.filter(function(u){ return u.status === adminCurrentTab; });
-  var el = document.getElementById('admin-tab-body');
-  if(!el) return;
-  if(!filtered.length){
-    el.innerHTML = '<div style="text-align:center;padding:32px;color:#64748b;">No ' + adminCurrentTab + ' registrations</div>';
-    return;
-  }
-  var rows = '';
-  for(var i = 0; i < filtered.length; i++){
-    var u = filtered[i];
-    var deptText = u.depts ? u.depts.join(', ') : u.dept;
-    var idText = u.memberId === 'PENDING' ? '<span style="color:#f59e0b;">Pending</span>' : '<strong style="color:#0ea5e9;">' + u.memberId + '</strong>';
-    if(adminCurrentTab === 'pending'){
-      rows += '<tr><td><strong>' + u.fullname + '</strong></td><td>' + idText + '</td><td>' + deptText + '</td><td>' + (u.email||'-') + '</td><td>' + (u.phone||'-') + '</td><td>' + (u.role||'student') + '</td><td>' + (u.registeredAt||'-') + '</td>';
-      rows += '<td><button class="btn-approve" onclick="approveUser(' + u.id + ')">Approve</button> <button class="btn-reject" onclick="rejectUser(' + u.id + ')">Reject</button></td></tr>';
-    } else if(adminCurrentTab === 'approved'){
-      rows += '<tr><td><strong>' + u.fullname + '</strong></td><td>' + idText + '</td><td>' + deptText + '</td><td>' + (u.role||'student') + '</td><td>' + (u.registeredAt||'-') + '</td>';
-      rows += '<td><button class="btn-revoke" onclick="revokeUser(' + u.id + ')">Revoke</button></td></tr>';
-    } else {
-      rows += '<tr><td><strong>' + u.fullname + '</strong></td><td>' + idText + '</td><td>' + deptText + '</td><td>' + (u.registeredAt||'-') + '</td>';
-      rows += '<td><button class="btn-approve" onclick="approveUser(' + u.id + ')">Re-approve</button></td></tr>';
-    }
-  }
-
-  var thead = adminCurrentTab === 'pending'
-    ? '<tr><th>Name</th><th>Member ID</th><th>Dept(s)</th><th>Email</th><th>Phone</th><th>Role</th><th>Date</th><th>Actions</th></tr>'
-    : adminCurrentTab === 'approved'
-    ? '<tr><th>Name</th><th>Member ID</th><th>Dept(s)</th><th>Role</th><th>Date</th><th>Actions</th></tr>'
-    : '<tr><th>Name</th><th>Member ID</th><th>Dept(s)</th><th>Date</th><th>Actions</th></tr>';
-
-  el.innerHTML = '<div class="data-table" style="overflow-x:auto;"><table><thead>' + thead + '</thead><tbody>' + rows + '</tbody></table></div>';
-}
-
-function approveUser(id){
-  var users = getUsers();
-  var u = null;
-  for(var i = 0; i < users.length; i++){ if(users[i].id === id){ u = users[i]; break; } }
-  if(u){
-    u.status = 'approved';
-    if(!u.memberId || u.memberId === 'PENDING'){
-      u.memberId = generateMemberId(u.dept || (u.depts && u.depts[0]) || 'Choir', users);
-    }
-    if(!u.depts) u.depts = [u.dept];
-    saveUsers(users);
-    renderAdminDashboard();
-    showToast('Approved! Member ID: ' + u.memberId);
-  }
+function approveUser(id, dept){
+  var db=window._db;
+  if(!db) return;
+  // Count existing approved in same dept to generate ID
+  window._fbGetDocs(window._fbCollection(db,'igem_users')).then(function(snapshot){
+    var count=0;
+    snapshot.forEach(function(d){ var u=d.data(); if(u.status==='approved'&&u.dept===dept) count++; });
+    var newId=generateMemberId(dept,count);
+    window._fbUpdateDoc(window._fbDoc(db,'igem_users',id),{status:'approved',memberId:newId}).then(function(){
+      showToast('Approved! Member ID: '+newId);
+      renderAdminDashboard();
+    });
+  });
 }
 
 function rejectUser(id){
-  var users = getUsers();
-  for(var i = 0; i < users.length; i++){
-    if(users[i].id === id){ users[i].status = 'rejected'; break; }
-  }
-  saveUsers(users);
-  renderAdminDashboard();
-  showToast('Registration rejected.');
+  var db=window._db;
+  if(!db) return;
+  window._fbUpdateDoc(window._fbDoc(db,'igem_users',id),{status:'rejected'}).then(function(){
+    showToast('Registration rejected.');
+    renderAdminDashboard();
+  });
 }
 
 function revokeUser(id){
-  var users = getUsers();
-  for(var i = 0; i < users.length; i++){
-    if(users[i].id === id){ users[i].status = 'rejected'; break; }
-  }
-  saveUsers(users);
-  renderAdminDashboard();
-  showToast('Access revoked.');
+  var db=window._db;
+  if(!db) return;
+  window._fbUpdateDoc(window._fbDoc(db,'igem_users',id),{status:'rejected',memberId:'REVOKED'}).then(function(){
+    showToast('Access revoked.');
+    renderAdminDashboard();
+  });
 }
 
 // ===== NAVIGATION =====
 function showPage(name){
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
-  var page = document.getElementById('page-' + name);
+  var page=document.getElementById('page-'+name);
   if(page){ page.classList.add('active'); window.scrollTo(0,0); }
-  var user = getCurrentUser();
-  if(user && user.status !== 'pending'){
-    setTimeout(function(){
-      lockAllToDepts(user.depts || [user.dept]);
-      updateDashboardGreeting();
-      updateTopbarAuth(user);
-    }, 50);
+  var user=getCurrentUser();
+  if(user&&user.status!=='pending'){
+    setTimeout(function(){ lockAllToDepts(user.depts||[user.dept]); updateDashboardGreeting(); updateTopbarAuth(user); },50);
   }
-  if(name === 'courses'){
-    setTimeout(function(){ applyFilters(); }, 60);
+  if(name==='courses') setTimeout(function(){ applyFilters(); },60);
+  if(name==='live'){
+    var grid=document.getElementById('live-schedule-grid');
+    var u2=getCurrentUser();
+    if(grid) grid.innerHTML=renderLiveSchedule(u2?u2.dept:null);
+    if(u2) setTimeout(function(){ lockAllToDepts(u2.depts||[u2.dept]); },60);
   }
-  if(name === 'live'){
-    var grid = document.getElementById('live-schedule-grid');
-    var user2 = getCurrentUser();
-    if(grid) grid.innerHTML = renderLiveSchedule(user2 ? user2.dept : null);
-    if(user2) setTimeout(function(){ lockAllToDepts(user2.depts||[user2.dept]); }, 60);
-  }
-  if(name === 'home') renderHomeGrid();
-  if(name === 'student-dashboard'){ renderMyCoursesGrid(); if(user) updateDashboardGreeting(); }
+  if(name==='home') renderHomeGrid();
+  if(name==='student-dashboard'){ renderMyCoursesGrid(); if(user) updateDashboardGreeting(); }
 }
 
 function toggleMobileNav(){
-  var n = document.getElementById('mobileNav');
-  if(n) n.style.display = (n.style.display === 'flex') ? 'none' : 'flex';
+  var n=document.getElementById('mobileNav');
+  if(n) n.style.display=(n.style.display==='flex')?'none':'flex';
 }
 
-// ===== DASHBOARD TABS =====
 function showStudentTab(tab){
-  var tabs = ['overview','mycourses','progress','certificates','live','profile'];
-  for(var i = 0; i < tabs.length; i++){
-    var el = document.getElementById('st-' + tabs[i]);
-    if(el) el.style.display = (tabs[i] === tab) ? 'block' : 'none';
+  var tabs=['overview','mycourses','progress','certificates','live','profile'];
+  for(var i=0;i<tabs.length;i++){
+    var el=document.getElementById('st-'+tabs[i]);
+    if(el) el.style.display=(tabs[i]===tab)?'block':'none';
   }
-  if(tab === 'mycourses') renderMyCoursesGrid();
-  if(tab === 'live'){
-    var user = getCurrentUser();
-    var grid = document.getElementById('my-live-sessions-grid');
-    if(grid) grid.innerHTML = renderLiveSchedule(user ? user.dept : null);
+  if(tab==='mycourses') renderMyCoursesGrid();
+  if(tab==='live'){
+    var user=getCurrentUser();
+    var grid=document.getElementById('my-live-sessions-grid');
+    if(grid) grid.innerHTML=renderLiveSchedule(user?user.dept:null);
   }
 }
 
 function showInstructorTab(tab){
-  var tabs = ['overview','upload','courses','schedule','students'];
-  for(var i = 0; i < tabs.length; i++){
-    var el = document.getElementById('ins-' + tabs[i]);
-    if(el) el.style.display = (tabs[i] === tab) ? 'block' : 'none';
+  var tabs=['overview','upload','courses','schedule','students'];
+  for(var i=0;i<tabs.length;i++){
+    var el=document.getElementById('ins-'+tabs[i]);
+    if(el) el.style.display=(tabs[i]===tab)?'block':'none';
   }
 }
 
 function switchRegTab(mode){
-  var st = document.getElementById('tab-student');
-  var it = document.getElementById('tab-instructor');
-  if(st) st.classList.toggle('active', mode === 'student');
-  if(it) it.classList.toggle('active', mode === 'instructor');
+  var st=document.getElementById('tab-student');
+  var it=document.getElementById('tab-instructor');
+  if(st) st.classList.toggle('active',mode==='student');
+  if(it) it.classList.toggle('active',mode==='instructor');
 }
 
-// ===== TOAST =====
 function showToast(msg){
-  var t = document.getElementById('toast');
-  if(t){ t.textContent = msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 3000); }
+  var t=document.getElementById('toast');
+  if(t){ t.textContent=msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); },3000); }
 }
 
-// ===== INIT =====
-window.addEventListener('DOMContentLoaded', function(){
+window.addEventListener('DOMContentLoaded',function(){
   renderHomeGrid();
   applyFilters();
-  var grid = document.getElementById('live-schedule-grid');
-  if(grid) grid.innerHTML = renderLiveSchedule();
-  var user = getCurrentUser();
-  if(user && user.status === 'approved'){
+  var grid=document.getElementById('live-schedule-grid');
+  if(grid) grid.innerHTML=renderLiveSchedule();
+  var user=getCurrentUser();
+  if(user&&user.status==='approved'){
     updateTopbarAuth(user);
-    lockAllToDepts(user.depts || [user.dept]);
+    lockAllToDepts(user.depts||[user.dept]);
   }
 });
 </script>
