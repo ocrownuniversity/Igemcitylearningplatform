@@ -256,8 +256,8 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
 .pav img{width:100%;height:100%;object-fit:cover;}
 .pav-edit{position:absolute;bottom:0;right:0;background:var(--sky);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:9px;border:2px solid #fff;}
 /* AUTH */
-.auth-layout{min-height:calc(100vh - 66px);display:flex;align-items:center;justify-content:center;padding:26px 20px;background:var(--gray-50);}
-.auth-box{background:#fff;border:1px solid var(--border);border-radius:18px;padding:34px 30px;width:100%;max-width:430px;box-shadow:0 20px 60px rgba(14,165,233,.1);}
+.auth-layout{min-height:calc(100vh - 66px);display:flex;align-items:flex-start;justify-content:center;padding:26px 20px 60px;background:var(--gray-50);overflow-y:auto;}
+.auth-box{background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px 20px;width:100%;max-width:430px;box-shadow:0 20px 60px rgba(14,165,233,.1);}
 .auth-logo{text-align:center;margin-bottom:22px;}
 .auth-logo img{width:54px;height:54px;border-radius:50%;margin-bottom:8px;}
 .auth-logo h2{font-family:"Playfair Display",serif;font-size:21px;font-weight:700;color:var(--navy);}
@@ -276,7 +276,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
 .auth-switch a{color:var(--sky);font-weight:600;cursor:pointer;}
 .auth-divider{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--muted);font-size:11px;}
 .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border);}
-.auth-err{background:#fee2e2;border:1px solid #fca5a5;border-radius:7px;padding:9px 13px;font-size:12px;color:#991b1b;margin-bottom:12px;display:none;}
+.auth-err{background:#fee2e2;border:1px solid #fca5a5;border-radius:7px;padding:9px 13px;font-size:13px;font-weight:600;color:#991b1b;margin-bottom:12px;display:none;text-align:center;}
 .auth-info{background:var(--sky-pale);border:1px solid var(--sky-light);border-radius:7px;padding:11px 13px;font-size:12px;color:var(--sky-dark);margin-bottom:12px;}
 .forgot-link{text-align:right;font-size:11px;color:var(--sky);cursor:pointer;margin-top:-7px;margin-bottom:11px;display:block;}
 /* ADMIN MODAL */
@@ -1050,13 +1050,22 @@ function doRegister(){
   var depts=[];
   document.querySelectorAll('.dept-chk:checked').forEach(function(c){depts.push(c.value);});
   var err=e('reg-err');
-  if(!name||!email||!pass){showErr(err,'Please fill all required fields.');return;}
+  // Hide previous errors
+  if(err) err.style.display='none';
+
+  // Validation with clear messages
+  if(!name){showErr(err,'Please enter your full name.');return;}
+  if(!email){showErr(err,'Please enter your email address.');return;}
+  if(!pass){showErr(err,'Please enter a password.');return;}
+  if(pass.length<6){showErr(err,'Password must be at least 6 characters.');return;}
   if(pass!==pass2){showErr(err,'Passwords do not match.');return;}
   if(depts.length===0){showErr(err,'Please select at least one department.');return;}
+
+  // Firebase not ready
   if(!auth||!db){
     var st=e('firebase-status-reg');
-    if(st) st.style.display='block';
-    firebaseRetries = 0;
+    if(st){st.textContent='Connecting to server...';st.style.display='block';st.style.background='#e0f2fe';st.style.color='#0369a1';}
+    firebaseRetries=0;
     initFirebase();
     var attempts=0;
     var wait=setInterval(function(){
@@ -1065,26 +1074,44 @@ function doRegister(){
         clearInterval(wait);
         if(st) st.style.display='none';
         doRegister();
-      } else if(attempts>20){
+      } else if(attempts>25){
         clearInterval(wait);
+        if(st){st.textContent='No internet connection. Please check your connection and try again.';st.style.background='#fee2e2';st.style.color='#991b1b';}
       }
     },300);
     return;
   }
+
   showToast('Creating account...');
   auth.createUserWithEmailAndPassword(email,pass).then(function(uc){
     var uid=uc.user.uid;
-    var mid=DP[depts[0]]||'IGEM'+Math.random().toString(36).substr(2,4).toUpperCase();
     var now=new Date().toLocaleDateString('en-GB');
     return db.collection('igem_users').doc(uid).set({
-      uid:uid,memberId:'PENDING',fullname:name,email:email,phone:phone||'',
-      dept:depts[0],depts:depts,status:'pending',registeredAt:now
+      uid:uid,
+      memberId:'PENDING',
+      fullname:name,
+      email:email,
+      phone:phone||'',
+      dept:depts[0],
+      depts:depts,
+      status:'pending',
+      registeredAt:now
     });
   }).then(function(){
     var d=e('reg-success');
     if(d) d.style.display='block';
+    if(err) err.style.display='none';
     showToast('Registration submitted! Awaiting admin approval.');
-  }).catch(function(err2){showErr(err,fbErr(err2.code));});
+    // Clear form
+    e('reg-name').value='';
+    e('reg-email').value='';
+    e('reg-phone').value='';
+    e('reg-pass').value='';
+    e('reg-pass2').value='';
+    document.querySelectorAll('.dept-chk').forEach(function(c){c.checked=false;});
+  }).catch(function(err2){
+    showErr(err, fbErr(err2.code)||err2.message);
+  });
 }
 
 function doLogin(){
