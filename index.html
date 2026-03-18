@@ -419,8 +419,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
 
 <!-- HOME PAGE -->
 <div class="page active" id="page-home">
-  <div class="hero">
-    <div class="hero-inner">
+  <div class="hero" id="home-hero"><div class="hero-inner">
       <div class="hero-text">
         <div class="hero-badge">&#10015;&#65039; Kingdom Learning Platform</div>
         <h1>Grow in Faith,<br><em>Serve with Excellence</em></h1>
@@ -446,7 +445,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
       </div>
     </div>
   </div>
-  <div class="live-banner">
+  <div id="home-public"><div class="live-banner">
     <div style="max-width:660px;margin:auto;">
       <div class="live-pulse"><div class="ldot"></div> Live Sessions Available</div>
       <h3>&#128225; Watch Our Live Sessions</h3>
@@ -479,7 +478,9 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
       <div class="courses-grid" id="home-courses-grid"></div>
     </div>
   </div>
-  <div class="cta-sec">
+</div><!-- end home-public -->
+  <div id="home-member" style="display:none;"></div>
+  <div class="cta-sec" id="home-cta">
     <h2>Ready to Grow in Ministry?</h2>
     <p>Join millions of IGEM Christ Covenant Church members already learning and growing through our platform</p>
     <div class="cta-btns">
@@ -1345,26 +1346,70 @@ function closeVM(ev){
 // HOME
 // ============================================================
 function renderHome(){
-  var dg=e('dept-grid-home');
-  if(dg){
-    var depts=Object.keys(DC);
-    dg.innerHTML=depts.map(function(d){
-      var cnt=COURSES.filter(function(c){return c.dept===d;}).length;
-      return '<div class="dept-card" data-dept="'+d+'" onclick="showPage(\'courses\');filterDept(\''+d+'\')">'
-        +'<div class="dc-icon" style="background:'+DC[d]+';">'+DI[d]+'</div>'
-        +'<h3>'+d+'</h3>'
-        +'<p>Ministry Training</p>'
-        +'<span class="cc">'+cnt+' courses</span>'
-        +'</div>';
-    }).join('');
-  }
-  var fg=e('featured-grid');
-  if(fg){
-    var feat=COURSES.filter(function(c){return c.live;}).slice(0,4);
-    fg.innerHTML=feat.map(mkCard).join('');
-  }
   var u=getUser();
-  if(u){lockDepts(u.depts||[u.dept]);}
+  var hero=e('home-hero');
+  var publicSec=e('home-public');
+  var memberSec=e('home-member');
+
+  if(u){
+    // LOGGED IN - show personalized home
+    if(hero){
+      var depts=u.depts||[u.dept];
+      hero.innerHTML='<div class="hero-inner">'
+        +'<div class="hero-text">'
+        +'<div class="hero-badge">&#127775; Welcome Back!</div>'
+        +'<h1>Hello, <em>'+u.fullname.split(' ')[0]+'!</em></h1>'
+        +'<p style="color:#94b8d4;font-size:15px;line-height:1.7;">Member ID: <strong style="color:#7dd3fc;">'+u.memberId+'</strong><br>'
+        +'Department: <strong style="color:#7dd3fc;">'+depts.join(', ')+'</strong></p>'
+        +'<div class="hero-actions">'
+        +'<button class="btn-hp" onclick="showPage(\'student-dashboard\')">&#128218; My Dashboard</button>'
+        +'<button class="btn-ho" onclick="showPage(\'live\')">&#128225; Live Sessions</button>'
+        +'</div></div></div>';
+    }
+    if(publicSec) publicSec.style.display='none';
+    if(memberSec){
+      memberSec.style.display='block';
+      var depts=u.depts||[u.dept];
+      var myCourses=COURSES.filter(function(c){return depts.indexOf(c.dept)!==-1;});
+      var html='<div class="section"><div class="section-inner">'
+        +'<div class="sec-hdr"><div class="sec-hd"><div class="sec-badge">My Department</div>'
+        +'<h2>Your Courses</h2>'
+        +'<p>Courses available for '+depts.join(', ')+' department</p></div></div>'
+        +'<div class="courses-grid">'+myCourses.map(mkCard).join('')+'</div>'
+        +'</div></div>';
+      memberSec.innerHTML=html;
+    }
+    // Update topbar
+    var tbAuth=e('tb-auth'); var tbUser=e('tb-user'); var tbName=e('tb-name');
+    if(tbAuth) tbAuth.style.display='none';
+    if(tbUser) tbUser.style.display='flex';
+    if(tbName) tbName.textContent=u.fullname;
+  } else {
+    // NOT LOGGED IN - show public home
+    if(hero){
+      hero.innerHTML='<div class="hero-inner">'
+        +'<div class="hero-text">'
+        +'<div class="hero-badge">&#10015;&#65039; Kingdom Learning Platform</div>'
+        +'<h1>Grow in Faith,<br><em>Serve with Excellence</em></h1>'
+        +'<p style="color:#94b8d4;font-size:15px;line-height:1.7;">"Jesus said I am the way and the truth" &mdash; Equip yourself through structured, Spirit-led training for ministry excellence.</p>'
+        +'<div class="hero-actions">'
+        +'<button class="btn-hp" onclick="showPage(\'courses\')">Explore Departments &#8594;</button>'
+        +'<button class="btn-ho" onclick="showPage(\'register\')">Join Free Today</button>'
+        +'</div>'
+        +'<div class="hero-stats">'
+        +'<div class="hstat"><div class="val">5</div><div class="lbl">Departments</div></div>'
+        +'<div class="hstat"><div class="val">30+</div><div class="lbl">Courses</div></div>'
+        +'<div class="hstat"><div class="val">Live</div><div class="lbl">Sessions Weekly</div></div>'
+        +'</div></div></div>';
+    }
+    if(publicSec) publicSec.style.display='block';
+    if(memberSec) memberSec.style.display='none';
+    var fg=e('home-courses-grid');
+    if(fg){
+      var feat=COURSES.filter(function(c){return c.live;}).slice(0,4);
+      fg.innerHTML=feat.map(mkCard).join('');
+    }
+  }
 }
 
 function remind(){showToast('Reminder set!');}
@@ -1504,11 +1549,8 @@ function revokeU(id){
 // NAVIGATION
 // ============================================================
 function goHome(){
-  if(CU){
-    showPage('student-dashboard');
-  } else {
-    showPage('home');
-  }
+  showPage('home');
+  setTimeout(renderHome, 100);
 }
 
 function showPage(name){
@@ -1525,7 +1567,7 @@ function showPage(name){
     var u2=getUser();
     if(lg) lg.innerHTML=u2?mkSched(LS.filter(function(s){return(u2.depts||[u2.dept]).indexOf(s.dept)!==-1;})):mkSched(LS);
   }
-  if(name==='home') renderHome();
+  if(name==='home'){ renderHome(); }
   if(name==='student-dashboard'){
     var mg=e('my-courses-grid');
     var u3=getUser();
@@ -1610,6 +1652,9 @@ auth.onAuthStateChanged(function(fu){
         if(u.status==='approved'){
           if(!u.depts) u.depts=[u.dept];
           CU=u; updateTopbar(u); lockDepts(u.depts);
+          // If on home page, re-render to show personalized view
+          var hp=document.getElementById('page-home');
+          if(hp && hp.classList.contains('active')) renderHome();
         }
       } else {
         CU=null;
