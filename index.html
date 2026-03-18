@@ -1110,7 +1110,8 @@ function doRegister(){
     e('reg-pass2').value='';
     document.querySelectorAll('.dept-chk').forEach(function(c){c.checked=false;});
   }).catch(function(err2){
-    showErr(err, fbErr(err2.code)||err2.message);
+    var msg = fbErr(err2.code) || err2.message || 'Unknown error: '+err2.code;
+    showErr(err, msg);
   });
 }
 
