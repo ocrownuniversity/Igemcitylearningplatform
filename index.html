@@ -1358,21 +1358,16 @@ function mkSched(sessions){
 // ============================================================
 var adminTab='pending';
 function openAdmin(){
-  var pass=prompt('Enter admin password:');
-  if(pass==='IGEMADMIN2024'){
-    e('adminOverlay').style.display='flex';
-    if(e('adminLogin')) e('adminLogin').style.display='none';
-    if(e('adminDash')) e('adminDash').style.display='block';
-    showToast('Admin access granted!');
-    loadAdmin();
-  } else {
-    showToast('Incorrect password!');
-  }
+  // Just open the overlay - password is entered inside
+  e('adminOverlay').style.display='flex';
+  if(e('adminLogin')) e('adminLogin').style.display='block';
+  if(e('adminDash')) e('adminDash').style.display='none';
+  if(e('adminPassIn')) e('adminPassIn').value='';
 }
 
 function checkAdmin(){
   var pass=e('adminPassIn')?e('adminPassIn').value:'';
-  if(pass==='IGEMADMIN2024'){
+  if(pass==='IGEM2025'){
     if(e('adminLogin')) e('adminLogin').style.display='none';
     if(e('adminDash')) e('adminDash').style.display='block';
     showToast('Admin access granted!');
