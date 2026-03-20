@@ -1404,8 +1404,12 @@ function uploadPic(event){
     document.querySelectorAll('.member-avatar').forEach(function(a){
       a.innerHTML = '<img src="'+imgData+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
     });
-    // Save to localStorage so it persists
-    try{ localStorage.setItem('igem_profile_pic', imgData); }catch(e){}
+    // Save to localStorage with user's unique ID so each person has their own pic
+    try{
+      var u=getUser();
+      var key = u ? 'igem_pic_'+u.id : 'igem_pic_guest';
+      localStorage.setItem(key, imgData);
+    }catch(e){}
     showToast('Profile picture updated!');
   };
   reader.readAsDataURL(file);
@@ -1413,18 +1417,26 @@ function uploadPic(event){
 
 function loadSavedPic(){
   try{
-    var saved = localStorage.getItem('igem_profile_pic');
+    var u=getUser();
+    if(!u) return;
+    // Load pic using this user's unique ID - so each person sees only their own pic
+    var key = 'igem_pic_'+u.id;
+    var saved = localStorage.getItem(key);
     if(saved){
-      // Update profile avatar
       var av = document.getElementById('prof-av');
       if(av) av.innerHTML = '<img src="'+saved+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
-      // Update dashboard top avatar
       var dashAv = document.getElementById('dash-av');
       if(dashAv) dashAv.innerHTML = '<img src="'+saved+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
-      // Update any other avatars
       document.querySelectorAll('.member-avatar').forEach(function(a){
         a.innerHTML = '<img src="'+saved+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
       });
+    } else {
+      // No pic saved - show first letter of name
+      var letter = u.fullname ? u.fullname.charAt(0).toUpperCase() : '?';
+      var av = document.getElementById('prof-av');
+      if(av) av.innerHTML = '<span id="prof-av-ltr">'+letter+'</span>';
+      var dashAv = document.getElementById('dash-av');
+      if(dashAv) dashAv.innerHTML = '<span style="font-size:24px;font-weight:700;color:#fff;">'+letter+'</span>';
     }
   }catch(e){}
 }
