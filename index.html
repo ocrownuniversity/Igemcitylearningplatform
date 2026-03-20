@@ -657,31 +657,79 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
       <div id="tab-live" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--navy);margin-bottom:14px;">My Live Sessions</h2><div class="sgrid" id="my-live-grid"></div></div>
       <div id="tab-notifs" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--navy);margin-bottom:14px;">Notifications</h2><div id="notif-list"></div></div>
       <div id="tab-profile" style="display:none;">
+        <!-- Profile Header with pic -->
         <div class="prof-hdr">
           <div class="pav-wrap" onclick="document.getElementById('picIn').click()">
-            <div class="pav" id="prof-av"><span id="prof-av-ltr">K</span></div>
+            <div class="pav" id="prof-av"><span id="prof-av-ltr">?</span></div>
             <div class="pav-edit">&#9998;</div>
           </div>
           <input type="file" id="picIn" accept="image/*" style="display:none;" onchange="uploadPic(event)">
           <div>
             <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fff;" id="prof-dn">Member</div>
-            <div style="font-size:11px;color:rgba(255,255,255,.8);margin-top:2px;" id="prof-de"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9c4ccc4cbccdbe9c0ceccc487c6dbce">[email&#160;protected]</a></div>
+            <div style="font-size:11px;color:rgba(255,255,255,.8);margin-top:2px;" id="prof-de"></div>
             <div style="font-size:10px;background:rgba(255,255,255,.2);border-radius:20px;padding:2px 11px;margin-top:5px;display:inline-block;color:#fff;" id="prof-did">ID: &mdash;</div>
           </div>
         </div>
-        <div style="max-width:500px;">
-          <div class="fg"><label>Full Name</label><input type="text" id="pf-name"></div>
-          <div class="fg"><label>Email</label><input type="email" id="pf-email"></div>
-          <div class="fg"><label>Phone</label><input type="tel" id="pf-phone" placeholder="08123456789"></div>
-          <div class="fg"><label>Department(s)</label><input type="text" id="pf-dept" readonly style="background:var(--gray-50);"></div>
-          <div class="fg"><label>Year Joined Ministry *</label><select id="pf-year" style="width:100%;border:2px solid var(--border);border-radius:9px;padding:10px 13px;font-size:13px;font-family:inherit;outline:none;"><option value="">-- Select Year --</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>2021</option><option>2020</option><option>2019</option><option>2018</option><option>2017</option><option>2016</option><option>2015</option><option>2014</option><option>2013</option><option>2012</option><option>2011</option><option>2010</option><option>2009</option><option>2008</option><option>2007</option><option>2006</option><option>2005</option><option>2004</option><option>2003</option><option>2002</option><option>2001</option><option>2000</option><option>1999</option><option>1998</option><option>1997</option><option>1996</option><option>1995</option><option>1994</option><option>1993</option><option>1992</option><option>1991</option><option>1990</option><option>1989</option><option>1988</option><option>1987</option><option>1986</option><option>1985</option><option>1984</option><option>1983</option><option>1982</option><option>1981</option><option>1980</option><option>1979</option><option>1978</option><option>1977</option><option>1976</option><option>1975</option><option>1974</option><option>1973</option><option>1972</option><option>1971</option><option>1970</option><option>1969</option><option>1968</option><option>1967</option><option>1966</option><option>1965</option><option>1964</option><option>1963</option><option>1962</option><option>1961</option><option>1960</option><option>1959</option><option>1958</option><option>1957</option><option>1956</option><option>1955</option><option>1954</option><option>1953</option><option>1952</option><option>1951</option><option>1950</option><option>1949</option><option>1948</option><option>1947</option><option>1946</option><option>1945</option><option>1944</option><option>1943</option><option>1942</option><option>1941</option><option>1940</option><option>1939</option><option>1938</option><option>1937</option><option>1936</option><option>1935</option><option>1934</option><option>1933</option><option>1932</option><option>1931</option><option>1930</option></select></div>
-          <div class="fg"><label>Previous Department <span style="font-weight:400;color:var(--muted);">(optional)</span></label><input type="text" id="pf-prev-dept" placeholder="e.g. Choir, Usher (if any)"></div>
-          <div class="fg"><label>New Password (optional)</label><input type="password" id="pf-pass" placeholder="Leave blank to keep current"></div>
-          <div style="margin-bottom:14px;">
+
+        <!-- VIEW MODE -->
+        <div id="profile-view" style="max-width:500px;margin-top:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+            <h3 style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);">My Information</h3>
+            <button onclick="toggleProfileEdit(true)" style="background:var(--sky);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">&#9998; Edit</button>
+          </div>
+          <div style="background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+            <div style="display:flex;padding:13px 16px;border-bottom:1px solid var(--border);gap:10px;">
+              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;min-width:110px;">Full Name</div>
+              <div style="font-size:13px;font-weight:600;color:var(--text);" id="view-name">—</div>
+            </div>
+            <div style="display:flex;padding:13px 16px;border-bottom:1px solid var(--border);gap:10px;">
+              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;min-width:110px;">Email</div>
+              <div style="font-size:13px;color:var(--text);word-break:break-all;" id="view-email">—</div>
+            </div>
+            <div style="display:flex;padding:13px 16px;border-bottom:1px solid var(--border);gap:10px;">
+              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;min-width:110px;">Phone</div>
+              <div style="font-size:13px;color:var(--text);" id="view-phone">—</div>
+            </div>
+            <div style="display:flex;padding:13px 16px;border-bottom:1px solid var(--border);gap:10px;">
+              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;min-width:110px;">Department</div>
+              <div style="font-size:13px;color:var(--sky);font-weight:600;" id="view-dept">—</div>
+            </div>
+            <div style="display:flex;padding:13px 16px;border-bottom:1px solid var(--border);gap:10px;">
+              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;min-width:110px;">Member ID</div>
+              <div style="font-size:13px;color:var(--navy);font-weight:700;" id="view-id">—</div>
+            </div>
+            <div style="display:flex;padding:13px 16px;border-bottom:1px solid var(--border);gap:10px;">
+              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;min-width:110px;">Year Joined</div>
+              <div style="font-size:13px;color:var(--text);" id="view-year">—</div>
+            </div>
+            <div style="display:flex;padding:13px 16px;gap:10px;">
+              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;min-width:110px;">Prev. Dept</div>
+              <div style="font-size:13px;color:var(--text);" id="view-prev-dept">—</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;text-align:center;">
             <span style="font-size:12px;color:var(--muted);">Forgot your password? </span>
             <a onclick="sendSelfReset()" style="font-size:12px;color:var(--sky);cursor:pointer;font-weight:600;">Send reset email to my inbox</a>
           </div>
-          <button class="btn-auth" style="max-width:190px;" onclick="saveProfile()">Save Changes</button>
+        </div>
+
+        <!-- EDIT MODE (hidden by default) -->
+        <div id="profile-edit" style="display:none;max-width:500px;margin-top:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+            <h3 style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--navy);">Edit Profile</h3>
+            <button onclick="toggleProfileEdit(false)" style="background:var(--gray-100);color:var(--text);border:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">&#10005; Cancel</button>
+          </div>
+          <div class="fg"><label>Full Name</label><input type="text" id="pf-name" placeholder="Your full name"></div>
+          <div class="fg"><label>Email</label><input type="email" id="pf-email" readonly style="background:var(--gray-50);color:var(--muted);"></div>
+          <div class="fg"><label>Phone</label><input type="tel" id="pf-phone" placeholder="08123456789"></div>
+          <div class="fg"><label>Department(s)</label><input type="text" id="pf-dept" readonly style="background:var(--gray-50);color:var(--muted);"></div>
+          <div class="fg"><label>Year Joined Ministry</label><select id="pf-year" style="width:100%;border:2px solid var(--border);border-radius:9px;padding:10px 13px;font-size:13px;font-family:inherit;outline:none;"></select></div>
+          <div class="fg"><label>Previous Department <span style="font-weight:400;color:var(--muted);">(optional)</span></label><input type="text" id="pf-prev-dept" placeholder="e.g. Choir, Usher (if any)"></div>
+          <div class="fg"><label>New Password (optional)</label><input type="password" id="pf-pass" placeholder="Leave blank to keep current"></div>
+          <div style="display:flex;gap:10px;margin-top:6px;">
+            <button class="btn-auth" style="max-width:200px;" onclick="saveProfile()">&#10003; Save Changes</button>
+            <button onclick="toggleProfileEdit(false)" style="flex:1;max-width:120px;background:var(--gray-100);color:var(--text);border:none;padding:12px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;">Cancel</button>
+          </div>
         </div>
       </div>
     </div>
@@ -1202,12 +1250,36 @@ function doLogout(){
 }
 // ============================================================
 function loadProfile(u){
+  // VIEW mode
+  if(e('view-name')) e('view-name').textContent=u.fullname||'—';
+  if(e('view-email')) e('view-email').textContent=u.email||'—';
+  if(e('view-phone')) e('view-phone').textContent=u.phone||'—';
+  if(e('view-dept')) e('view-dept').textContent=(u.depts||[u.dept]).join(', ')||'—';
+  if(e('view-id')) e('view-id').textContent=u.memberId||'—';
+  if(e('view-year')) e('view-year').textContent=u.yearJoined||'Not set';
+  if(e('view-prev-dept')) e('view-prev-dept').textContent=u.prevDept||'None';
+  // EDIT mode
   if(e('pf-name')) e('pf-name').value=u.fullname||'';
   if(e('pf-email')) e('pf-email').value=u.email||'';
   if(e('pf-phone')) e('pf-phone').value=u.phone||'';
-  if(e('pf-year')) e('pf-year').value=u.yearJoined||'';
-  if(e('pf-prev-dept')) e('pf-prev-dept').value=u.prevDept||'';
   if(e('pf-dept')) e('pf-dept').value=(u.depts||[u.dept]).join(', ');
+  if(e('pf-prev-dept')) e('pf-prev-dept').value=u.prevDept||'';
+  // Build year dropdown
+  var yrSel=e('pf-year');
+  if(yrSel && yrSel.options.length<=1){
+    yrSel.innerHTML='<option value="">-- Select Year --</option>';
+    for(var y=2025;y>=1930;y--){
+      var opt=document.createElement('option');
+      opt.value=y;opt.textContent=y;yrSel.appendChild(opt);
+    }
+  }
+  if(e('pf-year')) e('pf-year').value=u.yearJoined||'';
+}
+
+function toggleProfileEdit(show){
+  if(e('profile-view')) e('profile-view').style.display=show?'none':'block';
+  if(e('profile-edit')) e('profile-edit').style.display=show?'block':'none';
+  if(show){var u=getUser();if(u)loadProfile(u);}
 }
 
 function updateDashStats(u){
