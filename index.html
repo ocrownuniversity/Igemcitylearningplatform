@@ -1269,16 +1269,14 @@ function uploadPic(event){
   var reader = new FileReader();
   reader.onload = function(e){
     var imgData = e.target.result;
-    // Show image in profile avatar
+    // Update all avatars everywhere
     var av = document.getElementById('prof-av');
-    if(av){
-      av.innerHTML = '<img src="'+imgData+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
-    }
-    // Also update header avatar if exists
-    var headerAv = document.getElementById('header-av');
-    if(headerAv){
-      headerAv.innerHTML = '<img src="'+imgData+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
-    }
+    if(av) av.innerHTML = '<img src="'+imgData+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+    var dashAv = document.getElementById('dash-av');
+    if(dashAv) dashAv.innerHTML = '<img src="'+imgData+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+    document.querySelectorAll('.member-avatar').forEach(function(a){
+      a.innerHTML = '<img src="'+imgData+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+    });
     // Save to localStorage so it persists
     try{ localStorage.setItem('igem_profile_pic', imgData); }catch(e){}
     showToast('Profile picture updated!');
@@ -1290,10 +1288,16 @@ function loadSavedPic(){
   try{
     var saved = localStorage.getItem('igem_profile_pic');
     if(saved){
+      // Update profile avatar
       var av = document.getElementById('prof-av');
       if(av) av.innerHTML = '<img src="'+saved+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
-      var headerAv = document.getElementById('header-av');
-      if(headerAv) headerAv.innerHTML = '<img src="'+saved+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+      // Update dashboard top avatar
+      var dashAv = document.getElementById('dash-av');
+      if(dashAv) dashAv.innerHTML = '<img src="'+saved+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+      // Update any other avatars
+      document.querySelectorAll('.member-avatar').forEach(function(a){
+        a.innerHTML = '<img src="'+saved+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+      });
     }
   }catch(e){}
 }
@@ -1622,6 +1626,7 @@ function showPage(name){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   var pg=e('page-'+name);
   if(pg){pg.classList.add('active');window.scrollTo(0,0);}
+
   var u=getUser();
   if(u){
     setTimeout(function(){lockDepts(u.depts||[u.dept]);updateDash(u);updateTopbar(u);},50);
@@ -1641,7 +1646,7 @@ function showPage(name){
       var f=COURSES.filter(function(c){return d.indexOf(c.dept)!==-1;});
       mg.innerHTML=f.map(mkCard).join('');
     }
-    if(u3){updateDash(u3);updateDashStats(u3);loadSavedPic();}
+    if(u3){updateDash(u3);updateDashStats(u3);setTimeout(loadSavedPic,100);}
   }
 }
 
@@ -1730,6 +1735,13 @@ auth.onAuthStateChanged(function(fu){
   }
 });
 } // end setupAuthListener
+
+// Handle browser back button - never show gate again
+window.addEventListener('popstate', function(){
+  var gate = document.getElementById('accessGate');
+  if(gate) gate.style.display='none';
+  if(CU){ showPage('home'); renderHome(); }
+});
 
 // Init - start loading firebase immediately in background
 initFirebase();
