@@ -235,7 +235,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
 .prog-hdr span{font-weight:600;color:var(--navy);}
 .pbar{height:6px;background:var(--gray-100);border-radius:50px;overflow:hidden;}
 .pfill{height:100%;background:linear-gradient(90deg,var(--sky),var(--sky-dark));border-radius:50px;}
-.dtable{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:18px;}
+.dtable{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow-x:auto;overflow-y:visible;margin-bottom:18px;-webkit-overflow-scrolling:touch;}
 .dtable table{width:100%;border-collapse:collapse;}
 .dtable th{background:var(--gray-50);padding:10px 13px;text-align:left;font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.5px;}
 .dtable td{padding:10px 13px;font-size:12px;border-top:1px solid var(--border);}
@@ -644,8 +644,12 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
         </tbody></table></div>
       </div>
       <div id="tab-mycourses" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--navy);margin-bottom:14px;">My Courses</h2><div class="courses-grid" id="my-courses-grid"></div></div>
-      <div id="tab-progress" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--navy);margin-bottom:14px;">Detailed Progress</h2>
-        <div class="dtable"><table><thead><tr><th>Course</th><th>Dept</th><th>Lessons</th><th>Progress</th><th>Status</th></tr></thead><tbody id="prog-tbody"></tbody></table></div>
+      <div id="tab-progress" style="display:none;">
+        <h2 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--navy);margin-bottom:6px;">My Course Progress</h2>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Tracking your enrolled courses</p>
+        <div id="prog-cards"></div>
+        <!-- Keep old tbody for compatibility -->
+        <div style="display:none;"><table><tbody id="prog-tbody"></tbody></table></div>
       </div>
       <div id="tab-certs" style="display:none;"><h2 style="font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--navy);margin-bottom:14px;">Certificates</h2>
         <div class="cert-card"><div style="font-size:50px;margin-bottom:10px;">&#127942;</div><h3 style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--navy);margin-bottom:6px;">Certificate of Completion</h3><p id="cert-txt" style="font-size:12px;color:var(--muted);margin-bottom:14px;">Department &mdash; IGEM Christ Covenant Church. Awarded: 2025</p><button class="btn-auth" style="max-width:190px;margin:0 auto;" onclick="showToast('Certificate downloaded!')">Download Certificate</button></div>
@@ -1211,11 +1215,53 @@ function updateDashStats(u){
   var dc=COURSES.filter(function(c){return depts.indexOf(c.dept)!==-1;});
   if(e('stat-courses')) e('stat-courses').textContent=dc.length;
   if(e('stat-live')) e('stat-live').textContent=LS.filter(function(s){return depts.indexOf(s.dept)!==-1;}).length;
-  var h=''; var pcts=[75,45,100]; var pills=['sp-active','sp-active','sp-completed'];
-  for(var i=0;i<Math.min(dc.length,3);i++){
-    h+='<tr><td>'+dc[i].title.substring(0,28)+'...</td><td>'+dc[i].dept+'</td><td>'+((i+1)*2)+'/8</td><td>'+pcts[i]+'%</td><td><span class="spill '+pills[i]+'">'+(i===2?'Completed':'In Progress')+'</span></td></tr>';
+
+  // Load real enrollments from Firebase
+  var pg=e('prog-cards');
+  if(pg){
+    pg.innerHTML='<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px;">&#128257; Loading your courses...</div>';
+    if(db){
+      db.collection('igem_enrollments').where('userId','==',u.id).get().then(function(snap){
+        if(snap.empty){
+          pg.innerHTML='<div style="text-align:center;padding:30px;background:#fff;border:1px solid var(--border);border-radius:12px;">'
+            +'<div style="font-size:40px;margin-bottom:10px;">&#128218;</div>'
+            +'<div style="font-weight:700;color:var(--navy);margin-bottom:6px;">No courses enrolled yet</div>'
+            +'<div style="font-size:13px;color:var(--muted);">Go to My Courses tab and click Enroll on any course</div>'
+            +'</div>';
+          return;
+        }
+        var cards='';
+        snap.forEach(function(doc){
+          var en=doc.data();
+          cards+='<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:14px;">'
+            +'<div style="width:44px;height:44px;border-radius:10px;background:'+(DC[en.dept]||'linear-gradient(135deg,#64748b,#475569)')+';display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">'+(DI[en.dept]||'&#128218;')+'</div>'
+            +'<div style="flex:1;min-width:0;">'
+            +'<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+en.courseName+'</div>'
+            +'<div style="font-size:11px;color:var(--muted);">'+en.dept+' Department &bull; Enrolled: '+en.enrolledAt+'</div>'
+            +'</div>'
+            +'<span class="spill sp-active">Active</span>'
+            +'</div>';
+        });
+        pg.innerHTML=cards;
+      }).catch(function(){
+        // If Firebase fails show dept courses as fallback
+        var cards='';
+        dc.slice(0,5).forEach(function(c){
+          cards+='<div style="background:#fff;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:14px;">'
+            +'<div style="width:44px;height:44px;border-radius:10px;background:'+(DC[c.dept]||'linear-gradient(135deg,#64748b,#475569)')+';display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">'+(DI[c.dept]||'&#128218;')+'</div>'
+            +'<div style="flex:1;min-width:0;">'
+            +'<div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:3px;">'+c.title+'</div>'
+            +'<div style="font-size:11px;color:var(--muted);">'+c.dept+' Department</div>'
+            +'</div>'
+            +'<span class="spill sp-active">Available</span>'
+            +'</div>';
+        });
+        pg.innerHTML=cards;
+      });
+    } else {
+      pg.innerHTML='<div style="text-align:center;padding:20px;color:var(--muted);">Connecting to server...</div>';
+    }
   }
-  if(e('prog-tbody')) e('prog-tbody').innerHTML=h;
   var notifs=[
     {icon:'&#127925;',bg:'#e0f2fe',title:'New Lesson Available',msg:'Choir Fundamentals has a new module.',time:'2 hours ago'},
     {icon:'&#128276;',bg:'#fef9c3',title:'Live Session Tomorrow',msg:'Band Practice at 4PM Saturday.',time:'1 day ago'},
