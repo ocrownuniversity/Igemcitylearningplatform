@@ -1168,11 +1168,20 @@ function doLogin(){
 function doForgot(){
   var email=(e('fpEmail').value||'').trim();
   var err=e('fp-err'); var ok=e('fp-ok');
-  if(!email){showErr(err,'Please enter your email.');return;}
+  if(err) err.style.display='none';
+  if(!email){showErr(err,'Please enter your email address.');return;}
+  if(!auth){
+    initFirebase();
+    showErr(err,'Connecting... please wait and try again.');
+    return;
+  }
   auth.sendPasswordResetEmail(email).then(function(){
-    ok.style.display='block';
-    showToast('Reset email sent!');
-  }).catch(function(er){showErr(err,fbErr(er.code));});
+    if(ok){ok.style.display='block';ok.textContent='✅ Password reset email sent! Check your inbox and spam folder.';}
+    if(err) err.style.display='none';
+    showToast('Reset email sent to '+email);
+  }).catch(function(er){
+    showErr(err, fbErr(er.code)||er.message);
+  });
 }
 
 function doLogout(){
@@ -1322,16 +1331,59 @@ function mkCard(c){
   var bg=DC[c.dept]||'linear-gradient(135deg,#64748b,#475569)';
   var icon=DI[c.dept]||'&#128218;';
   var tag=c.live?'<div class="live-tag"><span class="ltdot"></span>LIVE</div>':c.isnew?'<div class="new-tag">NEW</div>':'';
+  
+  // Only show Enroll button if logged in AND course is in user's department
+  var u=getUser();
+  var actionBtn='';
+  if(u){
+    var userDepts=u.depts||[u.dept];
+    if(userDepts.indexOf(c.dept)!==-1){
+      // User belongs to this department - show Enroll button
+      actionBtn='<button class="btn-enroll" onclick="event.stopPropagation();doEnroll('+c.id+')">&#10003; Enroll</button>'
+        +'<button class="btn-live-sm" onclick="event.stopPropagation();window.open(\'https://www.igemcity.org/workers/#video\',\'_blank\')">Join Live</button>';
+    } else {
+      // User is logged in but wrong department - show locked message
+      actionBtn='<div style="font-size:10px;color:var(--muted);text-align:center;padding:5px;width:100%;">&#128274; Not your department</div>';
+    }
+  } else {
+    // Not logged in - show login prompt instead of enroll
+    actionBtn='<button class="btn-enroll" style="background:var(--gray-200);color:var(--muted);" onclick="event.stopPropagation();showToast(\'Please log in to enroll\')">&#128274; Login to Enroll</button>';
+  }
+
   return '<div class="course-card" onclick="openCourse('+c.id+')">'
     +'<div class="cthumb" style="background:'+bg+';">'+tag+'<span style="font-size:46px;">'+icon+'</span></div>'
     +'<div class="cbody"><div class="cdept">'+c.dept+' Department</div>'
     +'<div class="ctitle">'+c.title+'</div>'
     +'<div class="cinstr"><div class="iav">'+c.instr.charAt(0)+'</div>'+c.instr+'</div>'
     +'<div class="cmeta"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>4.8</span><span>120 students</span></div>'
-    +'<div class="cactions">'
-    +'<button class="btn-enroll" onclick="event.stopPropagation();showToast(\'Enrolled!\')">Enroll</button>'
-    +'<button class="btn-live-sm" onclick="event.stopPropagation();window.open(\'https://www.igemcity.org/workers/#video\',\'_blank\')">Join Live</button>'
-    +'</div></div></div>';
+    +'<div class="cactions">'+actionBtn+'</div>'
+    +'</div></div>';
+}
+
+function doEnroll(courseId){
+  var u=getUser();
+  if(!u){showToast('Please log in to enroll.');return;}
+  var c=null;
+  for(var i=0;i<COURSES.length;i++){if(COURSES[i].id===courseId){c=COURSES[i];break;}}
+  if(!c) return;
+  var userDepts=u.depts||[u.dept];
+  if(userDepts.indexOf(c.dept)===-1){
+    showToast('You can only enroll in your department courses.');
+    return;
+  }
+  // Save enrollment to Firebase
+  if(db){
+    db.collection('igem_enrollments').doc(u.id+'_'+courseId).set({
+      userId:u.id, courseId:courseId, courseName:c.title,
+      dept:c.dept, enrolledAt:new Date().toLocaleDateString('en-GB')
+    }).then(function(){
+      showToast('✅ Enrolled in: '+c.title);
+    }).catch(function(){
+      showToast('✅ Enrolled in: '+c.title);
+    });
+  } else {
+    showToast('✅ Enrolled in: '+c.title);
+  }
 }
 
 function openCourse(id){
@@ -1565,34 +1617,42 @@ function rejectBtn(btn){rejectU(btn.getAttribute('data-uid'));}
 function revokeBtn(btn){revokeU(btn.getAttribute('data-uid'));}
 
 function approveU(id,dept,name,email,deptTxt){
-  var mid=DP[dept]||'IGEM';
-  db.collection('igem_users').get().then(function(snap){
-    mid=mid+(snap.size+1).toString().padStart(3,'0');
-    return db.collection('igem_users').doc(id).update({status:'approved',memberId:mid});
-  }).then(function(){
-    if(email){
-      emailjs.send(EJS_SVC,EJS_TPL,{
-        to_name:name,to_email:email,department:deptTxt,member_id:mid
-      }).then(function(){
-        showToast('Approved! ID: '+mid+' | Email sent to '+email);
-      }).catch(function(er){
-        showToast('Approved! ID: '+mid+' | Email FAILED: '+er.text);
-        alert('Email error: '+JSON.stringify(er));
-      });
-    } else {
-      showToast('Approved! ID: '+mid+' | No email address on file');
-    }
-    loadAdmin();
-  });
+  var prefix=DP[dept]||'IGEM';
+  // Count only approved members in the SAME department for correct numbering
+  db.collection('igem_users')
+    .where('status','==','approved')
+    .where('dept','==',dept)
+    .get().then(function(snap){
+      var num=(snap.size+1).toString().padStart(4,'0');
+      var mid=prefix+num; // e.g. IGEMCA0001
+      return db.collection('igem_users').doc(id).update({status:'approved',memberId:mid})
+        .then(function(){ return mid; });
+    }).then(function(mid){
+      if(email){
+        emailjs.send(EJS_SVC,EJS_TPL,{
+          to_name:name,to_email:email,department:deptTxt,member_id:mid
+        }).then(function(){
+          showToast('Approved! ID: '+mid+' | Email sent to '+email);
+        }).catch(function(er){
+          showToast('Approved! ID: '+mid+' | Email FAILED: '+(er.text||er.message||JSON.stringify(er)));
+        });
+      } else {
+        showToast('Approved! ID: '+mid+' | No email on file');
+      }
+      loadAdmin();
+    }).catch(function(er){
+      showToast('Error approving: '+er.message);
+    });
 }
 
 function sendSelfReset(){
   var u=getUser();
   if(!u||!u.email){showToast('No email found. Please contact admin.');return;}
+  if(!auth){showToast('Connecting...');initFirebase();setTimeout(sendSelfReset,2000);return;}
   auth.sendPasswordResetEmail(u.email).then(function(){
-    showToast('Password reset email sent to '+u.email+' - check your inbox!');
+    showToast('Reset email sent to '+u.email+' - check your inbox & spam!');
   }).catch(function(er){
-    showToast('Error: '+er.message);
+    showToast('Error: '+(fbErr(er.code)||er.message));
   });
 }
 
