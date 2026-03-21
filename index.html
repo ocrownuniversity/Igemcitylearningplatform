@@ -379,7 +379,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
         <span id="tb-name" style="color:#7dd3fc;font-weight:600;"></span>
         <a href="#" onclick="doLogout()" style="color:#fca5a5;">&#128682; Logout</a>
       </span>
-      <a href="#" onclick="openAdmin()" style="color:rgba(255,255,255,.25);font-size:11px;">&#9881;</a>
+      <a href="#" onclick="openAdmin()" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;">&#9881; Admin</a>
     </div>
   </div>
 </div>
@@ -1692,6 +1692,90 @@ function filterAdminTable(){
 // ============================================================
 // DOWNLOAD DEPARTMENT LIST
 // ============================================================
+function downloadOneDept(dept){
+  if(typeof dept === "object") dept=dept.getAttribute("data-d");
+  db.collection('igem_users')
+    .where('status','==','approved')
+    .where('dept','==',dept)
+    .get().then(function(snap){
+      if(snap.empty){showToast('No approved members in '+dept+' yet.');return;}
+      var csv='IGEM Christ Covenant Church - '+dept+' Department\n';
+      csv+='Generated: '+new Date().toLocaleDateString('en-GB')+'\n\n';
+      csv+='Member ID,Full Name,Email,Phone,Year Joined,Previous Dept,Registered\n';
+      snap.forEach(function(doc){
+        var u=doc.data();
+        var cols=[u.memberId||'',u.fullname||'',u.email||'',
+                  u.phone||'',u.yearJoined||'',u.prevDept||'',u.registeredAt||''];
+        csv+=cols.join(',')+'\n';
+      });
+      csv+='\nTotal: '+snap.size+' members\n';
+      var blob=new Blob([csv],{type:'text/csv'});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement('a');
+      a.href=url;
+      a.download='IGEM_'+dept.replace(' ','_')+'_'+new Date().toISOString().slice(0,10)+'.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast(dept+' list downloaded! ('+snap.size+' members)');
+    }).catch(function(er){showToast('Error: '+er.message);});
+}
+
+function printOneDept(dept){
+  if(typeof dept === "object") dept=dept.getAttribute("data-d");
+  db.collection('igem_users')
+    .where('status','==','approved')
+    .where('dept','==',dept)
+    .get().then(function(snap){
+      if(snap.empty){showToast('No approved members in '+dept+' yet.');return;}
+      var icons={'Choir':'&#127925;','Instrumentalist':'&#127929;','Church Army':'&#9876;','Usher':'&#128587;','Exinbinco':'&#128218;'};
+      var html='<!DOCTYPE html><html><head><meta charset="UTF-8">'
+        +'<title>IGEM - '+dept+' Department</title>'
+        +'<style>'
+        +'body{font-family:Arial,sans-serif;padding:24px;color:#1e293b;}'
+        +'h1{color:#0c2340;font-size:20px;margin-bottom:2px;}'
+        +'h2{color:#0ea5e9;font-size:16px;margin-bottom:4px;}'
+        +'.sub{color:#64748b;font-size:12px;margin-bottom:20px;}'
+        +'table{width:100%;border-collapse:collapse;font-size:12px;}'
+        +'th{background:#0c2340;color:#fff;padding:9px 10px;text-align:left;}'
+        +'td{padding:8px 10px;border-bottom:1px solid #e2e8f0;vertical-align:top;}'
+        +'tr:nth-child(even){background:#f8fafc;}'
+        +'.id{font-weight:700;color:#0ea5e9;}'
+        +'.footer{text-align:center;font-size:11px;color:#94a3b8;margin-top:24px;}'
+        +'@media print{body{padding:10px;}button{display:none;}}'
+        +'</style></head><body>'
+        +'<h1>&#10015; IGEM Christ Covenant Church</h1>'
+        +'<h2>'+(icons[dept]||'')+'  '+dept+' Department</h2>'
+        +'<p class="sub">Member List &bull; Generated: '+new Date().toLocaleDateString('en-GB')+' &bull; Total: '+snap.size+' members</p>'
+        +'<table><thead><tr>'
+        +'<th>#</th><th>Member ID</th><th>Full Name</th><th>Email</th>'
+        +'<th>Phone</th><th>Year Joined</th><th>Prev. Dept</th><th>Registered</th>'
+        +'</tr></thead><tbody>';
+      var i=0;
+      snap.forEach(function(doc){
+        var u=doc.data();
+        i++;
+        html+='<tr>'
+          +'<td>'+i+'</td>'
+          +'<td class="id">'+(u.memberId||'—')+'</td>'
+          +'<td><strong>'+(u.fullname||'—')+'</strong></td>'
+          +'<td>'+(u.email||'—')+'</td>'
+          +'<td>'+(u.phone||'—')+'</td>'
+          +'<td>'+(u.yearJoined||'—')+'</td>'
+          +'<td>'+(u.prevDept||'—')+'</td>'
+          +'<td>'+(u.registeredAt||'—')+'</td>'
+          +'</tr>';
+      });
+      html+='</tbody></table>'
+        +'<p class="footer">IGEM Christ Covenant Church, Ibadan, Oyo State, Nigeria</p>'
+        +'</body></html>';
+      var win=window.open('','_blank');
+      win.document.write(html);
+      win.document.close();
+      win.onload=function(){win.print();};
+      showToast(dept+' PDF ready!');
+    }).catch(function(er){showToast('Error: '+er.message);});
+}
+
 function downloadDeptList(){
   db.collection('igem_users').where('status','==','approved').get().then(function(snap){
     var depts={};
@@ -1801,13 +1885,18 @@ function loadAdmin(){
     var deptCount={};
     approved.forEach(function(u){var d=u.dept||'Unknown';deptCount[d]=(deptCount[d]||0)+1;});
     html+='<div style="background:#f0f9ff;border:1px solid #7dd3fc;border-radius:10px;padding:12px 16px;margin-bottom:14px;">';
-    html+='<div style="font-size:11px;font-weight:700;color:#0369a1;margin-bottom:8px;text-transform:uppercase;">Members Per Department</div>';
-    html+='<div style="display:flex;flex-wrap:wrap;gap:8px;">';
+    html+='<div style="font-size:11px;font-weight:700;color:#0369a1;margin-bottom:10px;text-transform:uppercase;">Members Per Department</div>';
+    var deptIcons={'Choir':'&#127925;','Instrumentalist':'&#127929;','Church Army':'&#9876;','Usher':'&#128587;','Exinbinco':'&#128218;'};
     ['Choir','Instrumentalist','Church Army','Usher','Exinbinco'].forEach(function(d){
-      var icons={'Choir':'&#127925;','Instrumentalist':'&#127929;','Church Army':'&#9876;','Usher':'&#128587;','Exinbinco':'&#128218;'};
-      html+='<div style="background:#fff;border:1px solid #bae6fd;border-radius:8px;padding:7px 12px;font-size:12px;">'+(icons[d]||'')+'<strong> '+d+'</strong>: '+(deptCount[d]||0)+'</div>';
+      html+='<div style="background:#fff;border:1px solid #bae6fd;border-radius:8px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">'
+        +'<div style="font-size:13px;font-weight:600;">'+(deptIcons[d]||'')+'  '+d+' <span style="color:var(--sky);font-size:12px;">('+( deptCount[d]||0)+' members)</span></div>'
+        +'<div style="display:flex;gap:6px;">'
+        +'<button data-d="'+d+'" onclick="downloadOneDept(this.getAttribute(\'data-d\'))" style="background:#10b981;color:#fff;border:none;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">&#128229; CSV</button>'
+        +'<button data-d="'+d+'" onclick="printOneDept(this.getAttribute(\'data-d\'))" style="background:#0ea5e9;color:#fff;border:none;padding:5px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">&#128196; PDF</button>'
+        +'</div>'
+        +'</div>';
     });
-    html+='</div></div>';
+    html+='</div>';
     // Search
     html+='<div style="margin-bottom:10px;"><input type="text" id="adminSearch" placeholder="Search name or email..." onkeyup="filterAdminTable()" style="width:100%;border:2px solid var(--border);border-radius:9px;padding:9px 13px;font-size:13px;font-family:inherit;outline:none;"></div>';
     html+='<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">'
