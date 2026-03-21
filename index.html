@@ -1240,17 +1240,17 @@ function doForgot(){
 function doLogout(){
   auth.signOut().then(function(){
     CU=null;
-    GATE_CLEARED=false;
-    sessionStorage.removeItem('igem_gate_cleared');
+    GATE_CLEARED=true;
+    sessionStorage.setItem('igem_gate_cleared','1');
     showToast('Logged out successfully.');
+    // Hide gate - go to public home page
+    var gate=document.getElementById('accessGate');
+    if(gate) gate.style.display='none';
     showPage('home');
     renderHome();
     var tbAuth=e('tb-auth');var tbUser=e('tb-user');
     if(tbAuth)tbAuth.style.display='flex';
     if(tbUser)tbUser.style.display='none';
-    // Show gate again
-    var gate=document.getElementById('accessGate');
-    if(gate) gate.style.display='flex';
   });
 }
 // ============================================================
