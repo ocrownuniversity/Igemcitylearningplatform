@@ -2134,20 +2134,40 @@ auth.onAuthStateChanged(function(fu){
 });
 } // end setupAuthListener
 
-// Handle browser back button
-window.addEventListener('popstate', function(){
-  // Only hide gate if it was already cleared this session
-  if(GATE_CLEARED){
-    var gate = document.getElementById('accessGate');
-    if(gate) gate.style.display='none';
-    if(CU){ showPage('home'); renderHome(); }
-  }
+// Intercept back button to navigate within app
+window.addEventListener('popstate', function(e){
+  e.preventDefault();
+  goBack();
 });
+
+function goBack(){
+  // Remove current page from history
+  if(pageHistory.length > 1){
+    pageHistory.pop();
+    var prevPage = pageHistory[pageHistory.length-1];
+    // Navigate to previous page within app
+    document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+    var pg = document.getElementById('page-'+prevPage);
+    if(pg){ pg.classList.add('active'); window.scrollTo(0,0); }
+    if(prevPage==='home') renderHome();
+    // Keep gate hidden
+    var gate = document.getElementById('accessGate');
+    if(gate && GATE_CLEARED) gate.style.display='none';
+  } else {
+    // Already at first page - show home
+    showPage('home');
+    renderHome();
+  }
+  // Push state to prevent browser from leaving the site
+  try{ history.pushState({igem:true},'',''); }catch(ex){}
+}
 
 // Init - show gate first unless already cleared this session
 initFirebase();
 showPage('home');
 renderHome();
+// Push initial history state so back button stays in app
+try{ history.pushState({igem:true},'',''); }catch(ex){}
 // Always show gate on fresh load
 var gateCleared = sessionStorage.getItem('igem_gate_cleared');
 if(!gateCleared){
