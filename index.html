@@ -702,6 +702,10 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
               <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;min-width:110px;">Year Joined</div>
               <div style="font-size:13px;color:var(--text);" id="view-year">—</div>
             </div>
+            <div style="display:flex;padding:13px 16px;border-bottom:1px solid var(--border);gap:10px;">
+              <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;min-width:110px;">Branch</div>
+              <div style="font-size:13px;color:var(--text);" id="view-branch">—</div>
+            </div>
             <div style="display:flex;padding:13px 16px;gap:10px;">
               <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;min-width:110px;">Prev. Dept</div>
               <div style="font-size:13px;color:var(--text);" id="view-prev-dept">—</div>
@@ -724,6 +728,7 @@ footer{background:var(--navy);color:#a8c4e0;padding:44px 20px 0;}
           <div class="fg"><label>Phone</label><input type="tel" id="pf-phone" placeholder="08123456789"></div>
           <div class="fg"><label>Department(s)</label><input type="text" id="pf-dept" readonly style="background:var(--gray-50);color:var(--muted);"></div>
           <div class="fg"><label>Year Joined Ministry</label><select id="pf-year" style="width:100%;border:2px solid var(--border);border-radius:9px;padding:10px 13px;font-size:13px;font-family:inherit;outline:none;"></select></div>
+          <div class="fg"><label>Branch</label><input type="text" id="pf-branch" placeholder="e.g. Ibadan Central, Lagos, Abuja"></div>
           <div class="fg"><label>Previous Department <span style="font-weight:400;color:var(--muted);">(optional)</span></label><input type="text" id="pf-prev-dept" placeholder="e.g. Choir, Usher (if any)"></div>
           <div class="fg"><label>New Password (optional)</label><input type="password" id="pf-pass" placeholder="Leave blank to keep current"></div>
           <div style="display:flex;gap:10px;margin-top:6px;">
@@ -1262,12 +1267,14 @@ function loadProfile(u){
   if(e('view-dept')) e('view-dept').textContent=(u.depts||[u.dept]).join(', ')||'—';
   if(e('view-id')) e('view-id').textContent=u.memberId||'—';
   if(e('view-year')) e('view-year').textContent=u.yearJoined||'Not set';
+  if(e('view-branch')) e('view-branch').textContent=u.branch||'—';
   if(e('view-prev-dept')) e('view-prev-dept').textContent=u.prevDept||'None';
   // EDIT mode
   if(e('pf-name')) e('pf-name').value=u.fullname||'';
   if(e('pf-email')) e('pf-email').value=u.email||'';
   if(e('pf-phone')) e('pf-phone').value=u.phone||'';
   if(e('pf-dept')) e('pf-dept').value=(u.depts||[u.dept]).join(', ');
+  if(e('pf-branch')) e('pf-branch').value=u.branch||'';
   if(e('pf-prev-dept')) e('pf-prev-dept').value=u.prevDept||'';
   // Build year dropdown
   var yrSel=e('pf-year');
@@ -1363,15 +1370,18 @@ function saveProfile(){
   // Save name and phone to Firestore
   var year=(e('pf-year')?e('pf-year').value||'':'');
   var prevDept=(e('pf-prev-dept')?(e('pf-prev-dept').value||'').trim():'');
+  var branch=(e('pf-branch')?(e('pf-branch').value||'').trim():'');
   var updates={fullname:name};
   if(phone) updates.phone=phone;
   if(year) updates.yearJoined=year;
+  if(branch) updates.branch=branch;
   updates.prevDept=prevDept;
 
   db.collection('igem_users').doc(u.id).update(updates).then(function(){
     u.fullname=name;
     if(phone) u.phone=phone;
     if(year) u.yearJoined=year;
+    if(branch) u.branch=branch;
     u.prevDept=prevDept;
     CU=u;
     updateDash(u);
